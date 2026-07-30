@@ -1,0 +1,11 @@
+// Corak eksport CSV (cukup untuk latihan; PDF boleh ditambah kemudian).
+var sb = new StringBuilder();
+sb.AppendLine("ReferenceNo,Applicant,Department,Status,DeclarationDate");
+foreach (var r in rows)
+{
+    // Bungkus medan dengan petikan & escape jika ada koma.
+    sb.AppendLine($"{Csv(r.ReferenceNo)},{Csv(r.Applicant)},{Csv(r.Department)},{r.Status},{r.DeclarationDate:yyyy-MM-dd}");
+}
+return File(Encoding.UTF8.GetBytes(sb.ToString()), "text/csv", "pks-export.csv");
+
+static string Csv(string? v) => v is null ? "" : $"\"{v.Replace("\"", "\"\"")}\"";

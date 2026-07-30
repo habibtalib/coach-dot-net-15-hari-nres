@@ -1,0 +1,29 @@
+// Simpan fail di LUAR wwwroot (App_Data/uploads/{submissionId}/).
+// Jangan sesekali percaya nama fail asal — jana nama simpanan selamat.
+public interface IFileStorageService
+{
+    Task<Attachment> SaveAsync(int submissionId, IFormFile file);
+}
+
+public class FileStorageService(IWebHostEnvironment env) : IFileStorageService
+{
+    public async Task<Attachment> SaveAsync(int submissionId, IFormFile file)
+    {
+        var folder = Path.Combine(env.ContentRootPath, "App_Data", "uploads", submissionId.ToString());
+        Directory.CreateDirectory(folder);
+
+        var stored = $"{Guid.NewGuid():N}{Path.GetExtension(file.FileName)}";
+        var path = Path.Combine(folder, stored);
+        await using var stream = File.Create(path);
+        await file.CopyToAsync(stream);
+
+        return new Attachment
+        {
+            SubmissionId = submissionId,
+            OriginalFileName = Path.GetFileName(file.FileName), // metadata sahaja
+            StoredFileName = stored,
+            ContentType = file.ContentType,
+            FileSizeBytes = file.Length
+        };
+    }
+}

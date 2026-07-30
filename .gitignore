@@ -1,0 +1,26 @@
+# .NET build output
+[Bb]in/
+[Oo]bj/
+*.user
+*.suo
+.vs/
+
+# EF Core / SQLite training databases
+*.db
+*.db-shm
+*.db-wal
+App_Data/uploads/
+
+# Python (slides build)
+slides/venv/
+slides/__pycache__/
+**/__pycache__/
+*.pyc
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Local-only material (not pushed): slides + trainer notes
+slides/
+**/nota-penceramah.md

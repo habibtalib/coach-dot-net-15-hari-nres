@@ -1,0 +1,17 @@
+// Jana nombor rujukan unik per modul, cth. LD-2026-0001, PAS-2026-0001.
+public interface IReferenceNumberService
+{
+    Task<string> GenerateAsync(string moduleCode);
+}
+
+// Contoh implementasi ringkas (running counter setahun per prefix):
+public class ReferenceNumberService(ApplicationDbContext db) : IReferenceNumberService
+{
+    public async Task<string> GenerateAsync(string prefix)
+    {
+        var year = DateTime.UtcNow.Year;
+        var count = await db.Submissions
+            .CountAsync(s => s.ModuleCode == prefix && s.CreatedAt.Year == year);
+        return $"{prefix}-{year}-{(count + 1):D4}";
+    }
+}

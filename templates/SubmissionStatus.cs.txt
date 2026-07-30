@@ -1,0 +1,11 @@
+// Enum status yang DIKONGSI semua 5 modul. Jangan cipta status berbeza per modul.
+public enum SubmissionStatus
+{
+    Draft = 0,
+    Submitted = 1,
+    SupervisorApproved = 2,
+    AdminApproved = 3,
+    Rejected = 4,
+    Completed = 5,
+    Cancelled = 6
+}
