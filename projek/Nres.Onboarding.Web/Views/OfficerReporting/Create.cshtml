@@ -1,0 +1,34 @@
+@model OfficerReportingCreateViewModel
+@{
+    ViewData["Title"] = "Permohonan Lapor Diri Baharu";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="h3 mb-0">Permohonan Lapor Diri Baharu</h1>
+    <a class="btn btn-outline-secondary" asp-action="Index">Kembali ke senarai</a>
+</div>
+
+@* enctype is mandatory for file uploads - without it the browser posts only the file name. *@
+<form asp-action="Create" method="post" enctype="multipart/form-data">
+    @Html.AntiForgeryToken()
+
+    <partial name="_FormFields" model="Model" />
+
+    <hr class="my-4" />
+
+    <div class="d-flex gap-2">
+        @* Two submit buttons, one form: the posted value of "command" tells the
+           controller which action the user asked for. *@
+        <button type="submit" name="command" value="draft" class="btn btn-outline-primary">
+            Simpan sebagai Draf
+        </button>
+        <button type="submit" name="command" value="submit" class="btn btn-primary">
+            Simpan &amp; Hantar untuk Semakan
+        </button>
+        <a class="btn btn-link" asp-action="Index">Batal</a>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

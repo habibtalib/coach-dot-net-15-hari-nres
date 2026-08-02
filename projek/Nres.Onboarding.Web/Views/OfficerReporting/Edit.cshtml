@@ -1,0 +1,51 @@
+@model OfficerReportingEditViewModel
+@{
+    ViewData["Title"] = "Sunting Draf Lapor Diri";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <div>
+        <h1 class="h3 mb-1">Sunting Draf Lapor Diri</h1>
+        <partial name="_StatusBadge" model="Model.Status" />
+    </div>
+    <a class="btn btn-outline-secondary" asp-action="Details" asp-route-id="@Model.SubmissionId">Kembali ke butiran</a>
+</div>
+
+<form asp-action="Edit" asp-route-id="@Model.SubmissionId" method="post" enctype="multipart/form-data">
+    @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="SubmissionId" />
+
+    <partial name="_FormFields" model="Model" />
+
+    @if (Model.Attachments.Count > 0)
+    {
+        <div class="mt-4">
+            <h2 class="h6">Lampiran sedia ada</h2>
+            <ul class="list-group">
+                @foreach (var attachment in Model.Attachments)
+                {
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <a asp-action="DownloadAttachment" asp-route-id="@attachment.Id">@attachment.OriginalFileName</a>
+                        <span class="text-muted small">@attachment.SizeDisplay</span>
+                    </li>
+                }
+            </ul>
+        </div>
+    }
+
+    <hr class="my-4" />
+
+    <div class="d-flex gap-2">
+        <button type="submit" name="command" value="draft" class="btn btn-outline-primary">
+            Simpan Draf
+        </button>
+        <button type="submit" name="command" value="submit" class="btn btn-primary">
+            Simpan &amp; Hantar untuk Semakan
+        </button>
+        <a class="btn btn-link" asp-action="Details" asp-route-id="@Model.SubmissionId">Batal</a>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

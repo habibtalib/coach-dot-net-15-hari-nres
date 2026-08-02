@@ -1,0 +1,34 @@
+@model Submission
+@*
+    Approve / reject panel, reused by every module. The rejection reason is marked
+    required here AND enforced on the server in SubmissionControllerBase - the HTML
+    attribute is a convenience, not the control.
+*@
+@{
+    var controller = ViewContext.RouteData.Values["controller"];
+}
+
+<div class="card">
+    <div class="card-header">Keputusan</div>
+    <div class="card-body">
+
+        <form asp-action="Approve" asp-controller="@controller" method="post" class="mb-4">
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="id" value="@Model.Id" />
+            <textarea name="remarks" class="form-control mb-2" rows="2"
+                      placeholder="Catatan (pilihan)"></textarea>
+            <button type="submit" class="btn btn-success w-100">Luluskan</button>
+        </form>
+
+        <hr />
+
+        <form asp-action="Reject" asp-controller="@controller" method="post">
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="id" value="@Model.Id" />
+            <textarea name="remarks" class="form-control mb-2" rows="2"
+                      placeholder="Sebab penolakan (WAJIB)" required></textarea>
+            <button type="submit" class="btn btn-danger w-100">Tolak</button>
+        </form>
+
+    </div>
+</div>

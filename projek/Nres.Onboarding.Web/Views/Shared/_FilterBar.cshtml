@@ -1,0 +1,48 @@
+@model Nres.Onboarding.Web.ViewModels.FilterBarViewModel
+@*
+    Filter bar shared by every admin list screen: status, department, date range, search.
+
+    Modules that need extra filters (Kumpulan 3 filters by requested system access,
+    Kumpulan 4 by asset category) render this and add their own fields alongside.
+*@
+
+<form method="get" class="row g-2 align-items-end mb-3">
+    <div class="col-md-2">
+        <label class="form-label">Status</label>
+        <select name="Status" class="form-select"
+                asp-items="Html.GetEnumSelectList<SubmissionStatus>()">
+            <option value="">— Semua —</option>
+        </select>
+    </div>
+
+    @if (Model.Departments.Any())
+    {
+        <div class="col-md-2">
+            <label class="form-label">Bahagian</label>
+            <select name="DepartmentId" class="form-select" asp-items="Model.Departments">
+                <option value="">— Semua —</option>
+            </select>
+        </div>
+    }
+
+    <div class="col-md-2">
+        <label class="form-label">Dari</label>
+        <input name="DariTarikh" type="date" class="form-control"
+               value="@Model.DariTarikh?.ToString("yyyy-MM-dd")" />
+    </div>
+
+    <div class="col-md-2">
+        <label class="form-label">Hingga</label>
+        <input name="HinggaTarikh" type="date" class="form-control"
+               value="@Model.HinggaTarikh?.ToString("yyyy-MM-dd")" />
+    </div>
+
+    <div class="col-md-3">
+        <label class="form-label">Carian (rujukan / nama)</label>
+        <input name="Carian" class="form-control" value="@Model.Carian" />
+    </div>
+
+    <div class="col-md-1">
+        <button type="submit" class="btn btn-primary w-100">Tapis</button>
+    </div>
+</form>

@@ -1,0 +1,38 @@
+@model IEnumerable<AuditLog>
+@*
+    Audit trail panel, reused by every module. Kumpulan 2, 3 and 4 render their audit
+    history with three lines because this already exists.
+*@
+
+<div class="card">
+    <div class="card-header">Sejarah Audit</div>
+    <ul class="list-group list-group-flush">
+    @if (!Model.Any())
+    {
+        <li class="list-group-item text-muted">Tiada rekod audit lagi.</li>
+    }
+    @foreach (var log in Model.OrderByDescending(l => l.CreatedAt))
+    {
+        <li class="list-group-item">
+            <div class="d-flex justify-content-between align-items-start">
+                <strong>@log.Action</strong>
+                <small class="text-muted">@log.CreatedAt.ToLocalTime().ToString("dd/MM/yyyy HH:mm")</small>
+            </div>
+
+            @if (log.FromStatus is not null && log.ToStatus is not null)
+            {
+                <div class="mt-1">
+                    <partial name="_StatusBadge" model="log.FromStatus.Value" />
+                    <span class="mx-1">&rarr;</span>
+                    <partial name="_StatusBadge" model="log.ToStatus.Value" />
+                </div>
+            }
+
+            @if (!string.IsNullOrWhiteSpace(log.Remarks))
+            {
+                <div class="small mt-1 fst-italic">@log.Remarks</div>
+            }
+        </li>
+    }
+    </ul>
+</div>

@@ -1,0 +1,31 @@
+@model IEnumerable<Attachment>
+@*
+    Attachment list, reused by every module.
+
+    Download links point at a controller action - never a static path - because the
+    files live in App_Data/uploads (outside wwwroot) and the action checks permission
+    before streaming anything back.
+*@
+@{
+    var controller = ViewContext.RouteData.Values["controller"];
+}
+
+<div class="card">
+    <div class="card-header">Dokumen Sokongan</div>
+    <ul class="list-group list-group-flush">
+    @if (!Model.Any())
+    {
+        <li class="list-group-item text-muted">Tiada lampiran.</li>
+    }
+    @foreach (var a in Model)
+    {
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <a asp-action="DownloadAttachment" asp-controller="@controller"
+               asp-route-attachmentId="@a.Id">
+                @a.OriginalFileName
+            </a>
+            <small class="text-muted">@(a.SizeBytes / 1024) KB</small>
+        </li>
+    }
+    </ul>
+</div>

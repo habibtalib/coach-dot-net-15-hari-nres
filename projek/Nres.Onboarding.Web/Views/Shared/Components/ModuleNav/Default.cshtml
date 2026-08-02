@@ -1,0 +1,14 @@
+@model IEnumerable<Nres.Onboarding.Web.Models.Shared.ModuleDescriptor>
+@*
+    Module links, generated from the registered descriptors. Each team adds one
+    descriptor file; nothing here changes.
+*@
+
+@foreach (var m in Model)
+{
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="@m.Controller" asp-action="Index">
+            @m.Nama
+        </a>
+    </li>
+}

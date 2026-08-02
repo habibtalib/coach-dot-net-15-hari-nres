@@ -1,0 +1,22 @@
+@*
+    Uniform validation error display, reused by every module form.
+
+    Server-side validation is the real control; this partial only decides how the
+    resulting errors look. Every module shows them the same way.
+*@
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        <strong>Sila betulkan perkara berikut:</strong>
+        <ul class="mb-0 mt-2">
+            @foreach (var entry in ViewData.ModelState)
+            {
+                @foreach (var error in entry.Value.Errors)
+                {
+                    <li>@error.ErrorMessage</li>
+                }
+            }
+        </ul>
+    </div>
+}
