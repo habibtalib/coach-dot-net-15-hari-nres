@@ -18,7 +18,9 @@ Kursus ini **bukan** satu kohort yang membina semua modul berturutan. Ia mengiku
 | **Fasa 2** | **4 – 14** | **4 trek selari** (setiap kumpulan modulnya sendiri) | Pembangunan modul mengikut kumpulan, pada cabang Git masing-masing |
 | **Fasa 3** | **15** | **Sesi bersama** | Penggabungan kod, Papan Pemuka Induk, SIT & UAT pre-check, demo |
 
-> **Kenapa Fasa 1 tiga hari (bukan dua seperti docx):** cadangan NRES memperuntukkan Hari 1–2 sahaja untuk sesi bersama. Skop Fasa 1 telah dikembangkan atas permintaan pemilik kursus untuk merangkumi **perancangan projek, dokumentasi, URS, ERD, Agile (Jira/GitHub Projects), kolaborasi pasukan, dan penggunaan AI** — topik ini tidak muat dalam dua hari bersama-sama refresher .NET dan pembinaan asas kongsi. Kesannya: setiap trek kumpulan mendapat **11 hari** (Hari 4–14) berbanding 12 hari dalam docx; blok terakhir setiap trek dipendekkan dari 3 hari ke 2 hari.
+> **Kenapa Fasa 1 tiga hari — MUKTAMAD:** cadangan NRES memperuntukkan Hari 1–2 sahaja untuk sesi bersama. Skop Fasa 1 dikembangkan untuk merangkumi **perancangan projek, dokumentasi, URS, ERD, Agile (Jira/GitHub Projects), kolaborasi pasukan, dan penggunaan AI** — topik ini tidak muat dalam dua hari bersama-sama refresher .NET dan pembinaan asas kongsi.
+>
+> Keputusan yang **disahkan** ialah **kekal tiga hari sesi bersama**. Kesannya: setiap trek kumpulan mendapat **11 hari** (Hari 4–14) berbanding 12 hari dalam docx; blok terakhir setiap trek dipendekkan dari 3 hari ke 2 hari. Isu ini **ditutup** — jangan tulis kandungan yang mengandaikan trek 12 hari.
 
 ### Kenapa asas kongsi mesti siap Hari 3, sebelum kumpulan bercabang
 
