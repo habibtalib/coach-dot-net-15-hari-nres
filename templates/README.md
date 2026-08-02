@@ -1,6 +1,6 @@
 # Templat Kod Boleh Guna Semula (Reusable Snippets)
 
-Folder ini mengandungi snippet kod rujukan yang **berulang merentas 5 modul** — supaya peserta tidak menulis semula corak yang sama dari kosong setiap kali. Ambil, salin, dan sesuaikan mengikut modul.
+Folder ini mengandungi snippet kod rujukan yang **berulang merentas 4 modul** — supaya peserta tidak menulis semula corak yang sama dari kosong setiap kali. Ambil, salin, dan sesuaikan mengikut modul.
 
 > **Nota:** Implementasi penuh & berfungsi bagi semua snippet ini ada dalam projek rujukan [`../projek/Nres.Onboarding.Web/`](../projek/). Templat di sini ialah **ringkasan corak** untuk rujukan pantas semasa lab.
 
