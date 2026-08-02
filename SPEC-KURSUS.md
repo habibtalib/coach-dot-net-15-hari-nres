@@ -50,7 +50,7 @@ Nota, penerangan & agenda dalam **Bahasa Melayu**. Semua **kod, nama kelas/pembo
 | IDE | Visual Studio 2022 (17.12+) / VS Code + C# Dev Kit |
 | SDK | **.NET 10 SDK** (`dotnet --version` → `10.x`) |
 
-> **Nota versi:** cadangan silibus NRES menulis **.NET 8**. Keputusan pemilik kursus ialah **kekal .NET 10 LTS / EF Core 10 / C# 14**. Semua contoh kod mesti sah untuk .NET 10 (primary constructors, collection expressions, nullable reference types dihidupkan, `dotnet ef` CLI). Jika NRES kemudiannya menetapkan .NET 8 atas sebab dasar ICT, perubahan utama ialah ciri bahasa C# 13/14 dan versi pakej — struktur kursus tidak berubah.
+> **Nota versi — MUKTAMAD:** cadangan silibus NRES menulis **.NET 8**. Keputusan yang **disahkan** ialah **.NET 10 LTS / EF Core 10 / C# 14**. Semua contoh kod mesti sah untuk .NET 10 (primary constructors, collection expressions, nullable reference types dihidupkan, `dotnet ef` CLI). Isu ini **ditutup** — jangan tulis kandungan yang menyokong dua versi.
 
 > **Buku rujukan rasmi:** *C# 14 and .NET 10 — Modern Cross-Platform Development Fundamentals* (Mark J. Price, Packt, Nov 2025) · repo kod [github.com/habibtalib/cs14net10](https://github.com/habibtalib/cs14net10). Pemetaan penuh kursus → bab, dan senarai ciri C# 12/13/14 yang digunakan: [`nota/10-rujukan-buku.md`](./nota/10-rujukan-buku.md). Buku **tidak wajib** — lab lengkap dengan sendirinya. Ambil perhatian buku mengutamakan **Blazor**, bukan MVC; untuk MVC rujuk Microsoft Docs.
 

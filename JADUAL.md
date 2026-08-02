@@ -58,7 +58,7 @@ FASA 3 — SESI BERSAMA (Hari 15)
 
 > **Nota skop:** Modul **PKS** tidak termasuk dalam kursus ini (tiada dalam cadangan silibus NRES). Rujuk [`SPEC-KURSUS.md`](./SPEC-KURSUS.md).
 >
-> **Nota versi:** cadangan NRES menulis .NET 8; kursus ini menggunakan **.NET 10 LTS**.
+> **Nota versi — MUKTAMAD:** cadangan NRES menulis .NET 8; kursus ini **disahkan** menggunakan **.NET 10 LTS + C# 14**.
 >
 > **Nota pemetaan hari:** cadangan NRES memperuntukkan Hari 1–2 untuk sesi bersama dan Hari 3–14 untuk trek kumpulan. Kursus ini menggunakan **Hari 1–3** bersama (bagi memuatkan perancangan, URS, ERD, Agile, kolaborasi & AI) dan **Hari 4–14** untuk trek. Kandungan setiap blok trek kekal sama; blok terakhir dipendekkan dari 3 hari ke 2 hari.
 
