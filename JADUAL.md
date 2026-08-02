@@ -189,7 +189,7 @@ Keempat-empat kumpulan mengikut **blok yang sama** pada hari yang sama, dengan k
 | Hari | Deliverable / Artifak |
 |------|------------------------|
 | 1 | `docs/URS-modul-N.md`, `use-case-modul-N.md`, `erd-modul-N.md`, `soalan-terbuka-modul-N.md` (4 set) |
-| 2 | Repo + 4 cabang kumpulan · board Agile berisi backlog · persekitaran .NET 10 sedia |
+| 2 | Repo + 4 cabang kumpulan · board Agile berisi backlog · `docs/kumpulan-N/` (RINGKASAN, pemetaan-jira, nota-ai, **kontrak**) · persekitaran .NET 10 sedia |
 | 3 | `master` + asas kongsi + migration `InitialShared` · 4 cabang dibuka |
 | 4 | Skema & skrin pertama setiap modul (4 modul) |
 | 5–6 | Borang + peraturan perniagaan setiap modul |
