@@ -35,7 +35,7 @@ Kursus: **DOTNET-NRES-15** — *Latihan Secara Coaching Pembangunan Sistem Onboa
 | **3.45 – 5.00 petang** | **SESI 4: ERD & Reka Bentuk Data** — entiti, hubungan, kardinaliti, kunci asing; kenapa satu `Submission` induk dikongsi. 💻 Lab: ERD modul + sahkan terhadap SPEC |
 | 5.00 petang | Bersurai |
 
-**Hasil Hari 1:** `docs/URS-modul-N.md`, `docs/use-case-modul-N.md`, `docs/erd-modul-N.md` bagi setiap kumpulan; peserta boleh terangkan keempat-empat modul dan corak aliran kerja kongsi.
+**Hasil Hari 1:** `docs/URS-modul-N.md`, `docs/use-case-modul-N.md`, `docs/erd-modul-N.md`, `docs/soalan-terbuka-modul-N.md` bagi setiap kumpulan; peserta boleh terangkan keempat-empat modul dan corak aliran kerja kongsi.
 
 ---
 
@@ -338,4 +338,6 @@ Ikuti langkah demi langkah di [`snippets/lab.md`](./snippets/lab.md) — anda ak
 5. Reka ERD modul anda melanjutkan teras kongsi
 6. Sahkan silang keempat-empat artifak terhadap `SPEC-KURSUS.md`
 
-Nota penceramah: [`nota-penceramah.md`](./nota-penceramah.md).
+> **Nota penceramah** (`nota-penceramah.md`) — pemasaan sesi, poin bercakap, silap
+> biasa, soalan perbincangan. Bahan **jurulatih sahaja**; ia tidak disertakan dalam
+> repo ini (lihat `.gitignore`) dan diedarkan berasingan.

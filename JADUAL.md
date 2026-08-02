@@ -82,7 +82,7 @@ FASA 3 — SESI BERSAMA (Hari 15)
 
 **Bantuan AI hari ini:** draf URS, cadang use case yang terlepas, semak ERD terhadap keperluan, jana data ujian sintetik. **Peraturan:** AI menulis draf — **peserta memutuskan**. Setiap artifak disemak baris demi baris sebelum diterima.
 
-**Hasil Hari 1:** `docs/URS-modul-N.md`, `docs/use-case-modul-N.md`, `docs/erd-modul-N.md` bagi setiap kumpulan; peserta boleh terangkan keempat-empat modul dan corak aliran kerja kongsi.
+**Hasil Hari 1:** `docs/URS-modul-N.md`, `docs/use-case-modul-N.md`, `docs/erd-modul-N.md`, `docs/soalan-terbuka-modul-N.md` bagi setiap kumpulan; peserta boleh terangkan keempat-empat modul dan corak aliran kerja kongsi.
 
 ---
 
@@ -188,7 +188,7 @@ Keempat-empat kumpulan mengikut **blok yang sama** pada hari yang sama, dengan k
 
 | Hari | Deliverable / Artifak |
 |------|------------------------|
-| 1 | `docs/URS-modul-N.md`, `use-case-modul-N.md`, `erd-modul-N.md` (4 set) |
+| 1 | `docs/URS-modul-N.md`, `use-case-modul-N.md`, `erd-modul-N.md`, `soalan-terbuka-modul-N.md` (4 set) |
 | 2 | Repo + 4 cabang kumpulan · board Agile berisi backlog · persekitaran .NET 10 sedia |
 | 3 | `master` + asas kongsi + migration `InitialShared` · 4 cabang dibuka |
 | 4 | Skema & skrin pertama setiap modul (4 modul) |
