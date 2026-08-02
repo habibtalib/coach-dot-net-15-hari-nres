@@ -1,567 +1,559 @@
-# Lab Hari 1 — Persediaan Projek & Seni Bina Kongsi
+# Lab Hari 1 — Perancangan, URS, Use Case & ERD
 
-Lab ini mengiringi [`../README.md`](../README.md) Hari 1. Ikut latihan **secara berurutan** — setiap latihan bina di atas latihan sebelumnya. Rujuk projek rujukan penuh di [`../../projek/`](../../projek/) untuk **banding** kod anda selepas cuba sendiri dahulu (projek itu akan mengandungi hasil akhir kumulatif 15 hari kursus).
+> Konsep di [`../README.md`](../README.md). Kanun: [`../../SPEC-KURSUS.md`](../../SPEC-KURSUS.md). Kontrak pasukan: [`../../KOLABORASI.md`](../../KOLABORASI.md).
+>
+> **Hari ini kita menulis dokumen, bukan kod.** Setiap artifak yang anda hasilkan hari ini akan dirujuk sepanjang 11 hari pembangunan.
 
-> **Peraturan lab:** Taip kod **sendiri** — jangan salin-tampal terus. Kesilapan menaip ialah latihan *debugging* pertama anda, dan menaip sendiri membantu ingatan konsep jauh lebih baik daripada salin-tampal.
+## Persediaan
 
----
+- Editor teks (VS Code disyorkan — ia merender Mermaid secara terbina)
+- Akses kepada borang NRES sebenar bagi modul kumpulan anda (diberi jurulatih)
+- Pembantu AI (Claude, Copilot, dll.)
+- Kertas/papan putih untuk bengkel
 
-## Senarai Semak Pra-Syarat
+Cipta folder kerja kumpulan anda:
 
-Sebelum mula Latihan 1, pastikan semua berikut sudah **✓**:
+```bash
+mkdir -p docs
+```
 
-- [ ] `.NET 10 SDK` dipasang — sahkan dengan `dotnet --version` (patut papar `10.x.x`)
-- [ ] `dotnet-ef` tool global dipasang — sahkan dengan `dotnet ef --version` (jika belum, lihat Latihan 1, Langkah 4)
-- [ ] Visual Studio 2022 (17.12+) **atau** VS Code + sambungan **C# Dev Kit** dipasang
-- [ ] Terminal/shell boleh jalankan arahan `dotnet` tanpa ralat "command not found"
+Fail yang anda hasilkan hari ini (ganti `N` dengan nombor kumpulan anda):
 
----
-
-## Latihan 1 — Cipta Projek & Sahkan Ia Berjalan
-
-**Objektif:** Cipta projek ASP.NET Core MVC baharu bernama `Nres.Onboarding.Web`, tambah semua pakej NuGet yang diperlukan, dan sahkan ia boleh dijalankan sebelum menulis sebarang kod tambahan.
-
-1. Buka terminal di lokasi di mana anda mahu simpan projek kursus (cth. folder `coach-dot-net-15-hari-nres/projek/` — rujuk struktur repo).
-
-2. Cipta projek MVC baharu:
-
-   ```bash
-   dotnet new mvc -n Nres.Onboarding.Web
-   cd Nres.Onboarding.Web
-   ```
-
-3. Jalankan aplikasi buat kali pertama, **sebelum** tambah apa-apa pakej — ini mengesahkan templat asas berfungsi:
-
-   ```bash
-   dotnet run
-   ```
-
-   Buka pelayar ke URL yang dipaparkan dalam terminal (cth. `https://localhost:5001` atau port serupa). Anda patut nampak halaman utama templat MVC lalai ("Welcome" dengan navigasi Home/Privacy). Tekan `Ctrl+C` dalam terminal untuk hentikan pelayan buat sementara.
-
-4. Pasang (atau sahkan) `dotnet-ef` tool global — diperlukan untuk arahan migration nanti:
-
-   ```bash
-   dotnet tool install --global dotnet-ef
-   ```
-
-   Jika sudah dipasang, arahan ini akan beritahu ia sudah wujud — itu tidak mengapa, teruskan.
-
-5. Tambah pakej NuGet EF Core, Identity, dan SQLite:
-
-   ```bash
-   dotnet add package Microsoft.EntityFrameworkCore
-   dotnet add package Microsoft.EntityFrameworkCore.Design
-   dotnet add package Microsoft.EntityFrameworkCore.Sqlite
-   dotnet add package Microsoft.AspNetCore.Identity.EntityFrameworkCore
-   ```
-
-6. Sahkan `Nres.Onboarding.Web.csproj` kini menyenaraikan keempat-empat pakej di atas dalam `<ItemGroup>` — buka fail itu dan semak secara visual.
-
-7. Cuba `dotnet build` untuk pastikan tiada ralat kompil selepas tambah pakej:
-
-   ```bash
-   dotnet build
-   ```
-
-✅ **Semakan:** `dotnet run` papar halaman utama MVC lalai dalam pelayar tanpa ralat, dan `dotnet build` berjaya (`Build succeeded`) selepas keempat-empat pakej NuGet ditambah.
+```text
+docs/
+  URS-modul-N.md
+  use-case-modul-N.md
+  erd-modul-N.md
+  soalan-terbuka-modul-N.md
+```
 
 ---
 
-## Latihan 2 — Struktur Folder Projek
+## Latihan 0 — Kenal modul anda
 
-**Objektif:** Susun folder projek mengikut struktur muktamad SPEC-KURSUS.md supaya konsisten sepanjang 15 hari.
+**Objektif:** Setiap ahli kumpulan boleh menerangkan modul kumpulan dalam satu ayat, dan tahu peranan mana yang menyentuhnya.
 
-1. Dalam root `Nres.Onboarding.Web/`, cipta folder kosong berikut (folder `Controllers/`, `Views/`, `wwwroot/` sudah wujud daripada templat):
+### Langkah
 
-   ```bash
-   mkdir Data
-   mkdir Models
-   mkdir ViewModels
-   mkdir Services
-   mkdir -p App_Data/uploads
-   ```
+1. Semak pengagihan kumpulan bersama jurulatih:
 
-   > Di Windows PowerShell, ganti `mkdir -p App_Data/uploads` dengan dua arahan berasingan: `mkdir App_Data` diikuti `mkdir App_Data\uploads`.
+   | Kumpulan | Modul | Admin | Prefix |
+   |----------|-------|-------|--------|
+   | 1 | Lapor Diri | `HrAdmin` | `LD` |
+   | 2 | Pas, Parkir & Pelekat | `SecurityAdmin` | `PAS` `PKR` `STK` |
+   | 3 | ID, AD & Email | `Supervisor` → `IctAdmin` | `ICT-ID` |
+   | 4 | Perisian & Aset ICT | `IctAdmin` | `SW` `AST-L` `AST-R` |
 
-2. Buka `.gitignore` (dijana automatik oleh `dotnet new`) dan tambah baris berikut supaya fail pangkalan data & fail dimuat naik tidak masuk kawalan versi:
+2. Baca borang NRES sebenar bagi modul anda. Senaraikan **setiap medan** yang anda nampak.
 
-   ```gitignore
-   # Nres.Onboarding — data latihan
-   *.db
-   *.db-shm
-   *.db-wal
-   App_Data/uploads/**
-   !App_Data/uploads/.gitkeep
-   ```
+3. Tulis satu ayat yang menerangkan modul anda kepada seseorang yang tidak pernah melihatnya:
 
-3. Cipta fail kosong `App_Data/uploads/.gitkeep` (supaya folder kekal dalam git walaupun kosong):
+   > *"Modul Lapor Diri membolehkan pekerja baharu menghantar maklumat lapor diri dan dokumen sokongan mereka, dan membolehkan HR menyemak, meluluskan atau menolaknya, serta mengeluarkan slip akuan."*
 
-   ```bash
-   touch App_Data/uploads/.gitkeep
-   ```
+4. Senaraikan peranan yang menyentuh modul anda dan apa yang setiap satu boleh buat.
 
-4. Sahkan struktur akhir projek anda kelihatan seperti ini (ringkas):
+### ✅ Semakan
 
-   ```text
-   Nres.Onboarding.Web/
-     Controllers/
-     Data/
-     Models/
-     ViewModels/
-     Services/
-     Views/
-     wwwroot/
-     App_Data/uploads/.gitkeep
-     Program.cs
-     Nres.Onboarding.Web.csproj
-   ```
-
-✅ **Semakan:** Struktur folder anda sepadan dengan senarai di atas, dan `App_Data/uploads/` wujud (walaupun kosong selain `.gitkeep`).
+- [ ] Setiap ahli kumpulan boleh menyebut ayat modul tanpa membaca
+- [ ] Anda ada senarai medan borang sebenar
+- [ ] Anda tahu peranan mana yang membuat apa dalam modul anda
 
 ---
 
-## Latihan 3 — Entiti Kongsi
+## Latihan 1 — Bengkel: peta medan sama merentas 4 modul
 
-**Objektif:** Tulis kelas entiti `SubmissionStatus`, `Submission`, `Attachment`, `AuditLog`, dan `UserProfile` dalam folder `Models/`.
+**Objektif:** Temui sendiri **kenapa** satu `Submission` induk dikongsi — jangan diberitahu, temui.
 
-1. Cipta fail `Models/SubmissionStatus.cs`:
+### Langkah
 
-   ```csharp
-   namespace Nres.Onboarding.Web.Models;
+1. **Berkumpulan (10 minit).** Pada kertas, senaraikan setiap medan dalam borang modul anda.
 
-   public enum SubmissionStatus
-   {
-       Draft = 0,
-       Submitted = 1,
-       SupervisorApproved = 2,
-       AdminApproved = 3,
-       Rejected = 4,
-       Completed = 5,
-       Cancelled = 6
-   }
-   ```
+2. **Seluruh kelas (15 minit).** Setiap kumpulan membaca senarainya dengan kuat. Jurulatih menulis di papan putih dalam dua lajur:
 
-2. Cipta fail `Models/Submission.cs`:
+   | Muncul dalam **semua** modul | Khusus **satu** modul |
+   |------------------------------|------------------------|
+   | Nama pemohon | Nombor plat kenderaan |
+   | Jabatan | Tarikh mula bertugas |
+   | Nombor rujukan | Nama perisian |
+   | Status | Tempoh pinjaman |
+   | Tarikh hantar | Jenis akaun AD |
+   | Lampiran | … |
+   | Sebab penolakan | |
+   | Diluluskan oleh / bila | |
 
-   ```csharp
-   namespace Nres.Onboarding.Web.Models;
+3. **Perbincangan (10 minit).** Jawab bersama:
+   - Berapa medan berada dalam lajur kiri? *(Biasanya 8–12.)*
+   - Jika setiap kumpulan membina jadualnya sendiri untuk medan ini, berapa kali kod yang sama ditulis?
+   - Jika medan yang sama disimpan di empat tempat, apa yang berlaku apabila salah satu tidak segerak?
 
-   public class Submission
-   {
-       public int Id { get; set; }
+4. **Tulis kesimpulan** dalam `docs/soalan-terbuka-modul-N.md`:
 
-       public string ReferenceNo { get; set; } = string.Empty;
+```markdown
+# Nota reka bentuk — Kumpulan N
 
-       public string ModuleCode { get; set; } = string.Empty;
+## Kenapa Submission induk dikongsi
+Medan berikut muncul dalam keempat-empat modul: <senarai>
+Jika setiap modul menyimpannya sendiri, kami akan menulis logik yang sama 4 kali
+dan berisiko data tidak segerak. Kami menyimpannya SEKALI dalam `Submission`,
+dan modul kami hanya menyimpan medan khususnya.
 
-       public string ApplicantUserId { get; set; } = string.Empty;
+## Medan khusus modul kami
+<senarai>
+```
 
-       public SubmissionStatus Status { get; set; } = SubmissionStatus.Draft;
+### ✅ Semakan
 
-       public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-
-       public DateTime? SubmittedAt { get; set; }
-
-       public DateTime? CompletedAt { get; set; }
-
-       public ICollection<Attachment> Attachments { get; set; } = new List<Attachment>();
-
-       public ICollection<AuditLog> AuditLogs { get; set; } = new List<AuditLog>();
-   }
-   ```
-
-   > **Kenapa `ReferenceNo` kosong (`string.Empty`) pada peringkat draf?** Nombor rujukan sebenar (`LD-2026-0001`) hanya dijana semasa **submit**, bukan semasa cipta draf — kita bina servis ini Hari 3 (`IReferenceNumberService`). Sebelum submit, `ReferenceNo` kekal kosong.
-
-3. Cipta fail `Models/Attachment.cs`:
-
-   ```csharp
-   namespace Nres.Onboarding.Web.Models;
-
-   public class Attachment
-   {
-       public int Id { get; set; }
-
-       public int SubmissionId { get; set; }
-
-       public Submission Submission { get; set; } = null!;
-
-       public string OriginalFileName { get; set; } = string.Empty;
-
-       public string StoredFileName { get; set; } = string.Empty;
-
-       public string ContentType { get; set; } = string.Empty;
-
-       public long FileSizeBytes { get; set; }
-
-       public DateTime UploadedAt { get; set; } = DateTime.UtcNow;
-   }
-   ```
-
-   > **Kenapa dua nama fail berasingan (`OriginalFileName` vs `StoredFileName`)?** Ini pratonton konsep Hari 3: kita **tidak** pernah guna nama fail asal yang dimuat naik pengguna sebagai nama fail fizikal di server (risiko keselamatan — nama fail boleh mengandungi aksara berbahaya atau bertindih dengan fail lain). `OriginalFileName` disimpan **hanya sebagai metadata paparan**; `StoredFileName` ialah nama selamat (cth. GUID) yang benar-benar wujud di cakera.
-
-4. Cipta fail `Models/AuditLog.cs`:
-
-   ```csharp
-   namespace Nres.Onboarding.Web.Models;
-
-   public class AuditLog
-   {
-       public int Id { get; set; }
-
-       public int SubmissionId { get; set; }
-
-       public Submission Submission { get; set; } = null!;
-
-       public string ActorUserId { get; set; } = string.Empty;
-
-       public string Action { get; set; } = string.Empty;
-
-       public string? Remarks { get; set; }
-
-       public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-   }
-   ```
-
-5. Cipta fail `Models/UserProfile.cs`:
-
-   ```csharp
-   namespace Nres.Onboarding.Web.Models;
-
-   public class UserProfile
-   {
-       public int Id { get; set; }
-
-       public string UserId { get; set; } = string.Empty;
-
-       public string FullName { get; set; } = string.Empty;
-
-       public string? Department { get; set; }
-
-       public string? Position { get; set; }
-
-       public string? Grade { get; set; }
-   }
-   ```
-
-✅ **Semakan:** Lima fail wujud dalam `Models/` (`SubmissionStatus.cs`, `Submission.cs`, `Attachment.cs`, `AuditLog.cs`, `UserProfile.cs`), dan `dotnet build` masih berjaya tanpa ralat kompil.
+- [ ] Papan putih menunjukkan lajur "kongsi" dengan sekurang-kurangnya 8 medan
+- [ ] Kumpulan anda boleh menjelaskan kenapa duplikasi status berbahaya
+- [ ] `docs/soalan-terbuka-modul-N.md` wujud dengan kesimpulan anda
 
 ---
 
-## Latihan 4 — `ApplicationDbContext`
+## Latihan 2 — Tulis URS: draf AI
 
-**Objektif:** Tulis `ApplicationDbContext` yang mewarisi `IdentityDbContext`, daftarkan `DbSet` untuk setiap entiti kongsi.
+**Objektif:** Hasilkan draf pertama URS dengan AI — dengan konteks yang betul, bukan prompt kosong.
 
-1. Cipta fail `Data/ApplicationDbContext.cs`:
+### Langkah
 
-   ```csharp
-   using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-   using Microsoft.EntityFrameworkCore;
-   using Nres.Onboarding.Web.Models;
+1. Kumpulkan konteks **sebelum** membuka AI:
+   - Borang NRES sebenar modul anda (Latihan 0)
+   - [`../../SPEC-KURSUS.md`](../../SPEC-KURSUS.md)
+   - Senarai medan kongsi (Latihan 1)
 
-   namespace Nres.Onboarding.Web.Data;
+2. **Minta soalan dahulu, bukan jawapan.** Prompt pertama anda:
 
-   public class ApplicationDbContext : IdentityDbContext
-   {
-       public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-           : base(options)
-       {
-       }
+```text
+Saya sedang menulis URS (User Requirements Specification) untuk modul
+"<nama modul anda>" dalam sistem dalaman NRES.
 
-       public DbSet<Submission> Submissions => Set<Submission>();
+Konteks:
+- Ini sistem aliran kerja permohonan. Setiap permohonan mengikut:
+  Form → Validation → Draft → Submit → Review → Approve/Reject → Audit → Report
+- Peranan: Applicant, Supervisor, HrAdmin, SecurityAdmin, IctAdmin, SystemAdmin
+- Admin bagi modul saya: <peranan admin anda>
+- Medan borang sebenar: <tampal senarai anda>
 
-       public DbSet<Attachment> Attachments => Set<Attachment>();
+JANGAN tulis URS lagi. Sebaliknya, senaraikan 10 soalan yang anda perlu
+jawapannya tentang proses NRES ini sebelum URS boleh ditulis dengan betul.
+```
 
-       public DbSet<AuditLog> AuditLogs => Set<AuditLog>();
+3. **Baca soalan-soalan itu dengan teliti.** Soalan yang anda **tidak boleh jawab** ialah jurang sebenar dalam kefahaman anda. Salin setiap satu ke `docs/soalan-terbuka-modul-N.md` di bawah tajuk:
 
-       public DbSet<UserProfile> UserProfiles => Set<UserProfile>();
+```markdown
+## Soalan terbuka untuk NRES
+- [ ] <soalan yang kami tidak boleh jawab>
+```
 
-       protected override void OnModelCreating(ModelBuilder builder)
-       {
-           base.OnModelCreating(builder);
+4. Jawab soalan yang **boleh** anda jawab daripada borang sebenar. Kemudian minta draf:
 
-           builder.Entity<Submission>(entity =>
-           {
-               entity.Property(s => s.ReferenceNo).HasMaxLength(50);
-               entity.Property(s => s.ModuleCode).HasMaxLength(20);
-               entity.HasIndex(s => s.ReferenceNo).IsUnique(false);
-           });
+```text
+Berikut jawapan kepada soalan anda: <jawapan anda>
+Bagi soalan yang tidak dijawab, tandakan keperluan berkaitan sebagai
+"ANDAIAN — perlu disahkan NRES" dan jangan reka jawapan.
 
-           builder.Entity<Attachment>()
-               .HasOne(a => a.Submission)
-               .WithMany(s => s.Attachments)
-               .HasForeignKey(a => a.SubmissionId)
-               .OnDelete(DeleteBehavior.Cascade);
+Sekarang tulis URS dalam Bahasa Melayu menggunakan format ini bagi setiap keperluan:
 
-           builder.Entity<AuditLog>()
-               .HasOne(a => a.Submission)
-               .WithMany(s => s.AuditLogs)
-               .HasForeignKey(a => a.SubmissionId)
-               .OnDelete(DeleteBehavior.Cascade);
+### URS-<PREFIX>-<nnn> — <tajuk>
+**Sebagai** <peranan>
+**Saya mahu** <tindakan>
+**Supaya** <faedah>
 
-           builder.Entity<UserProfile>()
-               .HasIndex(p => p.UserId)
-               .IsUnique();
-       }
-   }
-   ```
+**Kriteria penerimaan**
+- [ ] <boleh diuji, khusus>
 
-   > **Kenapa `IsUnique(false)` untuk `ReferenceNo` buat masa ini?** Semasa draf, banyak `Submission` boleh mempunyai `ReferenceNo` kosong (`string.Empty`) serentak — jika kita paksa unik sekarang, EF Core/SQLite akan tolak baris kedua dan seterusnya. Kita ketatkan peraturan ini di Hari 3 selepas `IReferenceNumberService` sedia (nombor rujukan hanya dijana semasa submit, satu sahaja per submission).
+**Keutamaan:** Mesti ada / Patut ada / Baik ada
 
-2. Buka `appsettings.json` dan tambah connection string SQLite:
+Liputi: cipta draf, hantar, validation, muat naik lampiran, semakan admin,
+lulus, tolak dengan sebab, penjejakan status, dan audit.
+```
 
-   ```json
-   {
-     "ConnectionStrings": {
-       "DefaultConnection": "Data Source=App_Data/nres.db"
-     },
-     "Logging": {
-       "LogLevel": {
-         "Default": "Information",
-         "Microsoft.AspNetCore": "Warning"
-       }
-     },
-     "AllowedHosts": "*"
-   }
-   ```
+5. Simpan output sebagai `docs/URS-modul-N.md`.
 
-3. Buka `Program.cs` dan daftarkan `ApplicationDbContext` serta Identity **sebelum** `builder.Build()`. Fail `Program.cs` lengkap selepas langkah ini:
+### ✅ Semakan
 
-   ```csharp
-   using Microsoft.AspNetCore.Identity;
-   using Microsoft.EntityFrameworkCore;
-   using Nres.Onboarding.Web.Data;
-
-   var builder = WebApplication.CreateBuilder(args);
-
-   // Tambah servis ke DI container.
-   builder.Services.AddControllersWithViews();
-
-   var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
-       ?? throw new InvalidOperationException("Connection string 'DefaultConnection' tidak dijumpai.");
-
-   builder.Services.AddDbContext<ApplicationDbContext>(options =>
-       options.UseSqlite(connectionString));
-
-   builder.Services.AddDefaultIdentity<IdentityUser>(options =>
-           options.SignIn.RequireConfirmedAccount = false)
-       .AddRoles<IdentityRole>()
-       .AddEntityFrameworkStores<ApplicationDbContext>();
-
-   var app = builder.Build();
-
-   // Susunan middleware pipeline — PENTING, jangan tukar susunan.
-   if (!app.Environment.IsDevelopment())
-   {
-       app.UseExceptionHandler("/Home/Error");
-       app.UseHsts();
-   }
-
-   app.UseHttpsRedirection();
-   app.UseStaticFiles();
-
-   app.UseRouting();
-
-   app.UseAuthentication();
-   app.UseAuthorization();
-
-   app.MapControllerRoute(
-       name: "default",
-       pattern: "{controller=Home}/{action=Index}/{id?}");
-
-   app.MapRazorPages();
-
-   app.Run();
-   ```
-
-   > **Kenapa `AddDefaultIdentity` + `.AddRoles<IdentityRole>()`?** `AddDefaultIdentity` sediakan Identity dengan halaman UI lalai (log masuk/daftar melalui Razor Pages, sebab itu `MapRazorPages()` juga diperlukan). `.AddRoles<IdentityRole>()` menghidupkan sokongan **peranan** (`Applicant`, `HrAdmin`, dsb. — lihat [SPEC-KURSUS.md](../../SPEC-KURSUS.md)) yang akan kita guna mulai Hari 3 untuk kawal capaian halaman semakan HR.
-
-4. `dotnet build` semula untuk pastikan tiada ralat kompil.
-
-✅ **Semakan:** `Data/ApplicationDbContext.cs` wujud, `Program.cs` mendaftarkan `ApplicationDbContext` dan Identity, `appsettings.json` ada `ConnectionStrings:DefaultConnection`, dan `dotnet build` berjaya.
+- [ ] Anda meminta soalan **sebelum** meminta draf
+- [ ] Soalan yang tidak terjawab direkod dalam `docs/soalan-terbuka-modul-N.md`
+- [ ] `docs/URS-modul-N.md` wujud dengan keperluan ber-ID
+- [ ] Keperluan berasaskan andaian ditanda **"ANDAIAN — perlu disahkan NRES"**
 
 ---
 
-## Latihan 5 — Migration Pertama & Cipta Pangkalan Data
+## Latihan 3 — Semak URS baris demi baris (langkah paling penting hari ini)
 
-**Objektif:** Jana migration `InitialShared`, jalankan `dotnet ef database update`, dan sahkan skema SQLite wujud dengan jadual yang betul.
+**Objektif:** Cari perkara yang AI silap. Ia sentiasa ada.
 
-1. Jana migration pertama:
+> **Jangan langkau latihan ini.** Peserta yang menerima URS jana-AI tanpa semakan akan mendapati pada Hari 7 bahawa mereka telah membina peraturan yang NRES tidak pernah minta.
 
-   ```bash
-   dotnet ef migrations add InitialShared
+### Langkah
+
+1. **Bahagikan URS antara ahli kumpulan.** Setiap orang mengambil 3–5 keperluan.
+
+2. **Tandakan setiap keperluan** dengan salah satu:
+
+   | Tanda | Maksud | Tindakan |
+   |-------|--------|----------|
+   | ✅ | Betul seperti ditulis | Biarkan |
+   | ✏️ | Hampir betul | Betulkan sekarang |
+   | ❓ | Kami tidak tahu | Pindah ke soalan terbuka |
+   | ❌ | AI mereka ini | Buang |
+
+3. **Semak setiap kriteria penerimaan** terhadap ujian ini: *bolehkah saya menulis ujian yang lulus atau gagal untuk ini?* Jika tidak, tulis semula supaya boleh.
+
+   ```markdown
+   ❌ - [ ] Muat naik dokumen dikendalikan dengan selamat
+   ✅ - [ ] Hanya PDF/JPG/PNG diterima; fail >5 MB ditolak dengan mesej ralat;
+          fail disimpan di App_Data/uploads/{submissionId}/ bukan wwwroot
    ```
 
-   Perhatikan output — EF Core akan cipta folder `Migrations/` dengan tiga fail baharu: `<timestamp>_InitialShared.cs`, `<timestamp>_InitialShared.Designer.cs`, dan `ApplicationDbContextModelSnapshot.cs`.
+4. **Cabar AI mengenai kerjanya sendiri:**
 
-2. Buka fail `Migrations/<timestamp>_InitialShared.cs` dan **baca** kaedah `Up()` — perhatikan bagaimana setiap `DbSet` dalam `ApplicationDbContext` dipetakan kepada satu arahan `migrationBuilder.CreateTable(...)`. Anda tidak perlu edit fail ini secara manual.
+```text
+Semak URS yang anda baru tulis. Jawab dengan jujur:
+1. Keperluan mana yang anda paling KURANG yakin?
+2. Apa yang anda andaikan tentang proses NRES yang mungkin salah?
+3. Kes tepi apa yang URS ini terlepas sepenuhnya?
+4. Kriteria penerimaan mana yang tidak boleh diuji seperti ditulis?
+Jangan tulis semula URS — cuma senaraikan masalah.
+```
 
-3. Jalankan migration terhadap pangkalan data (SQLite akan dicipta automatik jika belum wujud):
+5. **Betulkan sendiri masalah yang dilaporkan.** Menaipnya dengan tangan ialah cara anda mempelajarinya.
 
-   ```bash
-   dotnet ef database update
-   ```
+6. **Tambah kes tepi yang biasa terlepas.** Semak modul anda terhadap senarai ini:
+   - Apa berlaku jika pemohon meletak jawatan/berpindah sebelum kelulusan?
+   - Bolehkah permohonan yang ditolak dihantar semula, atau adakah ia permohonan baharu?
+   - Apa berlaku pada draf yang tidak disentuh selama 6 bulan?
+   - Bolehkah pemohon membatalkan selepas menghantar tetapi sebelum semakan?
+   - Siapa yang boleh melihat permohonan orang lain — dan kenapa?
+   - Apa berlaku jika admin yang meluluskan juga pemohon?
 
-4. Sahkan fail `App_Data/nres.db` kini wujud:
+### ✅ Semakan
 
-   ```bash
-   ls -la App_Data/
-   ```
-
-5. (Pilihan, jika `sqlite3` CLI dipasang) Sahkan jadual yang dicipta:
-
-   ```bash
-   sqlite3 App_Data/nres.db ".tables"
-   ```
-
-   Anda patut nampak (antara lain) `AspNetUsers`, `AspNetRoles`, `Submissions`, `Attachments`, `AuditLogs`, `UserProfiles`.
-
-✅ **Semakan:** `dotnet ef database update` berjaya tanpa ralat, fail `App_Data/nres.db` wujud, dan jadual `Submissions`, `Attachments`, `AuditLogs`, `UserProfiles` (serta jadual Identity `AspNetUsers`/`AspNetRoles`) wujud dalam skema.
+- [ ] Setiap keperluan ditanda ✅ / ✏️ / ❓ / ❌
+- [ ] Sekurang-kurangnya satu keperluan ✏️ atau ❌ ditemui *(jika tiada, anda tidak menyemak dengan cukup teliti)*
+- [ ] Setiap kriteria penerimaan boleh diuji
+- [ ] Sekurang-kurangnya 3 kes tepi ditambah
+- [ ] Setiap ahli kumpulan boleh menerangkan setiap keperluan yang mereka semak
 
 ---
 
-## Latihan 6 — Navigasi Modul Placeholder & Dashboard
+## Latihan 4 — Process flow dalam Mermaid
 
-**Objektif:** Tambah menu navigasi untuk kelima-lima modul (walaupun kandungan sebenar belum wujud) supaya peserta faham bentuk keseluruhan aplikasi sejak hari pertama.
+**Objektif:** Lukis aliran permohonan modul anda sebagai kod yang boleh diversi dalam Git.
 
-1. Buka `Views/Shared/_Layout.cshtml` dan cari elemen `<ul class="navbar-nav ...">` (biasanya berhampiran `<nav>` di bahagian atas). Tambah pautan modul selepas pautan `Home`/`Privacy` sedia ada:
+### Langkah
 
-   ```cshtml
-   <li class="nav-item">
-       <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Dashboard</a>
-   </li>
-   <li class="nav-item">
-       <a class="nav-link text-dark" asp-area="" asp-controller="OfficerReporting" asp-action="Index">Lapor Diri</a>
-   </li>
-   <li class="nav-item">
-       <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="ModulePlaceholder" asp-route-name="Pas, Parking &amp; Pelekat">Pas/Parking/Pelekat</a>
-   </li>
-   <li class="nav-item">
-       <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="ModulePlaceholder" asp-route-name="ID, AD &amp; Email">ID/AD/Email</a>
-   </li>
-   <li class="nav-item">
-       <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="ModulePlaceholder" asp-route-name="PKS">PKS</a>
-   </li>
-   <li class="nav-item">
-       <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="ModulePlaceholder" asp-route-name="Aset ICT">Aset ICT</a>
-   </li>
-   ```
+1. Cipta `docs/use-case-modul-N.md` dan mula dengan process flow.
 
-   > **Nota:** Pautan `OfficerReporting` di atas **belum** wujud kawalannya (`Controller`) — ia akan kita bina Hari 2. Untuk hari ini, biarkan pautan itu — ia akan papar ralat 404 sehingga esok. Ini normal dan sengaja.
+2. Tulis aliran modul anda. Mulakan dari templat ini dan **ubah suai kepada modul anda** — jangan salin bulat-bulat:
 
-2. Buka `Controllers/HomeController.cs` dan tambah kaedah `ModulePlaceholder`:
+````markdown
+# Use Case & Process Flow — Modul <nama> (Kumpulan N)
 
-   ```csharp
-   public IActionResult ModulePlaceholder(string name)
-   {
-       ViewData["ModuleName"] = name;
-       return View();
-   }
-   ```
+## Process flow — permohonan hujung ke hujung
 
-3. Cipta fail view `Views/Home/ModulePlaceholder.cshtml`:
+```mermaid
+flowchart TD
+    Start([Pemohon buka borang]) --> Fill[Isi maklumat]
+    Fill --> Save{Simpan draf?}
+    Save -- Ya --> Draft[(Status: Draft)]
+    Draft --> Fill
+    Save -- Tidak --> Validate{Validation lulus?}
+    Validate -- Tidak --> Errors[Papar ralat] --> Fill
+    Validate -- Ya --> Upload[Muat naik lampiran]
+    Upload --> Submit[Hantar]
+    Submit --> Ref[Jana no. rujukan]
+    Ref --> Submitted[(Status: Submitted)]
+    Submitted --> Notify1[Beritahu admin]
+    Notify1 --> Review{Semakan admin}
+    Review -- Lulus --> Approved[(Status: AdminApproved)]
+    Review -- Tolak --> Reason[/Sebab wajib/] --> Rejected[(Status: Rejected)]
+    Approved --> Notify2[Beritahu pemohon]
+    Rejected --> Notify2
+    Notify2 --> Audit[(Tulis AuditLog)]
+    Audit --> End([Selesai])
+```
+````
 
-   ```cshtml
-   @{
-       var moduleName = ViewData["ModuleName"] as string ?? "Modul";
-       ViewData["Title"] = moduleName;
-   }
+3. **Kumpulan 3 sahaja:** aliran anda ada **dua** peringkat kelulusan. Ubah suai:
 
-   <div class="text-center">
-       <h1 class="display-6">@moduleName</h1>
-       <p class="lead">Modul ini akan dibina pada hari-hari seterusnya kursus DOTNET-NRES-15.</p>
-       <p>Rujuk <a href="https://github.com" target="_blank" rel="noopener">jadual kursus</a> untuk pemetaan hari → modul.</p>
-   </div>
-   ```
+```text
+Submitted → Semakan Penyelia → SupervisorApproved → Pemprosesan ICT → Completed
+```
 
-4. Kemas kini `Views/Home/Index.cshtml` (halaman utama) supaya papar ringkasan lima modul — gantikan kandungan sedia ada dengan:
+4. **Kumpulan 4 sahaja:** anda ada **dua** aliran berkaitan — pinjaman dan pemulangan. Lukis kedua-duanya, dan tunjukkan cara status aset berubah (`Available` → `OnLoan` → `Available`/`UnderMaintenance`).
 
-   ```cshtml
-   @{
-       ViewData["Title"] = "Dashboard NRES";
-   }
+5. Render diagram (VS Code: buka pratonton Markdown). Betulkan sebarang ralat sintaks.
 
-   <div class="text-center">
-       <h1 class="display-4">Nres.Onboarding.Web</h1>
-       <p class="lead">Sistem Onboarding &amp; Khidmat Dalaman NRES — 5 modul permohonan &amp; aliran kerja kelulusan.</p>
-   </div>
+### ✅ Semakan
 
-   <div class="row mt-4">
-       <div class="col-md-4 mb-3">
-           <div class="card h-100">
-               <div class="card-body">
-                   <h5 class="card-title">1. Lapor Diri</h5>
-                   <p class="card-text">Pengurusan permohonan laporan diri pekerja baharu.</p>
-               </div>
-           </div>
-       </div>
-       <div class="col-md-4 mb-3">
-           <div class="card h-100">
-               <div class="card-body">
-                   <h5 class="card-title">2. Pas, Parking &amp; Pelekat</h5>
-                   <p class="card-text">Pengurusan akses kawasan dan kenderaan.</p>
-               </div>
-           </div>
-       </div>
-       <div class="col-md-4 mb-3">
-           <div class="card h-100">
-               <div class="card-body">
-                   <h5 class="card-title">3. ID, AD &amp; Email</h5>
-                   <p class="card-text">Pengurusan permohonan akaun pengguna sistem.</p>
-               </div>
-           </div>
-       </div>
-       <div class="col-md-4 mb-3">
-           <div class="card h-100">
-               <div class="card-body">
-                   <h5 class="card-title">4. PKS</h5>
-                   <p class="card-text">Pengisytiharan dan pemantauan pematuhan polisi.</p>
-               </div>
-           </div>
-       </div>
-       <div class="col-md-4 mb-3">
-           <div class="card h-100">
-               <div class="card-body">
-                   <h5 class="card-title">5. Aset ICT</h5>
-                   <p class="card-text">Pengurusan permohonan dan pinjaman aset ICT.</p>
-               </div>
-           </div>
-       </div>
-   </div>
-   ```
-
-5. Jalankan aplikasi dan uji setiap pautan navigasi (kecuali "Lapor Diri", yang sengaja 404 buat masa ini):
-
-   ```bash
-   dotnet run
-   ```
-
-✅ **Semakan:** Halaman utama papar 5 kad modul, navigasi atas mempunyai 6 pautan (Dashboard + 5 modul), dan pautan selain "Lapor Diri" membawa ke halaman placeholder yang papar nama modul betul. Aplikasi berjalan tanpa ralat kompil atau ralat masa jalan (selain 404 "Lapor Diri" yang dijangka).
+- [ ] Diagram merender tanpa ralat
+- [ ] Setiap status dalam diagram wujud dalam `SubmissionStatus` (`SPEC-KURSUS.md`)
+- [ ] Laluan penolakan menunjukkan sebab wajib
+- [ ] Penulisan audit kelihatan dalam aliran
+- [ ] Diagram sepadan dengan modul **anda**, bukan templat
 
 ---
 
-## Rujukan Fail Sebenar
+## Latihan 5 — Use case dengan aliran alternatif
 
-Untuk banding kod anda, fail rujukan lengkap (dikemas kini sepanjang kursus) ada di [`../../projek/`](../../projek/):
+**Objektif:** Modelkan apa yang berlaku apabila keadaan tidak sempurna — di situlah pepijat bersembunyi.
 
-| Fail anda (lab) | Fail rujukan (projek sebenar) |
-|------------------|-------------------------------|
-| `Models/SubmissionStatus.cs`, `Submission.cs`, `Attachment.cs`, `AuditLog.cs`, `UserProfile.cs` | `projek/Nres.Onboarding.Web/Models/` |
-| `Data/ApplicationDbContext.cs` | `projek/Nres.Onboarding.Web/Data/ApplicationDbContext.cs` |
-| `Program.cs` | `projek/Nres.Onboarding.Web/Program.cs` |
-| Migration `InitialShared` | `projek/Nres.Onboarding.Web/Migrations/` |
+### Langkah
 
-> Jika folder `projek/` masih kosong pada mesin anda, itu bermakna fasilitator belum salin projek rujukan penuh — teruskan lab berdasarkan penerangan di atas dan tanya fasilitator semasa sesi.
+1. Kenal pasti **3–5 use case utama** modul anda. Ujian: adakah aktor mencapai sesuatu yang berguna?
+
+   Contoh Kumpulan 2: *Mohon pas keselamatan* · *Mohon pelekat kenderaan* · *Semak permohonan pas* · *Sahkan pas semasa rondaan*
+
+2. Bagi **setiap** use case, tulis dalam `docs/use-case-modul-N.md`:
+
+```markdown
+## UC-<PREFIX>-01 — <tajuk>
+
+**Aktor utama:** <peranan>
+**Prasyarat:** <apa mesti benar sebelum ini bermula>
+**Jaminan kejayaan:** <apa yang benar selepas ia berjaya>
+
+### Aliran utama
+1. …
+2. …
+
+### Aliran alternatif
+- **1a.** <keadaan> → <apa sistem buat>
+- **3a.** <keadaan> → <apa sistem buat>
+
+### Keperluan berkaitan
+URS-<PREFIX>-001, URS-<PREFIX>-004
+```
+
+3. **Guna AI untuk mencari yang terlepas** — bukan untuk menulisnya:
+
+```text
+Berikut use case saya untuk modul <nama>: <tampal>
+
+Senaraikan aliran alternatif yang saya terlepas. Bagi setiap satu, nyatakan
+keadaan yang mencetuskannya dan apa yang sistem sepatutnya buat.
+Fokus pada: kegagalan validation, konflik kebenaran, keadaan berlumba
+(dua orang bertindak serentak), dan permohonan pendua.
+Jangan tulis semula use case saya.
+```
+
+4. Tambah aliran alternatif yang munasabah. **Jangan tambah semua** — nilai setiap satu terhadap keperluan NRES sebenar dan tandakan yang meragukan dalam soalan terbuka.
+
+5. **Pautkan setiap use case ke URS.** Setiap use case mesti merujuk sekurang-kurangnya satu ID URS. Jika ia tidak boleh, sama ada use case itu tidak diperlukan atau URS anda ada jurang.
+
+### ✅ Semakan
+
+- [ ] 3–5 use case ditulis
+- [ ] Setiap satu ada sekurang-kurangnya 2 aliran alternatif
+- [ ] Setiap satu memaut ke ID URS
+- [ ] Aliran alternatif merangkumi sekurang-kurangnya satu konflik kebenaran
+- [ ] Anda menolak sekurang-kurangnya satu cadangan AI dan boleh menyatakan sebabnya
 
 ---
 
-## Cabaran (Pilihan)
+## Latihan 6 — ERD modul anda
 
-Selesaikan **sekurang-kurangnya satu** selepas Latihan 6 siap:
+**Objektif:** Reka jadual detail modul anda melanjutkan teras kongsi — tanpa menduplikasi apa-apa.
 
-1. **Seed data lookup ringkas** — Tambah kaedah `SeedRolesAsync` yang dipanggil semasa aplikasi mula (`app.Run()` sebelum ini), yang mencipta tiga peranan pertama daripada [SPEC-KURSUS.md](../../SPEC-KURSUS.md): `Applicant`, `HrAdmin`, `SystemAdmin`, menggunakan `RoleManager<IdentityRole>` jika ia belum wujud.
-2. **Index tambahan** — Tambah `HasIndex(s => s.ApplicantUserId)` pada `Submission` dalam `OnModelCreating` supaya carian "permohonan saya" (Hari 15) lebih pantas. Jana migration baharu (`dotnet ef migrations add AddApplicantIndex`) dan jalankan `dotnet ef database update`.
-3. **`ToString()` untuk debug** — Tambah kaedah `override ToString()` pada `Submission` yang papar `$"{ModuleCode} #{Id} — {Status}"`, berguna semasa nyahpepijat dalam debugger/console.
+### Langkah
+
+1. Cipta `docs/erd-modul-N.md`. Mulakan dengan **teras kongsi** (sama untuk semua kumpulan — salin ini seadanya):
+
+````markdown
+# ERD — Modul <nama> (Kumpulan N)
+
+## Teras kongsi (dibina Hari 3 — JANGAN ubah suai)
+
+```mermaid
+erDiagram
+    Submission ||--o{ Attachment : "ada"
+    Submission ||--o{ AuditLog : "menjana"
+    Submission ||--o{ ApprovalStep : "melalui"
+    UserProfile ||--o{ Submission : "menghantar"
+
+    Submission {
+        int Id PK
+        string ReferenceNo
+        string ModuleCode
+        string ApplicantUserId FK
+        int Status
+        datetime CreatedAt
+        datetime SubmittedAt
+    }
+```
+````
+
+2. Tambah jadual **detail** modul anda. Semak `SPEC-KURSUS.md` untuk nama jadual tepat:
+
+   | Kumpulan | Jadual anda |
+   |----------|-------------|
+   | 1 | `OfficerReportingApplications` |
+   | 2 | `AccessPassApplications`, `ParkingApplications`, `VehicleStickerApplications`, `Vehicles` |
+   | 3 | `AccountRequests`, `RequestedSystemAccesses` |
+   | 4 | `Assets`, `SoftwareCatalogItems`, `SoftwareRequests`, `AssetLoanRequests`, `AssetReturns` |
+
+````markdown
+## Jadual modul kami
+
+```mermaid
+erDiagram
+    Submission ||--|| <JadualAnda> : "detail"
+
+    <JadualAnda> {
+        int Id PK
+        int SubmissionId FK
+        string MedanKhususAnda
+    }
+```
+````
+
+3. **Jalankan semakan anti-duplikasi.** Bagi setiap medan dalam jadual anda, tanya: *adakah ini sudah ada dalam `Submission`?*
+
+   | ❌ Jangan letak dalam jadual anda | Sebab |
+   |-----------------------------------|-------|
+   | `ReferenceNo` | Ada dalam `Submission` |
+   | `Status` | Ada dalam `Submission` |
+   | `ApplicantUserId` | Ada dalam `Submission` |
+   | `SubmittedAt` | Ada dalam `Submission` |
+   | `ApplicantName` | Dapat melalui `UserProfile` |
+   | `DepartmentName` | Dapat melalui `UserProfile` → lookup |
+
+   Buang setiap satu yang anda jumpa. **Dua salinan status bermakna dua sumber kebenaran, dan satu hari nanti ia akan berbeza.**
+
+4. **Semak silang dengan AI:**
+
+```text
+Bandingkan ERD ini dengan SPEC-KURSUS.md (dilampirkan).
+1. Adakah ia memperkenalkan entiti atau medan yang tiada dalam spec?
+2. Adakah ia menduplikasi mana-mana medan yang sudah ada dalam Submission?
+3. Adakah kardinaliti betul bagi setiap hubungan?
+4. Nama jadual mana yang tidak sepadan dengan spec?
+Senaraikan percanggahan sahaja. JANGAN tulis semula ERD.
+```
+
+5. Betulkan setiap percanggahan **dengan tangan**.
+
+6. **Semak indeks yang diperlukan.** Medan mana yang akan sering dicari?
+   - Kumpulan 2: `Vehicle.PlateNumber` — anda akan menyemak pendua padanya setiap kali
+   - Kumpulan 4: `Asset.SerialNumber`, `Asset.Status`
+   - Semua: `Submission.ReferenceNo` (sudah diindeks dalam teras kongsi)
+
+   Tandakan dalam ERD anda dengan komen `"diindeks"`.
+
+### ✅ Semakan
+
+- [ ] Teras kongsi disalin tanpa diubah suai
+- [ ] Jadual anda sepadan dengan nama dalam `SPEC-KURSUS.md` **tepat**
+- [ ] Setiap jadual detail memaut ke `Submission` melalui `SubmissionId`
+- [ ] **Sifar** medan diduplikasi dari `Submission`
+- [ ] Kardinaliti betul dan diagram merender
+- [ ] Medan yang perlu indeks ditandakan
 
 ---
 
-Nota penceramah (pemasaan sesi, silap biasa, soalan perbincangan, deliverable akhir hari): [`../nota-penceramah.md`](../nota-penceramah.md).
+## Latihan 7 — Semakan silang antara kumpulan
+
+**Objektif:** Kesan pertindihan dan percanggahan **hari ini**, bukan pada Hari 15.
+
+### Langkah
+
+1. **Tukar dokumen.** Setiap kumpulan memberikan ERD dan URSnya kepada kumpulan seterusnya (1→2→3→4→1).
+
+2. **Semak dokumen kumpulan lain (15 minit)** dan jawab **hanya** tiga soalan ini:
+
+   | Soalan | Kenapa penting |
+   |--------|----------------|
+   | Adakah mereka mereka apa-apa yang sudah ada dalam teras kongsi? | Anti-redundan |
+   | Adakah mereka memerlukan sesuatu daripada modul **kami**? | Kebergantungan rentas modul |
+   | Adakah kami merancang membina sesuatu yang **sama** dengan mereka? | Duplikasi merentas kumpulan |
+
+3. **Kembalikan penemuan** kepada kumpulan asal secara bertulis.
+
+4. **Seluruh kelas (15 minit).** Jurulatih merekod:
+   - Sebarang keperluan **kongsi** yang lebih daripada satu kumpulan perlukan → ini menjadi kerja Hari 3, bukan kerja kumpulan
+   - Sebarang **kebergantungan** antara modul → dijadualkan awal
+   - Sebarang **percanggahan** dengan `SPEC-KURSUS.md` → dibetulkan sekarang
+
+5. Rekod hasilnya dalam `docs/soalan-terbuka-modul-N.md`:
+
+```markdown
+## Penemuan semakan silang
+- Keperluan kongsi yang dikenal pasti: <senarai>  → dibina Hari 3
+- Kebergantungan pada modul lain: <senarai>
+- Duplikasi dielakkan: <senarai>
+```
+
+### ✅ Semakan
+
+- [ ] Setiap kumpulan menyemak dokumen kumpulan lain
+- [ ] Sekurang-kurangnya satu keperluan kongsi dikenal pasti merentas kumpulan
+- [ ] Penemuan direkod bertulis
+- [ ] Tiada nama jadual bercanggah dengan `SPEC-KURSUS.md`
+
+---
+
+## Latihan 8 — Muktamadkan pek dokumentasi
+
+**Objektif:** Serahkan artifak yang lengkap dan konsisten yang akan anda gunakan selama 11 hari.
+
+### Langkah
+
+1. Sahkan keempat-empat fail wujud dan lengkap:
+
+```bash
+ls -la docs/
+# URS-modul-N.md
+# use-case-modul-N.md
+# erd-modul-N.md
+# soalan-terbuka-modul-N.md
+```
+
+2. Jalankan **senarai semak konsistensi** — ini menangkap masalah yang menyakitkan kemudian:
+
+   - [ ] Setiap use case memaut ke sekurang-kurangnya satu ID URS
+   - [ ] Setiap entiti dalam ERD muncul dalam sekurang-kurangnya satu use case
+   - [ ] Setiap status yang disebut wujud dalam `SubmissionStatus`
+   - [ ] Prefix nombor rujukan sepadan dengan `SPEC-KURSUS.md`
+   - [ ] Nama peranan sepadan **tepat** (`HrAdmin`, bukan "HR Admin" atau "Admin HR")
+   - [ ] Nama jadual sepadan `SPEC-KURSUS.md` **tepat**
+   - [ ] Setiap ANDAIAN muncul dalam `soalan-terbuka-modul-N.md`
+
+3. Tulis ringkasan sehalaman di bahagian atas `URS-modul-N.md`:
+
+```markdown
+## Ringkasan
+
+**Modul:** <nama>  ·  **Kumpulan:** N  ·  **Prefix:** <PREFIX>
+**Peranan admin:** <peranan>
+**Bilangan keperluan:** <n> mesti ada, <n> patut ada, <n> baik ada
+**Soalan terbuka menunggu NRES:** <n>
+
+**Dalam satu ayat:** <ayat modul anda dari Latihan 0>
+```
+
+4. **Bentangkan (5 minit setiap kumpulan)** kepada seluruh kelas: modul anda dalam satu ayat, aliran anda, jadual anda, dan soalan terbuka terbesar anda.
+
+### ✅ Semakan
+
+- [ ] Keempat-empat fail lengkap
+- [ ] Senarai semak konsistensi lulus sepenuhnya
+- [ ] Ringkasan ditulis
+- [ ] Kumpulan telah membentangkan
+- [ ] Soalan terbuka diserahkan kepada jurulatih untuk pengesahan NRES
+
+---
+
+## Deliverable Hari 1
+
+| Fail | Kandungan |
+|------|-----------|
+| `docs/URS-modul-N.md` | Keperluan ber-ID dengan kriteria penerimaan yang boleh diuji |
+| `docs/use-case-modul-N.md` | Process flow (Mermaid) + 3–5 use case dengan aliran alternatif |
+| `docs/erd-modul-N.md` | Teras kongsi + jadual detail modul, sifar medan diduplikasi |
+| `docs/soalan-terbuka-modul-N.md` | Andaian, soalan untuk NRES, penemuan semakan silang |
+
+Fail ini akan di-commit ke Git **esok** (Hari 2), selepas anda mempelajari cara. Simpan dengan selamat malam ini.
+
+## Sebelum esok
+
+Baca [`../../KOLABORASI.md`](../../KOLABORASI.md) sepenuhnya — esok kita menyediakan cabang Git dan menandatangani kontraknya.

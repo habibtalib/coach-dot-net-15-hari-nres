@@ -1,8 +1,8 @@
 # Aturcara Rasmi — Latihan *Coaching* Pembangunan Sistem Dalaman NRES Dengan ASP.NET Core (.NET 10)
 
-> **Sumber rasmi:** Pelan Coaching 15 Hari NRES (`DOTNET-NRES-15`). Modul ini **mengikut** aturcara ini — jangan ubah skop hari tanpa menyemaknya. Rujukan domain penuh: repo jiran `coach-nres/`. Kanun teknikal tunggal: [`SPEC-KURSUS.md`](./SPEC-KURSUS.md).
+> **Sumber rasmi skop:** *Cadangan Silibus Latihan Coaching Pembangunan Sistem (.NET) — 15 Hari, Struktur 4 Kumpulan Dedicated* (NRES). Kanun teknikal tunggal: [`SPEC-KURSUS.md`](./SPEC-KURSUS.md). Kontrak kerja pasukan: [`KOLABORASI.md`](./KOLABORASI.md). Konteks AI kongsi: [`AGENTS.md`](./AGENTS.md).
 >
-> **Tajuk penuh:** *Membina Sistem Onboarding & Khidmat Dalaman NRES* — satu aplikasi ASP.NET Core MVC yang menyatukan 5 modul permohonan & aliran kerja kelulusan, dibina **dari kosong secara hands-on** sepanjang 15 hari.
+> **Tajuk penuh:** *Membina Sistem Onboarding & Khidmat Dalaman NRES* — satu aplikasi ASP.NET Core MVC yang menyatukan **4 modul** permohonan & aliran kerja kelulusan, dibina **dari kosong** oleh **4 kumpulan dedicated yang bekerja selari** dalam satu repositori.
 
 ## Maklumat Sesi
 
@@ -12,257 +12,161 @@
 | **Tempoh** | 15 Hari (105 Jam) |
 | **Tahap** | Pertengahan (Intermediate) — *asas C# / OOP disyorkan* |
 | **Mod** | Fizikal / Maya / Hibrid — **berpaksikan lab** (≥60% masa hands-on) |
+| **Struktur** | 4 kumpulan dedicated · 1 repositori · 1 aplikasi bersepadu |
 | **Masa** | 9.00 pagi – 5.00 petang |
 | **Anjuran** | Kementerian Sumber Asli & Kelestarian Alam (NRES) |
-| **Bilangan peserta disyorkan** | 12 – 20 orang |
+| **Bilangan peserta disyorkan** | 16 – 24 orang (4 – 6 setiap kumpulan) |
 | **Rangka** | ASP.NET Core MVC · .NET 10 LTS · EF Core 10 · Identity · SQLite → SQL Server |
+| **Alat sokongan** | Git + GitHub · GitHub Projects & Jira · pembantu AI |
 
 > **Rentak harian:** Pendaftaran & minum pagi **8.30–9.00**; sesi pagi **9.00–1.00**; rehat & makan tengah hari **1.00–2.30**; sesi petang **2.30–5.00**; bersurai **5.00 petang**. ~7 jam kontak/hari.
 
-> **Konvensyen bahasa:** Nota & penerangan dalam **Bahasa Melayu**; kod, nama kelas, istilah teknikal (`Controller`, `DbContext`, `migration`) dikekalkan dalam **Bahasa Inggeris** (amalan standard industri .NET).
-
-> **Projek tunggal:** Semua 15 hari membina **satu** aplikasi — `Nres.Onboarding.Web` — secara **kumulatif**. Setiap hari menambah di atas hari sebelumnya.
+> **Konvensyen bahasa:** Nota & penerangan dalam **Bahasa Melayu**; kod, nama kelas, istilah teknikal (`Controller`, `DbContext`, `migration`, `pull request`) dikekalkan dalam **Bahasa Inggeris**.
 
 ---
 
-## 5 Modul (Kes Guna NRES)
+## Struktur kursus — 3 fasa
 
-1. **Modul Lapor Diri** — Pengurusan permohonan laporan diri pekerja baharu
-2. **Modul Pas, Parking & Pelekat Kenderaan** — Pengurusan akses kawasan dan kenderaan
-3. **Modul ID, AD & Email** — Pengurusan permohonan akaun pengguna sistem
-4. **Modul PKS (Pematuhan Kod Setia)** — Pengisytiharan dan pemantauan pematuhan polisi
-5. **Modul Aset ICT** — Pengurusan permohonan dan pinjaman aset ICT
+```text
+FASA 1 — SESI BERSAMA (Hari 1–3)          semua kumpulan, satu bilik
+  Hari 1   Perancangan · Dokumentasi · URS/SRS · ERD · Use Case & Process Flow   (AI-assisted)
+  Hari 2   Git & Branching · Agile (GitHub Projects + Jira) · Kolaborasi · Persekitaran
+  Hari 3   Refresher .NET · EF Core · Identity/RBAC · ASAS KONGSI + migration InitialShared
+                                          └── 4 cabang kumpulan dibuka ──┐
+                                                                         │
+FASA 2 — 4 TREK SELARI (Hari 4–14)  ◄─────────────────────────────────────┘
+  ┌─────────────┬─────────────┬─────────────┬─────────────┐
+  │ Kumpulan 1  │ Kumpulan 2  │ Kumpulan 3  │ Kumpulan 4  │
+  │ Lapor Diri  │ Pas/Parkir/ │ ID, AD &    │ Perisian &  │
+  │             │ Pelekat     │ Email       │ Aset ICT    │
+  └─────────────┴─────────────┴─────────────┴─────────────┘
+   Blok: Hari 4 · Hari 5–6 · Hari 7–9 · Hari 10–12 · Hari 13–14
+   Gabungan latihan ke master di hujung setiap blok
+
+FASA 3 — SESI BERSAMA (Hari 15)
+  Hari 15  Merge 4 cabang · Papan Pemuka Induk · SIT & UAT pre-check · Demo
+```
+
+### 4 Kumpulan & Modul
+
+| Kumpulan | Modul | Skop | Trek |
+|----------|-------|------|------|
+| **1** | **Lapor Diri** | Permohonan lapor diri pekerja baharu, profil, dokumen sokongan, slip akuan, aliran kelulusan HR | [`kumpulan-1-lapor-diri/`](./kumpulan-1-lapor-diri/) |
+| **2** | **Pas, Parkir & Pelekat** | Akses kawasan & keselamatan kenderaan, pas pelawat/staf, pelekat & lot parkir, semakan pendua plat, QR | [`kumpulan-2-pas-parkir-pelekat/`](./kumpulan-2-pas-parkir-pelekat/) |
+| **3** | **ID, AD & Email** | Permohonan akaun pengguna, Active Directory, e-mel rasmi, kelulusan penyelia → ICT, audit log | [`kumpulan-3-id-ad-email/`](./kumpulan-3-id-ad-email/) |
+| **4** | **Perisian & Aset ICT** | Katalog aset, lesen perisian, pinjaman & pemulangan aset, stok masa-nyata, laporan | [`kumpulan-4-perisian-aset-ict/`](./kumpulan-4-perisian-aset-ict/) |
+
+> **Nota skop:** Modul **PKS** tidak termasuk dalam kursus ini (tiada dalam cadangan silibus NRES). Rujuk [`SPEC-KURSUS.md`](./SPEC-KURSUS.md).
+>
+> **Nota versi:** cadangan NRES menulis .NET 8; kursus ini menggunakan **.NET 10 LTS**.
+>
+> **Nota pemetaan hari:** cadangan NRES memperuntukkan Hari 1–2 untuk sesi bersama dan Hari 3–14 untuk trek kumpulan. Kursus ini menggunakan **Hari 1–3** bersama (bagi memuatkan perancangan, URS, ERD, Agile, kolaborasi & AI) dan **Hari 4–14** untuk trek. Kandungan setiap blok trek kekal sama; blok terakhir dipendekkan dari 3 hari ke 2 hari.
 
 ---
 
-## Ringkasan 15 Hari
+# FASA 1 — SESI BERSAMA
 
-| Hari | Modul | Fokus | Hasil hands-on |
-|------|-------|-------|----------------|
-| [**1**](./hari-1/) | Asas | Persediaan `dotnet`, seni bina, entiti kongsi, migration pertama | Aplikasi ASP.NET Core berjalan + DB tersambung |
-| [**2**](./hari-2/) | 1 · Lapor Diri | Borang create/edit, view model, validation, draf | Borang Lapor Diri boleh cipta/edit/simpan draf |
-| [**3**](./hari-3/) | 1 · Lapor Diri | Lampiran, submit + nombor rujukan, semakan HR, audit | Modul 1 lengkap hujung-ke-hujung |
-| [**4**](./hari-4/) | 2 · Pas/Parking/Pelekat | Model 3 jenis + `Vehicle`, migration | Jadual & skrin awal Modul 2 |
-| [**5**](./hari-5/) | 2 · Pas/Parking/Pelekat | Borang + conditional validation + semakan pendua | 3 borang simpan data sah, sekat pendua |
-| [**6**](./hari-6/) | 2 · Pas/Parking/Pelekat | Kelulusan, filter, print summary | Modul 2 ada aliran kelulusan + cetakan |
-| [**7**](./hari-7/) | 3 · ID/AD/Email | Discovery, `AccountRequest`, akses sistem, peranan | Model & skrin awal Modul 3 |
-| [**8**](./hari-8/) | 3 · ID/AD/Email | Rantaian kelulusan berbilang langkah + authorization | Aliran Applicant→Supervisor→ICT |
-| [**9**](./hari-9/) | 3 · ID/AD/Email | Notifikasi, carian/filter, panel audit | Modul 3 lengkap + notifikasi |
-| [**10**](./hari-10/) | 4 · PKS | `PolicyVersion`, checklist, model declaration, seed | Jadual PKS + checklist berseed |
-| [**11**](./hari-11/) | 4 · PKS | Borang checklist dinamik + kunci declaration | Declaration boleh isi & terkunci selepas hantar |
-| [**12**](./hari-12/) | 4 · PKS | Semakan admin, filter, CSV export | Modul 4 lengkap + eksport CSV |
-| [**13**](./hari-13/) | 5 · Aset ICT | Model aset/perisian/pinjaman/pemulangan + seed | Model & lookup Modul 5 |
-| [**14**](./hari-14/) | 5 · Aset ICT | Borang + semakan availability + transaksi inventori | Aliran pinjaman & pemulangan berfungsi |
-| [**15**](./hari-15/) | Integrasi | Integrasi, ujian xUnit, deployment, demo | Aplikasi bersepadu + demo akhir |
+## HARI 1 — Perancangan Projek, Dokumentasi, URS & ERD
 
----
-
-## HARI 1 — Persediaan Projek & Seni Bina Kongsi
-
-**Fokus:** Faham bentuk keseluruhan sistem (bukan sekadar borang digital, tetapi *request workflow system*), dan cipta projek ASP.NET Core yang berjalan.
+**Fokus:** Sebelum satu baris kod ditulis — faham *apa* yang dibina dan *kenapa*. Hasilkan artifak dokumentasi sebenar (URS, use case, process flow, ERD) dengan bantuan AI, dan sahkan setiap satu secara manual.
 
 | Masa | Agenda |
 |------|--------|
 | 8.30 – 9.00 pagi | Pendaftaran Peserta & Minum Pagi |
-| **9.00 – 10.30 pagi** | **SESI 1: Gambaran Sistem NRES** — 5 modul, corak `Form → Draft → Submit → Review → Approve → Audit`, kenapa satu `Submission` induk dikongsi. 🧠 **Bengkel:** peta medan sama merentas 5 modul |
-| **10.30 – 1.00 tgh** | **SESI 2: Cipta Projek ASP.NET Core** — `dotnet new mvc`, struktur folder, `Program.cs`, pakej EF Core + Identity. 💻 **Lab:** projek berjalan + halaman utama |
+| **9.00 – 10.30 pagi** | **SESI 1: Perancangan Projek & Skop** — gambaran sistem NRES sebagai *request workflow system*; 4 modul & pembahagian kumpulan; peranan; risiko projek; apa itu "siap". 🧠 **Bengkel:** peta medan sama merentas 4 modul |
+| **10.30 – 1.00 tgh** | **SESI 2: URS & SRS** — beza keperluan pengguna (URS) vs spesifikasi perisian (SRS); menulis keperluan yang boleh diuji; kriteria penerimaan. 💻 **Lab:** setiap kumpulan menulis URS modulnya — draf pertama dengan AI, kemudian **disemak & dibetulkan manusia** |
 | 1.00 – 2.30 petang | Rehat dan Makan Tengah Hari |
-| **2.30 – 3.45 petang** | **SESI 3: Entiti Kongsi & DbContext** — `Submission`, `Attachment`, `AuditLog`, `UserProfile`, `SubmissionStatus`. 💻 **Lab:** tulis entiti + `ApplicationDbContext` |
-| **3.45 – 5.00 petang** | **SESI 4: Migration Pertama** — `dotnet ef migrations add`, `dotnet ef database update`, sahkan skema SQLite. 💻 **Lab:** DB dicipta + navigasi modul placeholder |
+| **2.30 – 3.45 petang** | **SESI 3: Process Flow & Use Case** — aktor, use case, aliran utama vs alternatif; diagram sebagai kod (**Mermaid**) supaya boleh diversi dalam Git. 💻 **Lab:** process flow + use case diagram modul sendiri |
+| **3.45 – 5.00 petang** | **SESI 4: ERD & Reka Bentuk Data** — entiti, hubungan, kardinaliti, kunci asing; **kenapa satu `Submission` induk dikongsi**; normalisasi secukupnya. 💻 **Lab:** ERD (Mermaid `erDiagram`) modul sendiri + sahkan terhadap `SPEC-KURSUS.md` |
 | 5.00 petang | Bersurai |
 
-**Hasil Hari 1:** Aplikasi ASP.NET Core berjalan, DB tersambung, migration pertama wujud, peserta boleh terangkan kelima-lima modul.
+**Bantuan AI hari ini:** draf URS, cadang use case yang terlepas, semak ERD terhadap keperluan, jana data ujian sintetik. **Peraturan:** AI menulis draf — **peserta memutuskan**. Setiap artifak disemak baris demi baris sebelum diterima.
+
+**Hasil Hari 1:** `docs/URS-modul-N.md`, `docs/use-case-modul-N.md`, `docs/erd-modul-N.md` bagi setiap kumpulan; peserta boleh terangkan keempat-empat modul dan corak aliran kerja kongsi.
 
 ---
 
-## HARI 2 — Lapor Diri: Borang & Validation
+## HARI 2 — Git, Branching, Agile & Kolaborasi Pasukan
 
-**Fokus:** Bina borang create/edit pertama dengan view model & server-side validation.
+**Fokus:** Cara 4 pasukan menulis kod serentak tanpa berlanggar. Hari ini menetapkan disiplin yang menentukan sama ada Hari 15 berjalan lancar atau menjadi malapetaka gabungan.
 
 | Masa | Agenda |
 |------|--------|
 | 8.30 – 9.00 pagi | Pendaftaran & Minum Pagi |
-| **9.00 – 1.00 tgh** | **SESI 5–6: Borang Lapor Diri** — `OfficerReportingApplication`, `OfficerReportingCreateViewModel`, controller `Index/Create/Edit/Details`, Razor view, DataAnnotations. 💻 **Lab:** borang boleh cipta & edit |
+| **9.00 – 10.30 pagi** | **SESI 5: Git Asas & Repositori** — `clone`, `status`, `add`, `commit`, `push`, `pull --rebase`; format mesej commit kursus; `.gitignore`. 💻 **Lab:** setiap peserta clone repo & buat commit pertama |
+| **10.30 – 1.00 tgh** | **SESI 6: Strategi Percabangan & Code Review** — `master` dilindungi, `asas/shared-foundation`, 4 cabang kumpulan, cabang ciri pendek; **pull request**, templat PR, senarai semak penyemak; **selesaikan konflik gabungan** secara langsung. 💻 **Lab:** cipta konflik dengan sengaja dan selesaikannya |
 | 1.00 – 2.30 petang | Rehat & Makan Tengah Hari |
-| **2.30 – 5.00 petang** | **SESI 7: Validation & Draf** — validation summary, simpan draf (data tidak lengkap dibenarkan), asingkan view model vs entiti. 💻 **Lab:** validation lengkap + simpan draf |
+| **2.30 – 3.45 petang** | **SESI 7: Agile & Pengurusan Kerja** — backlog, sprint, stand-up, Definition of Done; **GitHub Projects** (hands-on: isu → board → cabang → PR → tutup) dan **Jira** (demo: epic → story → subtask, sprint board, issue key dalam commit, pemetaan konsep GitHub ↔ Jira). 💻 **Lab:** setiap kumpulan bina backlog modulnya dari URS Hari 1 |
+| **3.45 – 5.00 petang** | **SESI 8: Kolaborasi, AI Berpasukan & Persekitaran** — matriks pemilikan fail, protokol fail kongsi, slot migration, peraturan AI kongsi (`AGENTS.md`); pasang .NET 10 SDK, IDE, `dotnet ef`, sahkan `dotnet --version`. 💻 **Lab:** persekitaran sedia + setiap kumpulan tandatangan kontrak `KOLABORASI.md` |
 | 5.00 petang | Bersurai |
 
-**Hasil Hari 2:** Lapor Diri boleh dicipta, disunting, disahkan, dan disimpan sebagai draf.
+**Hasil Hari 2:** Repo dengan 4 cabang kumpulan; board Agile berisi backlog setiap modul; setiap peserta boleh commit, buka PR, dan selesaikan konflik; persekitaran .NET 10 berjalan pada setiap mesin.
 
 ---
 
-## HARI 3 — Lapor Diri: Lampiran, Submit & Semakan
+## HARI 3 — Refresher .NET & Asas Kongsi
 
-**Fokus:** Lengkapkan modul pertama hujung-ke-hujung (lampiran → submit → semakan HR → audit).
+**Fokus:** Ulangkaji .NET **sambil membina asas sebenar** yang keempat-empat kumpulan akan guna. Hujung hari ini, semua kumpulan bercabang dari asas yang sama.
 
 | Masa | Agenda |
 |------|--------|
 | 8.30 – 9.00 pagi | Pendaftaran & Minum Pagi |
-| **9.00 – 1.00 tgh** | **SESI 8–9: Muat Naik Lampiran** — `IFileStorageService`, simpan di `App_Data/uploads/{id}/`, `Attachment` metadata, validasi saiz/jenis, nama fail selamat. 💻 **Lab:** muat naik + simpan metadata |
+| **9.00 – 10.30 pagi** | **SESI 9: Teras C# & ASP.NET Core** — OOP, LINQ, `async/await`, **Dependency Injection**; `dotnet new mvc`, `Program.cs` & middleware pipeline, corak Controller/View/ViewModel. 💻 **Lab:** projek `Nres.Onboarding.Web` berjalan |
+| **10.30 – 1.00 tgh** | **SESI 10: EF Core & Entiti Kongsi** — `DbContext`, Data Annotations vs **Fluent API**, hubungan & kunci asing. 💻 **Lab:** tulis `SubmissionStatus`, `Submission`, `Attachment`, `AuditLog`, `ApprovalStep`, `UserProfile` + `IEntityTypeConfiguration<T>` |
 | 1.00 – 2.30 petang | Rehat & Makan Tengah Hari |
-| **2.30 – 5.00 petang** | **SESI 10: Submit & Semakan HR** — `IReferenceNumberService` (`LD-2026-####`), tukar status ke `Submitted`, audit log, halaman semakan HR, approve/reject (wajib sebab). 💻 **Lab:** aliran penuh Modul 1 |
+| **2.30 – 3.45 petang** | **SESI 11: Identity, RBAC & Servis Kongsi** — Identity, `[Authorize(Roles=...)]`, seed 6 peranan; daftar `IReferenceNumberService`, `IFileStorageService`, `IAuditLogService`, `IWorkflowService`, `INotificationService`, `ICurrentUserService`; partial view kongsi + `SubmissionControllerBase`. 💻 **Lab:** asas kongsi lengkap |
+| **3.45 – 5.00 petang** | **SESI 12: Seni Bina Anti-Konflik & Buka Cabang** — modul mendaftar diri (`Add<Modul>Module`), `ApplyConfigurationsFromAssembly`, navigasi didorong `ModuleDescriptor`; migration `InitialShared`; gabung `asas/shared-foundation` → `master`; buka 4 cabang kumpulan. 💻 **Lab:** migration + 4 cabang sedia |
 | 5.00 petang | Bersurai |
 
-**Hasil Hari 3:** Lapor Diri menyokong draf, submit, lampiran, approve, reject, dan audit log.
+**Hasil Hari 3:** `master` mengandungi asas kongsi lengkap + migration `InitialShared`; 4 cabang kumpulan dibuka; setiap kumpulan tahu **tepat** fail mana miliknya dan komponen kongsi mana yang **tidak boleh** ditulis semula.
 
 ---
 
-## HARI 4 — Pas/Parking/Pelekat: Pemodelan
+# FASA 2 — 4 TREK SELARI (HARI 4–14)
 
-**Fokus:** Model satu modul dengan **tiga** jenis permohonan berkongsi `Submission` induk.
+Keempat-empat kumpulan mengikut **blok yang sama** pada hari yang sama, dengan kandungan modul masing-masing. Ini memudahkan jurulatih berpusing dan membolehkan sesi kongsi merentas kumpulan.
 
-| Masa | Agenda |
-|------|--------|
-| **9.00 – 1.00 tgh** | **SESI 11–12: Model 3 Jenis** — `AccessPassApplication`, `VehicleStickerApplication`, `ParkingApplication`, `Vehicle` (staf boleh >1 kenderaan). 💻 **Lab:** entiti + relasi |
-| **2.30 – 5.00 petang** | **SESI 13: Migration & Skrin Awal** — halaman landing modul, laluan 3 jenis, migration. 💻 **Lab:** migration + navigasi modul |
+| Blok | Tema kongsi | K1 · Lapor Diri | K2 · Pas/Parkir/Pelekat | K3 · ID/AD/Email | K4 · Perisian & Aset ICT |
+|------|-------------|-----------------|--------------------------|------------------|---------------------------|
+| **Hari 4** | Skema DB & skrin pertama | Skema + borang draf lapor diri | Skema akses & kenderaan + halaman utama modul | Skema akaun & akses + jenis permohonan | Katalog aset & perisian + seed data |
+| **Hari 5–6** | Borang & peraturan perniagaan | Muat naik dokumen + nombor rujukan `LD` + hantar | Borang pas/pelekat/parkir + **semakan pendua no. plat** | Borang akaun AD/e-mel + **kelulusan Penyelia** (peringkat 1) | Borang lesen & pinjaman + **semakan stok masa-nyata** + akuan terima |
+| **Hari 7–9** | Aliran kelulusan & skrin admin | Dashboard HR + approve/reject + ulasan | Skrin Pegawai Keselamatan + kelulusan bersyarat + peruntukan lot | Pemprosesan ICT + **RBAC** + simulasi AD | Kelulusan Unit Aset + **pemulangan** (Baik/Rosak/Hilang) + kemas kini inventori |
+| **Hari 10–12** | Notifikasi, laporan & dashboard | Notifikasi e-mel + **Slip Akuan PDF** + dashboard analitik HR | **QR/Barcode** + skrin semakan ronda + laporan bercetak | Penjejakan status + **audit trail** + dashboard ICT | Peringatan lewat tempoh + dashboard inventori + **eksport PDF/Excel** |
+| **Hari 13–14** | Ujian, refactor & sedia gabung | xUnit + optimasi query EF Core | Ujian E2E + bug fixing + pemantapan validasi | **RBAC testing** + security audit log | Ujian pemulangan lewat/lesen/stok + pembersihan kod |
 
-**Hasil Hari 4:** Jadual & skrin awal Modul 2 wujud.
+**Rentak setiap hari Fasa 2** (rujuk [`KOLABORASI.md`](./KOLABORASI.md) §8):
 
----
+| Masa | Aktiviti |
+|------|----------|
+| 9.00 – 9.15 | Stand-up per kumpulan + `git pull --rebase origin master` |
+| 9.15 – 9.25 | **Semakan silang AI** — kesan pertindihan antara kumpulan lebih awal |
+| 9.25 – 1.00 | Sesi pembangunan (commit kecil & kerap) |
+| 2.30 – 4.30 | Sesi pembangunan |
+| 4.30 – 5.00 | Code review berpasangan + PR + push + kemas kini board |
 
-## HARI 5 — Pas/Parking/Pelekat: Borang & Peraturan
+> **Gabungan latihan:** di hujung **setiap blok**, setiap kumpulan menggabungkan cabangnya ke `master` melalui PR. Menjelang Hari 15, `master` sudah mengandungi keempat-empat modul — Hari 15 tertumpu pada integrasi dan demo, bukan menyelamatkan gabungan.
 
-**Fokus:** Conditional validation & semakan pendua (duplicate active application).
-
-| Masa | Agenda |
-|------|--------|
-| **9.00 – 1.00 tgh** | **SESI 14–15: 3 Borang** — pas keselamatan, pelekat kenderaan, parkir; medan `Vehicle` dikongsi. 💻 **Lab:** bina 3 borang |
-| **2.30 – 5.00 petang** | **SESI 16: Peraturan Perniagaan** — satu pas aktif/pemohon, satu pelekat aktif/kenderaan, parkir khas perlu justifikasi. 💻 **Lab:** conditional validation + `AnyAsync` duplicate check |
-
-**Hasil Hari 5:** Ketiga-tiga borang simpan data sah & sekat pendua.
-
----
-
-## HARI 6 — Pas/Parking/Pelekat: Kelulusan & Cetakan
-
-**Fokus:** Semakan admin, penapisan (filter) operasi, dan print summary.
-
-| Masa | Agenda |
-|------|--------|
-| **9.00 – 1.00 tgh** | **SESI 17–18: Senarai & Kelulusan Admin** — halaman senarai admin, filter (jenis, status, jabatan, julat tarikh), halaman detail, approve/reject (wajib sebab), prefix `PAS`/`PKR`/`STK`. 💻 **Lab:** aliran kelulusan |
-| **2.30 – 5.00 petang** | **SESI 19: Print Summary** — Razor print view, `@media print`, ringkasan boleh cetak. 💻 **Lab:** cetakan + audit |
-
-**Hasil Hari 6:** Modul 2 ada aliran kelulusan & ringkasan boleh cetak.
+**Butiran penuh setiap blok:** lihat `README.md` dalam folder trek setiap kumpulan.
 
 ---
 
-## HARI 7 — ID/AD/Email: Discovery & Model
+# FASA 3 — SESI BERSAMA
 
-**Fokus:** Faham aliran permohonan akaun ICT + kekangan keselamatan (**jangan sesekali simpan kata laluan**).
+## HARI 15 — Penggabungan Kod, SIT & Persembahan Demo
 
-| Masa | Agenda |
-|------|--------|
-| **9.00 – 1.00 tgh** | **SESI 20–21: Jenis Permohonan** — akaun AD baharu, email, kemas kini akaun, nyahaktif, akses sistem tambahan; `AccountRequest`, `RequestedSystemAccess`, `ApprovalStep`. 💻 **Lab:** model + seed jenis akses |
-| **2.30 – 5.00 petang** | **SESI 22: Dashboard Modul ICT** — skrin awal, seed access types (AD, Email, Shared folder, VPN, Sistem dalaman). 💻 **Lab:** dashboard + migration |
-
-**Hasil Hari 7:** Model permohonan akaun & skrin awal wujud.
-
----
-
-## HARI 8 — ID/AD/Email: Rantaian Kelulusan & Authorization
-
-**Fokus:** Kelulusan berbilang langkah + role-based authorization sebenar.
+**Fokus:** Satukan kerja 4 kumpulan menjadi satu sistem, uji ia secara menyeluruh, dan bentangkan.
 
 | Masa | Agenda |
 |------|--------|
-| **9.00 – 1.00 tgh** | **SESI 23–24: Borang & Aliran** — `Applicant Draft → Submitted → SupervisorApproved → Completed`; borang permohonan, skrin kelulusan Supervisor, skrin proses ICT. 💻 **Lab:** aliran 3 peringkat |
-| **2.30 – 5.00 petang** | **SESI 25: Authorization** — `[Authorize(Roles=...)]`, `IWorkflowService` semak peralihan status. 💻 **Lab:** kuatkuasa peranan pada controller |
-
-**Hasil Hari 8:** Permohonan akaun menyokong hantar → kelulusan Supervisor → penyempurnaan ICT.
-
----
-
-## HARI 9 — ID/AD/Email: Notifikasi, Carian & Audit
-
-**Fokus:** Struktur notifikasi, carian/penapisan, dan sejarah audit.
-
-| Masa | Agenda |
-|------|--------|
-| **9.00 – 1.00 tgh** | **SESI 26–27: Notifikasi** — `INotificationService` + `ConsoleNotificationService`, cetus pada submit/approve/reject/complete. 💻 **Lab:** hook notifikasi |
-| **2.30 – 5.00 petang** | **SESI 28: Carian & Audit** — carian ikut rujukan/pemohon/jabatan/status/jenis, panel audit pada halaman detail. 💻 **Lab:** carian + audit panel |
-
-**Hasil Hari 9:** Modul 3 ada notifikasi, carian, filter, dan sejarah audit.
-
----
-
-## HARI 10 — PKS: Model Pematuhan
-
-**Fokus:** Model checklist & pengisytiharan (declaration) berpaksikan versi polisi.
-
-| Masa | Agenda |
-|------|--------|
-| **9.00 – 1.00 tgh** | **SESI 29–30: Model PKS** — `PolicyVersion`, `ComplianceChecklistItem`, `ComplianceDeclaration`, `ComplianceResponse`; simpan versi polisi dengan setiap declaration. 💻 **Lab:** entiti PKS |
-| **2.30 – 5.00 petang** | **SESI 31: Seed Data** — seed versi polisi & item checklist dalam DB. 💻 **Lab:** seed + migration |
-
-**Hasil Hari 10:** Jadual PKS & item checklist berseed wujud.
-
----
-
-## HARI 11 — PKS: Borang Checklist Dinamik & Kunci
-
-**Fokus:** Borang checklist dijana dari DB + kunci declaration selepas hantar.
-
-| Masa | Agenda |
-|------|--------|
-| **9.00 – 1.00 tgh** | **SESI 32–33: Borang Dinamik** — muat item checklist aktif dari DB, render dalam Razor, `ComplianceDeclarationViewModel` + senarai respons. 💻 **Lab:** borang checklist dinamik |
-| **2.30 – 5.00 petang** | **SESI 34: Simpan & Kunci** — simpan semua respons dalam satu transaksi, sahkan akuan (acknowledgement), kunci edit selepas `Submitted`. 💻 **Lab:** submit + lock |
-
-**Hasil Hari 11:** Declaration PKS boleh dilengkap & terkunci selepas hantar.
-
----
-
-## HARI 12 — PKS: Semakan Admin & Laporan
-
-**Fokus:** Semakan pematuhan, penapisan, dan CSV export.
-
-| Masa | Agenda |
-|------|--------|
-| **9.00 – 1.00 tgh** | **SESI 35–36: Semakan** — halaman senarai admin, filter (jabatan, status, versi polisi, tarikh), halaman detail respons checklist, catatan ketidakpatuhan. 💻 **Lab:** semakan admin |
-| **2.30 – 5.00 petang** | **SESI 37: CSV Export** — jana CSV pematuhan ikut jabatan/versi polisi. 💻 **Lab:** eksport CSV |
-
-**Hasil Hari 12:** Modul 4 ada semakan, penapisan, dan CSV export.
-
----
-
-## HARI 13 — Aset ICT: Pemodelan
-
-**Fokus:** Model permohonan perisian, pinjaman aset, dan pemulangan aset.
-
-| Masa | Agenda |
-|------|--------|
-| **9.00 – 1.00 tgh** | **SESI 38–39: Model Aset** — `Asset`, `SoftwareCatalogItem`, `SoftwareRequest`, `AssetLoanRequest`, `AssetReturn`; status permohonan vs status aset berbeza. 💻 **Lab:** entiti + relasi |
-| **2.30 – 5.00 petang** | **SESI 40: Seed Katalog** — seed perisian & aset contoh, status aset `Available/OnLoan/...`. 💻 **Lab:** seed + migration |
-
-**Hasil Hari 13:** Model & data lookup Modul 5 wujud.
-
----
-
-## HARI 14 — Aset ICT: Borang, Kelulusan & Inventori
-
-**Fokus:** Borang ICT + kemas kini inventori dengan selamat (transaksi).
-
-| Masa | Agenda |
-|------|--------|
-| **9.00 – 1.00 tgh** | **SESI 41–42: 3 Borang** — permohonan perisian, pinjaman aset, pemulangan aset; semakan availability aset. 💻 **Lab:** bina 3 borang |
-| **2.30 – 5.00 petang** | **SESI 43: Transaksi Inventori** — kelulusan & fulfillment ICT, `BeginTransactionAsync`, kemas kini status aset (`OnLoan`/`Available`/`UnderMaintenance`). 💻 **Lab:** transaksi selamat |
-
-**Hasil Hari 14:** Aliran perisian, pinjaman & pemulangan aset berfungsi hujung-ke-hujung.
-
----
-
-## HARI 15 — Integrasi, Ujian & Deployment
-
-**Fokus:** Sambung semua modul, tulis ujian, deploy, dan demo akhir.
-
-| Masa | Agenda |
-|------|--------|
-| **9.00 – 10.30 pagi** | **SESI 44: Integrasi** — navigasi kongsi, dashboard (draf saya, dihantar, menunggu kelulusan, selesai), carian rujukan global, menu ikut peranan. 💻 **Lab:** integrasi |
-| **10.30 – 1.00 tgh** | **SESI 45: Ujian xUnit** — uji nombor rujukan, peralihan status, semakan pendua, availability aset, sebab reject wajib. 💻 **Lab:** unit + integration tests |
-| **2.30 – 3.45 petang** | **SESI 46: Deployment** — `appsettings` per persekitaran, tukar SQLite → SQL Server, HTTPS, folder muat naik, IIS/Linux/kontena. 💻 **Lab:** senarai semak keluaran |
-| **3.45 – 5.00 petang** | **Projek Capstone: Demo & Sijil** — skrip ujian manual 11 langkah, pembentangan, penilaian, penyampaian sijil |
+| 8.30 – 9.00 pagi | Pendaftaran & Minum Pagi |
+| **9.00 – 10.30 pagi** | **SESI 44: Penggabungan Repositori** — gabung 4 cabang kumpulan ke `master` mengikut turutan berjadual; selesaikan konflik yang tinggal; sahkan satu migration bersepadu; `dotnet build` bersih. 💻 **Lab:** merge berjadual |
+| **10.30 – 1.00 tgh** | **SESI 45: Papan Pemuka Induk NRES** — hubungkan keempat-empat modul: navigasi ikut peranan, dashboard peribadi (draf saya / dihantar / menunggu kelulusan saya / selesai), carian nombor rujukan global merentas modul. 💻 **Lab:** dashboard induk |
+| 1.00 – 2.30 petang | Rehat & Makan Tengah Hari |
+| **2.30 – 3.45 petang** | **SESI 46: SIT & UAT Pre-Check** — skrip ujian aliran rentas modul (satu staf baharu melalui keempat-empat modul), semakan **RBAC** setiap peranan, muat naik fail, kesempurnaan **audit log**; rekod isu & keputusan lulus/gagal. 💻 **Lab:** jalankan skrip SIT |
+| **3.45 – 5.00 petang** | **Demo & Penilaian Capstone** — setiap kumpulan membentangkan modul, keputusan seni bina, dan pengajaran kolaborasi; penilaian; nota deployment (SQLite → SQL Server); penyampaian sijil |
 | 5.00 petang | Bersurai |
 
-**Hasil Hari 15:** Aplikasi NRES bersepadu 5 modul, berujian, boleh-deploy, dibentangkan.
+**Hasil Hari 15:** Satu aplikasi NRES bersepadu 4 modul pada `master`, lulus SIT, dibentangkan oleh keempat-empat kumpulan.
 
 ---
 
@@ -270,22 +174,26 @@
 
 | Kriteria | Wajaran |
 |----------|---------|
-| Modul lengkap & berfungsi (5 modul) | 30% |
-| Corak aliran kerja betul (draft→submit→approve→audit) | 20% |
-| Validation, authorization & keselamatan | 20% |
-| Ujian (xUnit) | 15% |
-| Pembentangan & dokumentasi | 15% |
+| Modul kumpulan lengkap & berfungsi | 25% |
+| Corak aliran kerja betul (draft→submit→approve→audit) | 15% |
+| Validation, authorization & keselamatan | 15% |
+| Ujian (xUnit) & kualiti kod | 15% |
+| **Kolaborasi Git & Agile** (kualiti commit, PR, board, merge bersih) | 15% |
+| **Dokumentasi** (URS, ERD, diagram, README modul) | 10% |
+| Pembentangan demo | 5% |
 
-> Peserta yang menyiapkan semua lab, aliran 5 modul, ujian, dan pembentangan capstone menerima **Sijil Penyertaan** — *Pembangunan Sistem Dalaman NRES Dengan ASP.NET Core*.
+> Peserta yang menyiapkan lab treknya, menyumbang kepada gabungan Hari 15, dan membentangkan demo menerima **Sijil Penyertaan** — *Pembangunan Sistem Dalaman NRES Dengan ASP.NET Core*.
 
 ## Pemetaan Sesi → Deliverable
 
 | Hari | Deliverable / Artifak |
 |------|------------------------|
-| 1 | `Nres.Onboarding.Web` berjalan + migration `InitialShared` |
-| 2–3 | Modul Lapor Diri lengkap (`OfficerReportingApplications`) |
-| 4–6 | Modul Pas/Parking/Pelekat (`Vehicles`, 3 jadual permohonan) |
-| 7–9 | Modul ID/AD/Email (`AccountRequests`, `RequestedSystemAccesses`) |
-| 10–12 | Modul PKS (4 jadual pematuhan + CSV) |
-| 13–14 | Modul Aset ICT (5 jadual aset/perisian) |
-| 15 | `Nres.Onboarding.Tests` + senarai semak deployment |
+| 1 | `docs/URS-modul-N.md`, `use-case-modul-N.md`, `erd-modul-N.md` (4 set) |
+| 2 | Repo + 4 cabang kumpulan · board Agile berisi backlog · persekitaran .NET 10 sedia |
+| 3 | `master` + asas kongsi + migration `InitialShared` · 4 cabang dibuka |
+| 4 | Skema & skrin pertama setiap modul (4 modul) |
+| 5–6 | Borang + peraturan perniagaan setiap modul |
+| 7–9 | Aliran kelulusan & skrin admin setiap modul |
+| 10–12 | Notifikasi, laporan & dashboard setiap modul |
+| 13–14 | `Nres.Onboarding.Tests` + kod dibersihkan + cabang sedia gabung |
+| 15 | `master` bersepadu 4 modul · Papan Pemuka Induk · laporan SIT · demo |

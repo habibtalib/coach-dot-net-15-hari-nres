@@ -1,29 +1,25 @@
-# Hari 1 — Persediaan Projek & Seni Bina Kongsi
+# Hari 1 — Perancangan Projek, Dokumentasi, URS & ERD
 
-Nota ini mengikut **aturcara rasmi HARI 1** dalam [`../JADUAL.md`](../JADUAL.md) — SESI 1 hingga SESI 4. Bahagian ini menerangkan **konsep** (kenapa sesuatu wujud); langkah hands-on penuh, bernombor, dengan kod untuk ditaip sendiri, ada di [`snippets/lab.md`](./snippets/lab.md).
+Nota ini mengikut **aturcara rasmi HARI 1** dalam [`../JADUAL.md`](../JADUAL.md) — SESI 1 hingga SESI 4. Bahagian ini menerangkan **konsep** (kenapa sesuatu wujud); langkah hands-on penuh ada di [`snippets/lab.md`](./snippets/lab.md).
 
-Kursus: **DOTNET-NRES-15** — *Latihan Secara Coaching Pembangunan Sistem Onboarding & Khidmat Dalaman NRES Menggunakan ASP.NET Core*. Projek tunggal yang kita bina **kumulatif** sepanjang 15 hari: `Nres.Onboarding.Web`.
+Kursus: **DOTNET-NRES-15** — *Latihan Secara Coaching Pembangunan Sistem Onboarding & Khidmat Dalaman NRES Menggunakan ASP.NET Core*.
 
-> **Konvensyen bahasa:** Nota & penerangan dalam **Bahasa Melayu**; semua kod, nama kelas/pembolehubah, nama fail, dan istilah teknikal (`Controller`, `DbContext`, `migration`) dikekalkan dalam **Bahasa Inggeris** — amalan standard industri .NET.
+> **Konvensyen bahasa:** Nota & penerangan dalam **Bahasa Melayu**; kod, nama kelas, dan istilah teknikal (`entity`, `use case`, `foreign key`) dikekalkan dalam **Bahasa Inggeris**.
 
-> **Cara guna nota ini:** Bahagian di bawah menerangkan **kenapa** setiap konsep wujud dan apa peranannya dalam sistem NRES. Latihan hands-on langkah demi langkah (dengan blok kod penuh untuk ditaip) ada di [`snippets/lab.md`](./snippets/lab.md). Baca bahagian yang sepadan di sini dahulu, kemudian pindah ke lab untuk cuba sendiri.
+> **Hari ini tiada C#.** Ini disengajakan. Kita tulis **dokumen**, bukan kod — kerana keputusan yang dibuat hari ini menentukan sama ada empat kumpulan boleh bekerja selari selama 11 hari tanpa berlanggar.
 
 ---
 
 ## Fokus Hari Ini
 
-| Topik | Rujukan rasmi |
-|-------|----------------|
-| `dotnet new` templates | [learn.microsoft.com/dotnet/core/tools/dotnet-new](https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-new) |
-| ASP.NET Core MVC — gambaran keseluruhan | [learn.microsoft.com/aspnet/core/mvc/overview](https://learn.microsoft.com/en-us/aspnet/core/mvc/overview) |
-| `Program.cs` & minimal hosting model | [learn.microsoft.com/aspnet/core/fundamentals/minimal-apis](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/minimal-apis) |
-| Dependency Injection dalam ASP.NET Core | [learn.microsoft.com/aspnet/core/fundamentals/dependency-injection](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection) |
-| EF Core — permulaan (Get Started) | [learn.microsoft.com/ef/core/get-started/overview/first-app](https://learn.microsoft.com/en-us/ef/core/get-started/overview/first-app) |
-| EF Core — penyedia SQLite | [learn.microsoft.com/ef/core/providers/sqlite](https://learn.microsoft.com/en-us/ef/core/providers/sqlite/) |
-| ASP.NET Core Identity | [learn.microsoft.com/aspnet/core/security/authentication/identity](https://learn.microsoft.com/en-us/aspnet/core/security/authentication/identity) |
-| EF Core Migrations | [learn.microsoft.com/ef/core/managing-schema/migrations](https://learn.microsoft.com/en-us/ef/core/managing-schema/migrations/) |
-| `dotnet ef` CLI | [learn.microsoft.com/ef/core/cli/dotnet](https://learn.microsoft.com/en-us/ef/core/cli/dotnet) |
-| EF Core — relationships (foreign key) | [learn.microsoft.com/ef/core/modeling/relationships](https://learn.microsoft.com/en-us/ef/core/modeling/relationships) |
+| Topik | Rujukan |
+|-------|---------|
+| Keperluan pengguna (URS) vs spesifikasi perisian (SRS) | [ISO/IEC/IEEE 29148 — ringkasan](https://en.wikipedia.org/wiki/ISO/IEC_IEEE_29148) |
+| Use case & aktor | [UML Use Case — gambaran](https://en.wikipedia.org/wiki/Use_case_diagram) |
+| Diagram sebagai kod | [Mermaid — dokumentasi rasmi](https://mermaid.js.org/intro/) |
+| Mermaid flowchart | [mermaid.js.org/syntax/flowchart](https://mermaid.js.org/syntax/flowchart.html) |
+| Mermaid ERD | [mermaid.js.org/syntax/entityRelationshipDiagram](https://mermaid.js.org/syntax/entityRelationshipDiagram.html) |
+| Pemodelan data & hubungan | [learn.microsoft.com/ef/core/modeling/relationships](https://learn.microsoft.com/en-us/ef/core/modeling/relationships) |
 
 ---
 
@@ -32,151 +28,314 @@ Kursus: **DOTNET-NRES-15** — *Latihan Secara Coaching Pembangunan Sistem Onboa
 | Masa | Agenda |
 |------|--------|
 | 8.30 – 9.00 pagi | Pendaftaran Peserta & Minum Pagi |
-| **9.00 – 10.30 pagi** | **SESI 1: Gambaran Sistem NRES** — 5 modul, corak `Form → Draft → Submit → Review → Approve → Audit`, kenapa satu `Submission` induk dikongsi. 🧠 Bengkel: peta medan sama merentas 5 modul |
-| **10.30 – 1.00 tgh** | **SESI 2: Cipta Projek ASP.NET Core** — `dotnet new mvc`, struktur folder, `Program.cs`, pakej EF Core + Identity. 💻 Lab: projek berjalan + halaman utama |
+| **9.00 – 10.30 pagi** | **SESI 1: Perancangan Projek & Skop** — sistem NRES sebagai *request workflow system*; 4 modul & kumpulan; peranan; risiko; definisi "siap". 🧠 Bengkel: peta medan sama merentas 4 modul |
+| **10.30 – 1.00 tgh** | **SESI 2: URS & SRS** — beza URS vs SRS; keperluan yang boleh diuji; kriteria penerimaan. 💻 Lab: URS modul sendiri (draf AI → semakan manusia) |
 | 1.00 – 2.30 petang | Rehat dan Makan Tengah Hari |
-| **2.30 – 3.45 petang** | **SESI 3: Entiti Kongsi & DbContext** — `Submission`, `Attachment`, `AuditLog`, `UserProfile`, `SubmissionStatus`. 💻 Lab: tulis entiti + `ApplicationDbContext` |
-| **3.45 – 5.00 petang** | **SESI 4: Migration Pertama** — `dotnet ef migrations add`, `dotnet ef database update`, sahkan skema SQLite. 💻 Lab: DB dicipta + navigasi modul placeholder |
+| **2.30 – 3.45 petang** | **SESI 3: Process Flow & Use Case** — aktor, use case, aliran utama vs alternatif; diagram sebagai kod (Mermaid). 💻 Lab: process flow + use case diagram |
+| **3.45 – 5.00 petang** | **SESI 4: ERD & Reka Bentuk Data** — entiti, hubungan, kardinaliti, kunci asing; kenapa satu `Submission` induk dikongsi. 💻 Lab: ERD modul + sahkan terhadap SPEC |
 | 5.00 petang | Bersurai |
 
-**Hasil Hari 1** (rujuk [`../JADUAL.md`](../JADUAL.md)): Aplikasi ASP.NET Core berjalan, DB tersambung, migration pertama (`InitialShared`) wujud, peserta boleh terangkan kelima-lima modul.
+**Hasil Hari 1:** `docs/URS-modul-N.md`, `docs/use-case-modul-N.md`, `docs/erd-modul-N.md` bagi setiap kumpulan; peserta boleh terangkan keempat-empat modul dan corak aliran kerja kongsi.
 
 ---
 
-## SESI 1 — Gambaran Sistem NRES: Bukan Sekadar Borang Digital
+## SESI 1 — Perancangan Projek & Skop
 
-**Kenapa mula dengan gambaran keseluruhan, bukan terus menaip kod?** Ramai peserta baharu anggap sistem ini "borang HTML yang simpan ke DB". Itu tidak salah, tetapi tidak cukup. Sistem NRES sebenarnya ialah **request workflow system** — setiap permohonan melalui kitaran hayat yang sama, tidak kira jenis permohonan:
+### Kenapa mula dengan perancangan, bukan terus menaip kod?
+
+Ramai peserta menganggap sistem ini "borang HTML yang simpan ke pangkalan data". Itu tidak salah, tetapi tidak cukup — dan salah faham ini menjadi mahal apabila **empat kumpulan** membina serentak.
+
+Sistem NRES sebenarnya ialah **request workflow system**. Setiap permohonan — tidak kira jenisnya — melalui kitaran hayat yang sama:
 
 ```text
 Form → Validation → Draft → Submit → Review → Approve/Reject → Audit → Report
 ```
 
-Lima modul yang akan kita bina sepanjang 15 hari:
+Kalau kita nampak corak ini **hari ini**, kita boleh membina bahagian yang sama **sekali sahaja** (Hari 3) dan keempat-empat kumpulan menggunakannya. Kalau kita tidak nampak, setiap kumpulan akan membina versinya sendiri, dan Hari 15 akan mempunyai empat cara berlainan untuk meluluskan sesuatu.
 
-1. **Modul Lapor Diri** — Hari 2–3 (kursus kita fokus di sini)
-2. **Modul Pas, Parking & Pelekat Kenderaan** — Hari 4–6
-3. **Modul ID, AD & Email** — Hari 7–9
-4. **Modul PKS (Pematuhan Kod Setia)** — Hari 10–12
-5. **Modul Aset ICT** — Hari 13–14
+**Perancangan hari ini secara langsung menjimatkan kerja pada Hari 15.** Itu argumennya — bukan "dokumentasi itu amalan baik".
 
-**Kenapa satu `Submission` induk dikongsi merentas 5 modul?** Kalau setiap modul reka status/aliran kerja sendiri (`LaporDiriStatus`, `PasStatus`, `IctStatus`, …), setiap laporan pengurusan, setiap dashboard, setiap logik kelulusan perlu ditulis **lima kali**. Dengan satu jadual `Submissions` yang menyimpan `ReferenceNo`, `ModuleCode`, `Status` (`SubmissionStatus` — sama untuk semua modul), `ApplicantUserId`, dan tarikh penting, setiap modul cuma tambah jadual **detail** sendiri (`OfficerReportingApplications`, `AccessPassApplications`, dsb.) yang berkongsi kunci asing (`SubmissionId`) ke jadual induk. Dashboard, carian rujukan global, dan panel audit (Hari 15) boleh ditulis **sekali** dan berfungsi untuk kelima-lima modul.
+### Empat modul, empat kumpulan
 
-Ini corak seni bina **kongsi induk, khusus detail** (*shared header, specific detail*) — sangat lazim dalam sistem permohonan kerajaan/korporat berbilang jenis borang.
+| Kumpulan | Modul | Admin | Prefix |
+|----------|-------|-------|--------|
+| 1 | **Lapor Diri** — permohonan lapor diri pekerja baharu | `HrAdmin` | `LD` |
+| 2 | **Pas, Parkir & Pelekat** — akses kawasan & kenderaan | `SecurityAdmin` | `PAS` `PKR` `STK` |
+| 3 | **ID, AD & Email** — akaun pengguna & akses sistem | `Supervisor` → `IctAdmin` | `ICT-ID` |
+| 4 | **Perisian & Aset ICT** — lesen, pinjaman & pemulangan | `IctAdmin` | `SW` `AST-L` `AST-R` |
 
-### Peta medan sama merentas 5 modul (bengkel)
+Setiap kumpulan memiliki modulnya **hujung ke hujung** — reka bentuk data, borang, aliran kelulusan, laporan, ujian. Kumpulan tidak menulis kod untuk modul kumpulan lain.
 
-Sebelum menaip kod, kenali pasti medan yang **berulang** dalam hampir semua borang NRES: nama pemohon, nombor rujukan, jabatan, status, tarikh hantar, lampiran sokongan, catatan kelulusan/penolakan. Medan-medan ini itulah yang menjadi `Submission` + `Attachment` + `AuditLog` — bukan sebab kebetulan, tetapi sebab ia **benar-benar sama** merentas Lapor Diri, Pas Keselamatan, Permohonan ID AD, PKS, dan Aset ICT.
+### Bengkel: peta medan sama merentas 4 modul
 
-> Rujukan rasmi: [learn.microsoft.com/aspnet/core/mvc/overview](https://learn.microsoft.com/en-us/aspnet/core/mvc/overview)
+Sebelum menulis apa-apa, kenal pasti medan yang **berulang** dalam hampir semua borang NRES:
+
+nama pemohon · nombor rujukan · jabatan · status · tarikh hantar · lampiran sokongan · catatan kelulusan/penolakan · siapa lulus/tolak dan bila
+
+Medan-medan inilah yang akan menjadi `Submission` + `Attachment` + `AuditLog` — bukan kerana kebetulan, tetapi kerana ia **benar-benar sama** merentas Lapor Diri, Pas Keselamatan, Permohonan ID AD, dan Aset ICT.
+
+**Kenapa satu `Submission` induk dikongsi?** Kalau setiap modul mereka status dan aliran kerjanya sendiri (`LaporDiriStatus`, `PasStatus`, `IctStatus`, …), maka setiap laporan pengurusan, setiap dashboard, dan setiap logik kelulusan perlu ditulis **empat kali**. Dengan satu jadual `Submissions` yang menyimpan `ReferenceNo`, `ModuleCode`, `Status`, `ApplicantUserId`, dan tarikh penting, setiap modul cuma menambah jadual **detail** sendiri yang berkongsi kunci asing `SubmissionId`. Dashboard induk, carian rujukan global, dan panel audit (Hari 15) ditulis **sekali** dan berfungsi untuk keempat-empat modul.
+
+Corak ini dipanggil **kongsi induk, khusus detail** (*shared header, specific detail*) — sangat lazim dalam sistem permohonan kerajaan berbilang jenis borang.
+
+### Risiko projek yang kita uruskan secara sedar
+
+| Risiko | Kesan jika diabaikan | Cara kita tangani |
+|--------|----------------------|-------------------|
+| Empat kumpulan mengedit fail yang sama | Konflik gabungan Hari 15 | Seni bina modul mendaftar diri (Hari 3) + matriks pemilikan fail ([`KOLABORASI.md`](../KOLABORASI.md)) |
+| Empat versi logik yang sama | Sistem tidak boleh diselenggara | Daftar komponen kongsi + code review |
+| AI menjana semula kod sedia ada | Duplikasi senyap | `AGENTS.md` kongsi + peraturan *cari dahulu* |
+| Keperluan tidak jelas | Bina benda yang salah dengan cekap | URS bertulis + kriteria penerimaan (hari ini) |
+| Kerja disimpan sampai Hari 15 | Gabungan gagal | Gabungan latihan hujung setiap blok |
+
+### Definisi "siap"
+
+Satu ciri **bukan** siap apabila ia "berfungsi pada mesin saya". Definition of Done penuh ada dalam [`KOLABORASI.md`](../KOLABORASI.md) §9 — baca hari ini, guna selama 11 hari.
 
 ---
 
-## SESI 2 — Cipta Projek ASP.NET Core
+## SESI 2 — URS & SRS
 
-**Kenapa `dotnet new mvc`, bukan `webapi` atau Razor Pages kosong?** SPEC-KURSUS.md menetapkan **ASP.NET Core MVC** sebagai rangka kerja muktamad kursus ini — corak `Controller` + `View` + `ViewModel` yang jelas memisahkan logik permohonan (controller), paparan (Razor view), dan bentuk data borang (view model). Corak ini juga paling biasa diguna pakai dalam sistem dalaman kerajaan/korporat Malaysia, memudahkan peserta membawa kemahiran ini ke tempat kerja.
+### Beza URS dan SRS
 
-Templat `dotnet new mvc` menjana struktur projek asas — `Controllers/`, `Views/`, `wwwroot/`, `Program.cs` — yang akan kita kembangkan mengikut struktur muktamad SPEC:
+| | **URS** (User Requirements Specification) | **SRS** (Software Requirements Specification) |
+|---|---|---|
+| Menjawab | **Apa** yang pengguna perlu buat | **Bagaimana** sistem menyediakannya |
+| Bahasa | Bahasa pengguna | Bahasa teknikal |
+| Ditulis oleh | Pengguna + penganalisis | Pasukan pembangunan |
+| Contoh | "Pegawai HR mesti boleh menolak permohonan lapor diri dengan sebab" | "`POST /OfficerReporting/Reject` memerlukan `RejectionReason` tidak kosong (maks 500 aksara), menetapkan status kepada `Rejected`, menulis `AuditLog`, dan mencetuskan `INotificationService`" |
+
+Kita menulis **kedua-duanya** hari ini: URS dahulu (apa yang NRES perlukan), kemudian menterjemahkannya menjadi keperluan sistem yang boleh diuji.
+
+### Ciri keperluan yang baik
+
+Keperluan yang baik adalah **boleh diuji**. Jika anda tidak boleh menulis ujian yang lulus atau gagal, ia bukan keperluan — ia harapan.
+
+| ❌ Lemah | ✅ Baik |
+|---------|--------|
+| "Sistem mesti pantas" | "Senarai permohonan memuat dalam 2 saat untuk 1,000 rekod" |
+| "Muat naik dokumen selamat" | "Hanya PDF/JPG/PNG, maksimum 5 MB, disimpan di luar `wwwroot`, hanya pemohon dan admin modul boleh memuat turun" |
+| "Kelulusan mesti dijejak" | "Setiap perubahan status merekod pengguna, cap masa, status lama/baharu, dan catatan dalam `AuditLog`" |
+| "Elakkan permohonan pendua" | "Sistem menolak permohonan pelekat baharu jika nombor plat sama sudah ada permohonan berstatus `Submitted`, `SupervisorApproved`, atau `AdminApproved`" |
+
+**Format yang kita guna** (setiap keperluan mendapat ID supaya boleh dirujuk dalam isu, commit, dan ujian):
+
+```markdown
+### URS-LD-005 — Tolak permohonan dengan sebab
+
+**Sebagai** Pegawai HR
+**Saya mahu** menolak permohonan lapor diri dengan sebab bertulis
+**Supaya** pemohon tahu apa yang perlu dibetulkan
+
+**Kriteria penerimaan**
+- [ ] Butang "Tolak" hanya kelihatan kepada peranan `HrAdmin`
+- [ ] Sebab penolakan wajib diisi (1–500 aksara)
+- [ ] Status bertukar `Submitted` → `Rejected`
+- [ ] `AuditLog` merekod pengguna, masa, dan sebab
+- [ ] Pemohon menerima notifikasi
+- [ ] Permohonan yang ditolak tidak boleh ditolak semula
+
+**Keutamaan:** Mesti ada
+```
+
+### Menggunakan AI untuk URS — cara berdisiplin
+
+AI sangat pantas menghasilkan draf pertama URS, dan **sangat yakin ketika ia salah**. Peraturan kursus:
+
+**AI menulis draf. Manusia memutuskan.**
+
+Aliran kerja yang kita guna hari ini:
+
+1. **Beri konteks, bukan soalan kosong.** Beri AI borang NRES sebenar dan `SPEC-KURSUS.md`, bukan "tulis URS untuk sistem lapor diri".
+2. **Minta ia bertanya dahulu.** *"Sebelum menulis, senaraikan 10 soalan yang anda perlu tahu tentang proses ini."* Soalan-soalan itu selalunya lebih berharga daripada draf.
+3. **Jana draf.**
+4. **Semak baris demi baris.** Tandakan setiap keperluan: ✅ betul · ✏️ perlu betulkan · ❌ AI mereka-reka ini.
+5. **Cabar ia.** *"Keperluan mana yang anda paling kurang yakin? Apa yang anda andaikan tentang NRES yang mungkin salah?"*
+6. **Tanya apa yang tiada.** *"Kes tepi apa yang URS ini terlepas? Apa yang berlaku jika pemohon meletak jawatan sebelum kelulusan?"*
+
+> **Langkah 4 tidak boleh dilangkau.** Peserta yang menyerahkan URS jana-AI tanpa semakan akan mendapati Hari 7 bahawa mereka membina peraturan perniagaan yang NRES tidak pernah minta. Ini berlaku setiap kali ia dibenarkan berlaku.
+
+**Apa yang AI TIDAK boleh putuskan:** siapa meluluskan apa · berapa lama pas keselamatan sah · sama ada staf boleh mempunyai dua kenderaan · apa yang berlaku kepada aset yang hilang. Ini **keputusan dasar NRES**. Jika ia tiada dalam dokumen sumber, tandakan sebagai **soalan terbuka** — jangan biar AI mengisinya.
+
+---
+
+## SESI 3 — Process Flow & Use Case
+
+### Aktor dan use case
+
+**Aktor** ialah sesiapa (atau apa) yang berinteraksi dengan sistem. Dalam sistem NRES, aktor kita sepadan terus dengan peranan dalam [`SPEC-KURSUS.md`](../SPEC-KURSUS.md):
+
+`Applicant` · `Supervisor` · `HrAdmin` · `SecurityAdmin` · `IctAdmin` · `SystemAdmin`
+
+**Use case** ialah satu matlamat lengkap yang seorang aktor capai — "Hantar permohonan lapor diri", bukan "klik butang simpan". Ujian ringkas: jika aktor berhenti selepas melakukannya, adakah mereka mencapai sesuatu yang berguna?
+
+Setiap use case ada **aliran utama** (semua berjalan lancar) dan **aliran alternatif** (perkara menjadi menarik):
 
 ```text
-Nres.Onboarding.Web/
-  Controllers/
-  Data/                 # ApplicationDbContext, seed
-  Models/                # entiti (domain)
-  ViewModels/
-  Services/              # IReferenceNumberService, IFileStorageService, dll.
-  Views/
-  wwwroot/
-  App_Data/uploads/      # fail dimuat naik (bukan bawah wwwroot)
+Use case: Hantar permohonan lapor diri
+Aktor utama: Applicant
+
+Aliran utama:
+  1. Applicant membuka borang lapor diri
+  2. Applicant mengisi maklumat peribadi
+  3. Applicant memuat naik dokumen sokongan
+  4. Applicant menghantar
+  5. Sistem menjana nombor rujukan (LD-2026-####)
+  6. Sistem menukar status kepada Submitted
+  7. Sistem merekod audit dan memberitahu HR
+
+Aliran alternatif:
+  3a. Dokumen melebihi 5 MB → sistem menolak, kekalkan borang
+  4a. Medan wajib kosong → papar ralat validation, jangan hantar
+  4b. Applicant sudah ada permohonan aktif → sekat dengan mesej jelas
+  7a. Notifikasi gagal → permohonan tetap dihantar, kegagalan dilog
 ```
 
-**Kenapa `App_Data/uploads/` di luar `wwwroot/`?** Apa sahaja dalam `wwwroot/` **boleh dicapai terus** oleh pelayar web tanpa melalui kod kebenaran (authorization) kita. Fail lampiran sokongan (kad pengenalan, surat lantikan, dsb.) mengandungi maklumat sensitif — ia **mesti** disalurkan melalui satu `Controller` action yang menyemak kebenaran pengguna dahulu sebelum menghantar fail. Kita bina servis ini penuh di Hari 3.
+**Aliran alternatif itulah tempat pepijat bersembunyi.** Peserta yang hanya memodelkan aliran utama akan menghabiskan Hari 7–9 menemuinya semula satu demi satu.
 
-### `Program.cs` — model hosting minimal
+### Kenapa diagram sebagai kod (Mermaid)?
 
-.NET 10 (seperti .NET 6 ke atas) guna **minimal hosting model**: satu fail `Program.cs`, tiada `Startup.cs` berasingan. `WebApplication.CreateBuilder(args)` sediakan segala infrastruktur asas (konfigurasi, logging, DI container); `builder.Services.Add...()` daftar servis; `app.Map...()`/`app.Use...()` bina *middleware pipeline* yang memproses setiap request masuk secara berurutan.
+Kita menulis diagram dalam **Mermaid** — teks biasa yang dirender sebagai gambar rajah dalam GitHub, VS Code, dan Visual Studio.
 
-**Kenapa susunan middleware penting?** Setiap `app.Use...()` ialah satu lapisan yang request/response lalui — contohnya, `UseHttpsRedirection()` mesti berjalan **sebelum** `UseAuthorization()` supaya redirect HTTPS berlaku dahulu sebelum semakan kebenaran. Kita akan lihat susunan penuh dalam lab.
+| Alat lukisan (Visio, draw.io) | Mermaid |
+|-------------------------------|---------|
+| Fail binari | Teks biasa |
+| Tidak boleh di-`diff` dalam Git | `git diff` menunjukkan apa yang berubah |
+| Konflik gabungan tidak boleh diselesaikan | Konflik diselesaikan seperti kod |
+| Hidup di luar repo, cepat lapuk | Hidup bersama kod, dikemas kini dalam PR yang sama |
 
-### Pakej NuGet yang diperlukan
+Dalam projek 4 pasukan, ini penting: diagram anda ialah **dokumen hidup** yang disemak dalam PR, bukan gambar yang seseorang lukis pada Hari 1 dan tiada siapa lihat lagi.
 
-| Pakej | Kegunaan |
-|-------|----------|
-| `Microsoft.EntityFrameworkCore` | Teras EF Core (ORM) |
-| `Microsoft.EntityFrameworkCore.Design` | Sokongan `dotnet ef` CLI (migration) |
-| `Microsoft.EntityFrameworkCore.Sqlite` | Penyedia (provider) SQLite — untuk latihan |
-| `Microsoft.AspNetCore.Identity.EntityFrameworkCore` | ASP.NET Core Identity + storan EF Core |
+```mermaid
+flowchart LR
+    A[Isi borang] --> B{Sah?}
+    B -- Tidak --> A
+    B -- Ya --> C[Simpan draf]
+    C --> D[Hantar]
+    D --> E[Jana no. rujukan]
+    E --> F{Semakan admin}
+    F -- Lulus --> G[Approved]
+    F -- Tolak --> H[Rejected + sebab]
+    G --> I[(Audit log)]
+    H --> I
+```
 
-**Kenapa SQLite untuk latihan?** Peserta boleh mula tanpa memasang pelayan pangkalan data berasingan (SQL Server/PostgreSQL) — fail `.db` tunggal sudah memadai. Menukar penyedia kepada SQL Server kelak (Hari 15) hanya memerlukan menukar `UseSqlite(...)` kepada `UseSqlServer(...)` dan connection string — kod entiti dan logik perniagaan **tidak berubah**. Ini menunjukkan salah satu kelebihan utama EF Core: abstraksi di atas pangkalan data sebenar.
-
-> Rujukan rasmi: [learn.microsoft.com/aspnet/core/fundamentals/minimal-apis](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/minimal-apis) · [learn.microsoft.com/ef/core/providers/sqlite](https://learn.microsoft.com/en-us/ef/core/providers/sqlite/)
+> Rujukan rasmi: [mermaid.js.org/syntax/flowchart](https://mermaid.js.org/syntax/flowchart.html)
 
 ---
 
-## SESI 3 — Entiti Kongsi & DbContext
+## SESI 4 — ERD & Reka Bentuk Data
 
-**Kenapa `SubmissionStatus` satu enum tunggal, bukan status berasingan setiap modul?** Ini keputusan seni bina paling penting kursus ini. Dengan satu enum kongsi:
+### Apa yang ERD tunjukkan
 
-```csharp
-public enum SubmissionStatus
-{
-    Draft = 0,
-    Submitted = 1,
-    SupervisorApproved = 2,
-    AdminApproved = 3,
-    Rejected = 4,
-    Completed = 5,
-    Cancelled = 6
-}
+**Entity Relationship Diagram** menunjukkan entiti (jadual), atributnya, dan cara ia berhubung. Tiga perkara yang perlu betul:
+
+1. **Entiti** — kata nama dalam domain anda (`Submission`, `Vehicle`, `Asset`)
+2. **Hubungan** — cara ia berpaut (`Submission` ada banyak `Attachment`)
+3. **Kardinaliti** — berapa banyak pada setiap hujung (satu-ke-banyak, banyak-ke-banyak)
+
+### Kardinaliti dalam sintaks Mermaid
+
+| Sintaks | Maksud |
+|---------|--------|
+| `||--o{` | Satu ke sifar-atau-lebih |
+| `||--|{` | Satu ke satu-atau-lebih |
+| `||--||` | Satu ke tepat satu |
+| `}o--o{` | Banyak ke banyak |
+
+### Teras kongsi — sama untuk keempat-empat kumpulan
+
+```mermaid
+erDiagram
+    Submission ||--o{ Attachment : "ada"
+    Submission ||--o{ AuditLog : "menjana"
+    Submission ||--o{ ApprovalStep : "melalui"
+    UserProfile ||--o{ Submission : "menghantar"
+
+    Submission {
+        int Id PK
+        string ReferenceNo "LD-2026-0001"
+        string ModuleCode "LD, PAS, ICT-ID, SW..."
+        string ApplicantUserId FK
+        int Status "SubmissionStatus"
+        datetime CreatedAt
+        datetime SubmittedAt
+    }
+    Attachment {
+        int Id PK
+        int SubmissionId FK
+        string FileName
+        string StoredPath
+        long SizeBytes
+    }
+    AuditLog {
+        int Id PK
+        int SubmissionId FK
+        string Action
+        string PerformedByUserId
+        datetime PerformedAt
+        string Notes
+    }
 ```
 
-...logik seperti "papar semua permohonan menunggu kelulusan saya" atau "kira berapa permohonan `Rejected` bulan ini" boleh ditulis **sekali** dan terpakai pada kelima-lima modul, tanpa `switch`/`if` berasingan bagi setiap jenis borang.
+**Setiap kumpulan melanjutkan teras ini** dengan jadual detail modulnya sendiri, dipaut melalui `SubmissionId`. Contoh Kumpulan 2:
 
-**Entiti kongsi** yang kita cipta hari ini — setiap satu memetakan terus kepada corak "peta medan sama" dari SESI 1:
+```mermaid
+erDiagram
+    Submission ||--|| AccessPassApplication : "detail"
+    Vehicle ||--o{ VehicleStickerApplication : "untuk"
 
-- **`Submission`** — rekod induk setiap permohonan (tidak kira modul). Menyimpan `ReferenceNo`, `ModuleCode` (cth. `"LD"` untuk Lapor Diri), `ApplicantUserId`, `Status`, dan tarikh penting.
-- **`Attachment`** — metadata fail yang dimuat naik (bukan kandungan fail — kandungan disimpan sebagai fail fizikal di `App_Data/uploads/`, lihat Hari 3).
-- **`AuditLog`** — sejarah tindakan penting terhadap satu `Submission` (dicipta, dihantar, diluluskan, ditolak).
-- **`UserProfile`** — maklumat profil staf (nama, jabatan, jawatan, gred) yang **berasingan** daripada `AspNetUsers` (jadual Identity).
+    AccessPassApplication {
+        int Id PK
+        int SubmissionId FK
+        string PurposeOfVisit
+        date ValidFrom
+        date ValidTo
+    }
+    Vehicle {
+        int Id PK
+        string PlateNumber "diindeks"
+        string OwnerUserId FK
+    }
+```
 
-**Kenapa `UserProfile` berasingan daripada `AspNetUsers`?** `AspNetUsers` (dijana oleh ASP.NET Core Identity) direka untuk **pengesahan (authentication)** — kata laluan (hash), emel log masuk, token keselamatan. Ia **bukan** tempat sesuai untuk medan perniagaan seperti jabatan atau gred — mencampur kedua-dua tanggungjawab ini ialah salah satu **silap biasa** yang disenaraikan dalam nota penceramah. `UserProfile` menyimpan maklumat perniagaan, dipautkan ke `AspNetUsers` melalui `UserId` (kunci asing rentetan, sepadan `IdentityUser.Id`).
+### Peraturan kritikal: jangan pendua medan induk
 
-### `ApplicationDbContext`
+Jadual detail modul anda **tidak boleh** mengandungi `ReferenceNo`, `Status`, `ApplicantUserId`, atau tarikh hantar. Semua itu sudah ada dalam `Submission`.
 
-`DbContext` ialah "jambatan" antara kelas C# (entiti) dan jadual pangkalan data sebenar — setiap `DbSet<T>` mewakili satu jadual. Kerana kita guna ASP.NET Core Identity, `ApplicationDbContext` **mewarisi** `IdentityDbContext` (bukan `DbContext` kosong) supaya jadual Identity (`AspNetUsers`, `AspNetRoles`, dsb.) turut serta dalam skema yang sama.
+**Kenapa ini penting:** dua salinan status bermakna dua sumber kebenaran. Satu hari nanti ia akan berbeza — status `Submission` menunjukkan `Approved`, jadual detail menunjukkan `Submitted` — dan tiada siapa tahu yang mana betul. Ini punca pepijat paling kerap dalam sistem permohonan sebenar.
 
-> Rujukan rasmi: [learn.microsoft.com/ef/core/get-started/overview/first-app](https://learn.microsoft.com/en-us/ef/core/get-started/overview/first-app) · [learn.microsoft.com/aspnet/core/security/authentication/identity](https://learn.microsoft.com/en-us/aspnet/core/security/authentication/identity) · [learn.microsoft.com/ef/core/modeling/relationships](https://learn.microsoft.com/en-us/ef/core/modeling/relationships)
+Ini juga sebab **anti-redundan bermula di lapisan data**, bukan di lapisan kod.
+
+### Menggunakan AI untuk ERD
+
+AI berguna untuk: mencadangkan entiti yang terlepas · mengesan hubungan yang tiada · menamakan medan secara konsisten · menjana sintaks Mermaid dari perihalan bertulis.
+
+AI **kerap tersilap** dengan: kardinaliti (ia meneka satu-ke-banyak sedangkan sepatutnya banyak-ke-banyak) · mereka medan yang NRES tidak perlukan · mengabaikan `Submission` induk dan mereka jadual bebas.
+
+**Prompt semakan wajib** selepas menjana ERD:
+
+> "Bandingkan ERD ini dengan `SPEC-KURSUS.md`. Adakah ia memperkenalkan mana-mana entiti atau medan yang tiada dalam spec? Adakah ia menduplikasi medan yang sudah ada dalam `Submission`? Senaraikan percanggahan — jangan tulis semula ERD."
+
+Kemudian **peserta membetulkannya sendiri**. Membetulkan ERD dengan tangan ialah cara anda benar-benar mempelajari model data yang akan anda gunakan selama 11 hari.
 
 ---
 
-## SESI 4 — Migration Pertama
+## Sebelum Hari 2
 
-**Kenapa migration, bukan cipta jadual manual dalam SQLite?** Migration ialah "sejarah berversi" bagi skema pangkalan data anda — setiap perubahan pada entiti C# (tambah medan, tambah jadual) dijana sebagai satu fail migration yang boleh **dijalankan semula** pada mana-mana persekitaran (makmal latihan, staging, pengeluaran) secara konsisten. Tanpa migration, setiap pembangun perlu ubah skema pangkalan data secara manual — mudah tersasar/tidak segerak antara satu sama lain.
-
-Arus kerja EF Core Migration:
-
-```bash
-dotnet ef migrations add InitialShared
-dotnet ef database update
-```
-
-- `migrations add InitialShared` — EF Core **bandingkan** model C# semasa dengan snapshot skema terakhir, jana kod migration (`Up()`/`Down()`) yang memetakan perbezaan itu kepada arahan SQL.
-- `database update` — jalankan migration yang belum diguna pakai terhadap pangkalan data sebenar (fail SQLite `.db` akan dicipta jika belum wujud).
-
-Kita namakan migration pertama **`InitialShared`** — nama ini sepadan dengan [`../JADUAL.md`](../JADUAL.md) ("Pemetaan Sesi → Deliverable": *`Nres.Onboarding.Web` berjalan + migration `InitialShared`") supaya jelas migration ini mengandungi **entiti kongsi sahaja**, bukan entiti khusus modul (yang akan datang bermula Hari 2).
-
-> Rujukan rasmi: [learn.microsoft.com/ef/core/managing-schema/migrations](https://learn.microsoft.com/en-us/ef/core/managing-schema/migrations/) · [learn.microsoft.com/ef/core/cli/dotnet](https://learn.microsoft.com/en-us/ef/core/cli/dotnet)
+Baca [`../KOLABORASI.md`](../KOLABORASI.md) sepenuhnya. Esok kita menandatangani kontraknya dan menyediakan cabang Git — akan lebih bermakna jika anda sudah nampak apa yang cuba dihalang.
 
 ---
 
 ## Seterusnya
 
-Baca dan ikuti langkah demi langkah di [`snippets/lab.md`](./snippets/lab.md) — di situ anda akan:
+Ikuti langkah demi langkah di [`snippets/lab.md`](./snippets/lab.md) — anda akan:
 
-1. Cipta projek `Nres.Onboarding.Web` dan sahkan ia berjalan.
-2. Tambah pakej EF Core + Identity + SQLite.
-3. Tulis kelas entiti `SubmissionStatus`, `Submission`, `Attachment`, `AuditLog`, `UserProfile`.
-4. Tulis `ApplicationDbContext` dan daftarkannya dalam `Program.cs`.
-5. Jana migration `InitialShared` dan cipta pangkalan data SQLite.
-6. Tambah navigasi placeholder untuk 5 modul.
+1. Peta medan sama merentas 4 modul (bengkel berkumpulan)
+2. Tulis URS modul kumpulan anda — draf AI, kemudian semakan manusia baris demi baris
+3. Lukis process flow dalam Mermaid
+4. Tulis use case dengan aliran utama **dan** alternatif
+5. Reka ERD modul anda melanjutkan teras kongsi
+6. Sahkan silang keempat-empat artifak terhadap `SPEC-KURSUS.md`
 
-Nota penceramah (pemasaan sesi, silap biasa, soalan perbincangan): [`nota-penceramah.md`](./nota-penceramah.md).
+Nota penceramah: [`nota-penceramah.md`](./nota-penceramah.md).
