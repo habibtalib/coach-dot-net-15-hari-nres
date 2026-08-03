@@ -25,11 +25,11 @@ Repo bahan latihan **coaching .NET 15 hari** untuk NRES. Bukan aplikasi pengelua
 
 ```text
 hari-1/ hari-2/ hari-3/            # Fasa 1 — sesi bersama
-kumpulan-1-lapor-diri/             # Fasa 2 — trek (README trek + 5 blok)
-  hari-4/ hari-5-6/ hari-7-9/ hari-10-12/ hari-13-14/
-kumpulan-2-pas-parkir-pelekat/
+kumpulan-1-pentadbiran/            # Fasa 2 — trek K1: 3 projek
+  lapor-diri/ pematuhan-pks/ pengurusan-kontrak/   # setiap satu ada 5 blok
+kumpulan-2-pas-parkir-pelekat/     # (README trek + 5 blok: hari-4 … hari-13-14)
 kumpulan-3-id-ad-email/
-kumpulan-4-perisian-aset-ict/
+kumpulan-4-tempahan-fasiliti-sukan/
 hari-15/                           # Fasa 3 — sesi bersama
 _arkib/kumulatif-15-hari/          # struktur lama + PKS (jangan sunting)
 ```
@@ -60,6 +60,6 @@ _arkib/kumulatif-15-hari/          # struktur lama + PKS (jangan sunting)
 - Jangan simpan kata laluan sebenar dalam modul ID/AD/Email (ajar peserta **jangan** — ini titik pengajaran keselamatan).
 - Jangan guna data NRES sebenar — semua contoh **sintetik**.
 - Jangan tukar `SubmissionStatus`, peranan, prefix rujukan, atau nama cabang tanpa mengemas kini `SPEC-KURSUS.md` dahulu.
-- **Jangan tulis kandungan modul PKS** — di luar skop kursus (draf lama diarkib di `_arkib/`).
+- **Pematuhan PKS kini DALAM skop** (PKS = **Polisi Keselamatan Siber**, bukan "Kod Setia") — projek ke-2 Kumpulan 1 (`kumpulan-1-pentadbiran/pematuhan-pks/`, prefix `PKS`, peranan `IctSecurityOfficer`). Rujuk `SPEC-KURSUS.md`.
 - Jangan sunting fail dalam `_arkib/` — betulkan dalam struktur aktif.
 - Jangan cipta servis/komponen kongsi baharu dalam kandungan trek — guna daftar dalam `AGENTS.md`.

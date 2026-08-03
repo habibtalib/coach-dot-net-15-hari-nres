@@ -24,3 +24,16 @@ Thumbs.db
 # Local-only material (not pushed): slides + trainer notes
 slides/
 **/nota-penceramah.md
+
+# Local-only (not pushed yet): other days / Fasa-2 tracks / reference app
+hari-2/
+hari-3/
+hari-15/
+kumpulan-1-pentadbiran/
+kumpulan-2-pas-parkir-pelekat/
+kumpulan-3-id-ad-email/
+kumpulan-4-tempahan-fasiliti-sukan/
+nota/
+projek/
+_arkib/
+templates/

@@ -112,6 +112,41 @@ erDiagram
 
 ---
 
+## 4. Benang emas — dari Design Thinking ke Kod
+
+*Ini yang selalu terlepas: **setiap artifak Hari 1 menjadi sekeping kod tertentu**. Itu sebabnya kita buat DT dahulu — bukan kerana "dokumentasi itu baik", tetapi kerana ia menentukan kod anda.*
+
+```mermaid
+flowchart LR
+    persona["Persona + Empathy (pain)"] --> urs["URS: Sistem MESTI..."]
+    urs --> uc["Use Case (aktor + kata kerja)"]
+    urs --> flow["Process Flow (status)"]
+    urs --> erd["ERD (kata nama)"]
+    uc -->|"kata kerja to action; aktor to role"| ctrl["Controller Action + Authorize"]
+    erd -->|"kata nama to entiti"| entity["EF Core Entity + Migration"]
+    flow -->|"aliran to servis"| svc["IWorkflowService"]
+    urs -->|"kriteria to ujian"| test["xUnit test"]
+```
+
+### Peta: artifak → fungsi → kod
+
+| Artifak (Hari 1) | Fungsi | Jadi apa dalam KOD (Hari 3–14) |
+|------------------|--------|--------------------------------|
+| Persona + Empathy (*pain*) | Faham pengguna | Punca segala keperluan |
+| URS *kata kerja* — "paparkan status" | Tindakan | `Controller Action` + `[Authorize]` |
+| URS *kata nama* — "permohonan, status" | Data | `EF Core Entity` + Migration |
+| Use Case (aktor) | Peranan | `Role` · `[Authorize(Roles=…)]` |
+| Process Flow (status) | Logik aliran | `IWorkflowService` |
+| ERD (hubungan) | Struktur data | `DbContext` + `IEntityTypeConfiguration<T>` |
+| Kriteria penerimaan | Bukti siap | `xUnit test` |
+
+**Contoh benang penuh (Lapor Diri):**
+> pain *"Saya tak tahu status permohonan saya"* → `URS-LD-03` *("Sistem mesti paparkan status…")* → **use case** "Semak status" → **kod**: `StatusController.Index()` yang membaca `Submission.Status`, dilindungi `[Authorize]`, disahkan oleh satu `xUnit test`.
+
+Empati → URS → diagram → **kod**. Benang tak putus.
+
+---
+
 ## Cuba sendiri
 
 1. Salin mana-mana blok `mermaid` ke fail `.md` modul anda dan render dalam VS Code (pratonton) atau GitHub.

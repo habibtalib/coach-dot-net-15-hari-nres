@@ -1,7 +1,0 @@
-/* Sertakan dalam Razor print view (ringkasan boleh cetak). */
-@media print {
-    .no-print { display: none !important; }
-    body { font-size: 12pt; color: #000; background: #fff; }
-    .print-page { page-break-after: always; }
-    a[href]::after { content: ""; } /* jangan cetak URL selepas pautan */
-}

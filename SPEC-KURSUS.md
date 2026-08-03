@@ -4,7 +4,7 @@
 
 Kursus: **Latihan Secara *Coaching* Pembangunan Sistem Onboarding & Khidmat Dalaman NRES Menggunakan ASP.NET Core** — 15 hari, hands-on, berpaksikan lab. Kod kursus **DOTNET-NRES-15**.
 
-Projek kursus tunggal: **`Nres.Onboarding.Web`** — satu aplikasi ASP.NET Core MVC dalaman yang menyatukan **4 modul** permohonan & aliran kerja kelulusan.
+Projek kursus tunggal: **`Nres.Onboarding.Web`** — satu aplikasi ASP.NET Core MVC dalaman yang menyatukan modul-modul permohonan & aliran kerja kelulusan merentas **4 kumpulan** (Kumpulan 1 memikul **tiga** projek).
 
 ---
 
@@ -60,16 +60,24 @@ Nota, penerangan & agenda dalam **Bahasa Melayu**. Semua **kod, nama kelas/pembo
 
 ---
 
-## 4 Modul & Kumpulan — MUKTAMAD
+## Modul & Kumpulan — MUKTAMAD
+
+Empat kumpulan dedicated. **Kumpulan 1 membina tiga projek**; kumpulan lain satu trek modul. Setiap modul tetap mengikut corak aliran kerja kongsi yang sama (`Submission` induk, `SubmissionStatus`, audit).
 
 | Kumpulan | Modul | Prefix | Admin peranan | Trek |
 |----------|-------|--------|---------------|------|
-| **Kumpulan 1** | **Lapor Diri** — permohonan laporan diri pekerja baharu | `LD` | `HrAdmin` | `kumpulan-1-lapor-diri/` |
-| **Kumpulan 2** | **Pas, Parkir & Pelekat Kenderaan** — akses kawasan & keselamatan kenderaan | `PAS` · `PKR` · `STK` | `SecurityAdmin` | `kumpulan-2-pas-parkir-pelekat/` |
-| **Kumpulan 3** | **ID, AD & Email** — akaun pengguna & akses sistem | `ICT-ID` | `IctAdmin` | `kumpulan-3-id-ad-email/` |
-| **Kumpulan 4** | **Perisian & Aset ICT** — permohonan, pinjaman & pemulangan aset | `SW` · `AST-L` · `AST-R` | `IctAdmin` | `kumpulan-4-perisian-aset-ict/` |
+| **Kumpulan 1** | **Lapor Diri** — laporan diri pekerja baharu | `LD` | `HrAdmin` | `kumpulan-1-pentadbiran/lapor-diri/` |
+| **Kumpulan 1** | **Pematuhan PKS** — Akuan Pematuhan **Polisi Keselamatan Siber** + NDA Akta Rahsia Rasmi 1972 | `PKS` | `IctSecurityOfficer` | `kumpulan-1-pentadbiran/pematuhan-pks/` |
+| **Kumpulan 1** | **Pengurusan Kontrak** — daftar & jejak kontrak/perjanjian | `KON` | `IctAdmin` | `kumpulan-1-pentadbiran/pengurusan-kontrak/` |
+| **Kumpulan 2** | **Pas Bangunan, Parkir & Pelekat Kenderaan** — akses kawasan & keselamatan kenderaan | `PAS` · `PKR` · `STK` | `SecurityAdmin` | `kumpulan-2-pas-parkir-pelekat/` |
+| **Kumpulan 3** | **ID, AD & Email** — akaun pengguna & akses sistem (kelulusan 2 peringkat) | `ICT-ID` | `Supervisor` → `IctAdmin` | `kumpulan-3-id-ad-email/` |
+| **Kumpulan 4** | **Tempahan Fasiliti Sukan** — tempahan gelanggang & kemudahan sukan | `TFS` | `FacilityAdmin` | `kumpulan-4-tempahan-fasiliti-sukan/` |
 
-> **Modul PKS (Pematuhan Kod Setia) berada DI LUAR SKOP.** Cadangan silibus NRES hanya menyenaraikan empat kumpulan dan tidak menyebut PKS. Jangan tulis kandungan PKS baharu, jangan rujuk `ComplianceDeclaration` / `PolicyVersion` / peranan `ComplianceAdmin` dalam bahan aktif. Draf lama disimpan di `_arkib/kumulatif-15-hari/hari-10/`–`hari-12/`.
+> **Beban Kumpulan 1:** kerana K1 memikul 3 projek berbanding 1 bagi kumpulan lain, agihkan ahli lebih ramai kepada K1 atau kecilkan skop setiap sub-projek supaya rentak selari Fasa 2 kekal seimbang.
+>
+> **Nota domain (disahkan dari dokumen sumber NRES):**
+> - **PKS = Polisi Keselamatan Siber** (bukan "Kod Setia"). Modul ialah *Akuan Pematuhan Polisi Keselamatan Siber* + NDA Akta Rahsia Rasmi 1972. Penyemak: peranan **`IctSecurityOfficer`** (Pegawai Keselamatan ICT). Borang ada varian **staf** dan **kontraktor/syarikat** (`CompanyName`, `CompanyRegNo`). Ditadbir oleh **BPM = Bahagian Pengurusan Maklumat** (bahagian ICT yang juga memiliki ID/Email + Kontrak).
+> - **Kumpulan 2 — realiti vs lab:** dalam sistem NRES **sebenar**, K2 ialah **dua sub-sistem** (pas keselamatan; pelekat + peruntukan parkir), dengan **sokongan Ketua Jabatan** sebelum semakan **UPKF**, **parkir diperuntukkan admin (bukan dimohon)**, dan peranan berasingan (UPKF officer / Pentadbir Parkir / Pengawal Keselamatan imbas-sahaja). **Untuk kemudahan LAB**, kursus meringkaskannya kepada satu peranan `SecurityAdmin` + entiti `ParkingApplication`. Jurulatih: nyatakan model sebenar sebagai *"dalam pengeluaran…"*.
 
 ---
 
@@ -81,18 +89,20 @@ Nres.Onboarding.Web/
   Data/                 # ApplicationDbContext, seed
   Models/               # entiti (domain)
     Shared/             # Hari 3 — dikongsi semua kumpulan
-    LaporDiri/          # Kumpulan 1
+    LaporDiri/          # Kumpulan 1 — Lapor Diri
+    Pks/                # Kumpulan 1 — Pematuhan PKS
+    Kontrak/            # Kumpulan 1 — Pengurusan Kontrak
     Akses/              # Kumpulan 2
     Akaun/              # Kumpulan 3
-    Aset/               # Kumpulan 4
+    Fasiliti/           # Kumpulan 4 — Tempahan Fasiliti Sukan
   ViewModels/
   Services/             # IReferenceNumberService, IFileStorageService, dll.
   Views/
     Shared/
-    OfficerReporting/   # Kumpulan 1
+    OfficerReporting/ Compliance/ Contract/   # Kumpulan 1
     AccessPass/ ...     # Kumpulan 2
     AccountRequest/     # Kumpulan 3
-    Asset/ Software/    # Kumpulan 4
+    FacilityBooking/    # Kumpulan 4
   wwwroot/
   App_Data/uploads/     # fail dimuat naik (bukan bawah wwwroot)
 Nres.Onboarding.Tests/  # xUnit
@@ -132,10 +142,10 @@ Kursus ini menangani risiko itu secara **seni bina**, bukan sekadar peraturan:
 ```text
 master                        # integrasi; dilindungi, merge melalui PR sahaja
 ├── asas/shared-foundation    # Hari 3 — digabung ke master hujung Hari 3
-├── kump-1/lapor-diri         # Kumpulan 1, Hari 4–14
+├── kump-1/pentadbiran        # Kumpulan 1 (Lapor Diri · PKS · Kontrak), Hari 4–14
 ├── kump-2/akses-kenderaan    # Kumpulan 2, Hari 4–14
 ├── kump-3/id-ad-email        # Kumpulan 3, Hari 4–14
-└── kump-4/perisian-aset      # Kumpulan 4, Hari 4–14
+└── kump-4/tempahan-fasiliti  # Kumpulan 4, Hari 4–14
 ```
 
 - Setiap kumpulan bercabang dari `master` **selepas** `asas/shared-foundation` digabung (hujung Hari 3).
@@ -185,11 +195,15 @@ Form → Validation → Draft → Submit → Review → Approve/Reject → Audit
 | Role | Tanggungjawab | Kumpulan berkaitan |
 |------|---------------|--------------------|
 | `Applicant` | Cipta draf & hantar permohonan | Semua |
-| `Supervisor` | Semak permohonan staf (kelulusan peringkat 1) | 3 (utama), 1 |
+| `Supervisor` | Semak permohonan staf (kelulusan peringkat 1) | 3 (utama) |
 | `HrAdmin` | Semak Lapor Diri | 1 |
+| `IctSecurityOfficer` | Semak Akuan Pematuhan PKS (Pegawai Keselamatan ICT) | 1 |
+| `IctAdmin` | Semak Pengurusan Kontrak; ID/AD/email (peringkat 2) | 1, 3 |
 | `SecurityAdmin` | Semak pas, parkir, pelekat kenderaan | 2 |
-| `IctAdmin` | Semak AD/email, perisian, aset ICT | 3, 4 |
+| `FacilityAdmin` | Semak & luluskan tempahan fasiliti sukan | 4 |
 | `SystemAdmin` | Urus pengguna & data lookup | Semua |
+
+> Model K2 sebenar (UPKF / Pentadbir Parkir / Pengawal berasingan) diringkaskan kepada `SecurityAdmin` dalam lab — lihat *Nota domain* di atas.
 
 ## Entiti kongsi (shared) — dibina Hari 3
 
@@ -204,13 +218,13 @@ Form → Validation → Draft → Submit → Review → Approve/Reject → Audit
 | Modul | Kumpulan | Prefix | Contoh |
 |-------|----------|--------|--------|
 | Lapor Diri | 1 | `LD` | `LD-2026-0001` |
-| Pas Keselamatan | 2 | `PAS` | `PAS-2026-0001` |
+| Pematuhan PKS | 1 | `PKS` | `PKS-2026-0001` |
+| Pengurusan Kontrak | 1 | `KON` | `KON-2026-0001` |
+| Pas Bangunan | 2 | `PAS` | `PAS-2026-0001` |
 | Parkir | 2 | `PKR` | `PKR-2026-0001` |
 | Pelekat Kenderaan | 2 | `STK` | `STK-2026-0001` |
 | ID AD & Email | 3 | `ICT-ID` | `ICT-ID-2026-0001` |
-| Perisian | 4 | `SW` | `SW-2026-0001` |
-| Pinjaman Aset | 4 | `AST-L` | `AST-L-2026-0001` |
-| Pemulangan Aset | 4 | `AST-R` | `AST-R-2026-0001` |
+| Tempahan Fasiliti Sukan | 4 | `TFS` | `TFS-2026-0001` |
 
 ## Jadual entiti per kumpulan
 
@@ -218,9 +232,11 @@ Form → Validation → Draft → Submit → Review → Approve/Reject → Audit
 |----------|--------|
 | Kongsi (Hari 3) | `Submissions`, `Attachments`, `AuditLogs`, `ApprovalSteps`, `UserProfiles`, `Lookup*` |
 | 1 · Lapor Diri | `OfficerReportingApplications` |
+| 1 · Pematuhan PKS | `ComplianceDeclarations` (varian staf & kontraktor: `CompanyName`, `CompanyRegNo`), `PolicyVersions` (versi Polisi Keselamatan Siber) |
+| 1 · Pengurusan Kontrak | `ContractRecords`, `ContractParties`, `ContractMilestones` |
 | 2 · Pas/Parkir/Pelekat | `AccessPassApplications`, `ParkingApplications`, `VehicleStickerApplications`, `Vehicles` |
 | 3 · ID AD & Email | `AccountRequests`, `RequestedSystemAccesses` |
-| 4 · Perisian & Aset ICT | `Assets`, `SoftwareCatalogItems`, `SoftwareRequests`, `AssetLoanRequests`, `AssetReturns` |
+| 4 · Tempahan Fasiliti Sukan | `SportsFacilities`, `FacilityBookingApplications`, `FacilityBookingSlots` |
 
 ---
 
@@ -236,13 +252,13 @@ Form → Validation → Draft → Submit → Review → Approve/Reject → Audit
 
 ### Fasa 2 — 4 trek selari (Hari 4–14)
 
-| Blok | K1 · Lapor Diri | K2 · Pas/Parkir/Pelekat | K3 · ID/AD/Email | K4 · Perisian & Aset ICT |
-|------|-----------------|--------------------------|------------------|---------------------------|
-| **Hari 4** | Skema DB + borang draf | Skema DB akses & kenderaan | Skema DB akaun & akses | Katalog aset & perisian + seed |
-| **Hari 5–6** | Muat naik dokumen + no. rujukan `LD` | Borang + semakan pendua no. plat | Borang akaun + kelulusan Penyelia | Borang + semakan stok masa-nyata |
-| **Hari 7–9** | Aliran kelulusan HR + skrin admin | Semakan keselamatan + kelulusan bersyarat | Pemprosesan ICT + RBAC + simulasi AD | Kelulusan ICT + pemulangan aset |
-| **Hari 10–12** | Notifikasi e-mel + Slip Akuan PDF + dashboard HR | QR/Barcode + skrin ronda + laporan | Penjejakan status + audit trail + dashboard ICT | Peringatan lewat tempoh + dashboard inventori + eksport PDF/Excel |
-| **Hari 13–14** | xUnit + refactor + sedia merge | Ujian E2E + bug fixing + sedia merge | RBAC testing + security audit + sedia merge | Ujian + refactor + sedia merge |
+| Blok | K1 · Pentadbiran (LD·PKS·Kontrak) | K2 · Pas/Parkir/Pelekat | K3 · ID/AD/Email | K4 · Tempahan Fasiliti Sukan |
+|------|-----------------------------------|--------------------------|------------------|-------------------------------|
+| **Hari 4** | Skema DB 3 projek + borang draf | Skema DB akses & kenderaan | Skema DB akaun & akses | Katalog fasiliti + slot + seed |
+| **Hari 5–6** | LD muat naik · PKS akuan polisi siber (kait versi) · Kontrak daftar (no. rujukan) | Borang pas/pelekat + semakan pendua no. plat | Borang akaun + kelulusan Penyelia | Borang tempahan + semakan slot bertindih |
+| **Hari 7–9** | Kelulusan HR / IctSecurityOfficer / IctAdmin + skrin admin | Semakan keselamatan + kelulusan bersyarat | Pemprosesan ICT + RBAC + simulasi AD | Kelulusan FacilityAdmin + kalendar slot |
+| **Hari 10–12** | Notifikasi + Slip/laporan PDF + dashboard | QR/Barcode + skrin ronda + laporan | Penjejakan status + audit trail + dashboard ICT | Peringatan tempahan + kalendar + eksport PDF/Excel |
+| **Hari 13–14** | xUnit + refactor + sedia merge | Ujian E2E + bug fixing + sedia merge | RBAC testing + security audit + sedia merge | Ujian bertindih slot + refactor + sedia merge |
 
 ### Fasa 3 — Sesi bersama (Hari 15)
 
@@ -254,7 +270,7 @@ Form → Validation → Draft → Submit → Review → Approve/Reject → Audit
 
 ## Rentak harian (setiap hari)
 
-Pendaftaran & minum pagi **8.30–9.00** · SESI PAGI **9.00–1.00** · rehat & makan **1.00–2.30** · SESI PETANG **2.30–5.00** · bersurai **5.00**. ~7 jam kontak/hari. Setiap hari: **≥60% masa hands-on lab**.
+Pendaftaran **9.15–9.30** · SESI PAGI **9.30–12.30** · rehat & makan **12.30–2.30** · SESI PETANG **2.30–4.30** (Isnin–Khamis). **Jumaat:** **9.00–12.00** · rehat **12.00–3.00** · **3.00–4.30**. ~5 jam kontak/hari. Setiap hari: **≥60% masa hands-on lab**.
 
 > **Rentak Fasa 2:** setiap pagi bermula dengan **stand-up 15 minit per kumpulan** (semalam / hari ini / halangan) dan `git pull --rebase`. Setiap petang berakhir dengan **commit + push + kemas kini board**. Jurulatih berpusing antara 4 kumpulan.
 
@@ -309,5 +325,4 @@ AI (Claude, Copilot, dll.) diajar sebagai **alat bantu berdisiplin**, bukan penj
 - Jangan simpan kata laluan sebenar dalam modul ID/AD/Email (ajar peserta **jangan** — ini titik pengajaran keselamatan).
 - Jangan guna data NRES sebenar — semua contoh **sintetik**.
 - Jangan tukar `SubmissionStatus`, peranan, prefix rujukan, atau nama cabang tanpa mengemas kini dokumen ini dahulu.
-- Jangan tulis kandungan modul PKS dalam bahan aktif — ia di luar skop.
 - Jangan biarkan satu kumpulan mengubah fail kongsi tanpa protokol Hari 2.

@@ -27,10 +27,12 @@ Setiap laluan fail ada **tepat satu** pemilik. Jika anda bukan pemiliknya, anda 
 | Laluan | Pemilik | Boleh sunting? |
 |--------|---------|----------------|
 | `Models/Shared/**`, `Services/*.cs` (antara muka kongsi), `Data/ApplicationDbContext.cs`, `Program.cs`, `Views/Shared/_Layout.cshtml`, `wwwroot/css/site.css` | **Jurulatih** (dibina Hari 3) | ❌ **Beku selepas Hari 3** |
-| `Models/LaporDiri/**`, `Controllers/OfficerReporting*`, `Views/OfficerReporting/**`, `ViewModels/LaporDiri/**`, `Services/LaporDiri/**` | Kumpulan 1 | ✅ Kumpulan 1 sahaja |
+| `Models/LaporDiri/**`, `Controllers/OfficerReporting*`, `Views/OfficerReporting/**`, `ViewModels/LaporDiri/**`, `Services/LaporDiri/**` | Kumpulan 1 · Lapor Diri | ✅ Kumpulan 1 sahaja |
+| `Models/Pks/**`, `Controllers/Compliance*`, `Views/Compliance/**`, `ViewModels/Pks/**`, `Services/Pks/**` | Kumpulan 1 · Pematuhan PKS | ✅ Kumpulan 1 sahaja |
+| `Models/Kontrak/**`, `Controllers/Contract*`, `Views/Contract/**`, `ViewModels/Kontrak/**`, `Services/Kontrak/**` | Kumpulan 1 · Pengurusan Kontrak | ✅ Kumpulan 1 sahaja |
 | `Models/Akses/**`, `Controllers/AccessPass*`, `Controllers/Parking*`, `Controllers/VehicleSticker*`, `Views/Akses/**`, `ViewModels/Akses/**`, `Services/Akses/**` | Kumpulan 2 | ✅ Kumpulan 2 sahaja |
 | `Models/Akaun/**`, `Controllers/AccountRequest*`, `Views/Akaun/**`, `ViewModels/Akaun/**`, `Services/Akaun/**` | Kumpulan 3 | ✅ Kumpulan 3 sahaja |
-| `Models/Aset/**`, `Controllers/Asset*`, `Controllers/Software*`, `Views/Aset/**`, `ViewModels/Aset/**`, `Services/Aset/**` | Kumpulan 4 | ✅ Kumpulan 4 sahaja |
+| `Models/Fasiliti/**`, `Controllers/FacilityBooking*`, `Views/FacilityBooking/**`, `ViewModels/Fasiliti/**`, `Services/Fasiliti/**` | Kumpulan 4 | ✅ Kumpulan 4 sahaja |
 | `Migrations/**` | **Bergilir** | ⚠️ Ikut slot migration (§5) |
 
 > **Ujian ringkas sebelum commit:** `git diff --name-only master` — jika ada fail di luar folder kumpulan anda, berhenti dan baca §4.
@@ -63,10 +65,12 @@ public static class LaporDiriModule
 `Program.cs` mengandungi empat baris ini sejak Hari 3 dan **tidak berubah lagi**:
 
 ```csharp
-builder.Services.AddLaporDiriModule();      // Kumpulan 1
+builder.Services.AddLaporDiriModule();      // Kumpulan 1 · Lapor Diri
+builder.Services.AddPksModule();            // Kumpulan 1 · Pematuhan PKS
+builder.Services.AddKontrakModule();        // Kumpulan 1 · Pengurusan Kontrak
 builder.Services.AddAksesModule();          // Kumpulan 2
 builder.Services.AddAkaunModule();          // Kumpulan 3
-builder.Services.AddAsetModule();           // Kumpulan 4
+builder.Services.AddFasilitiModule();       // Kumpulan 4 · Tempahan Fasiliti Sukan
 ```
 
 Setiap kumpulan menambah servis **dalam failnya sendiri**. Sifar konflik.

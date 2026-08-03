@@ -50,7 +50,7 @@ Ini bahan **latihan**. Kod mesti boleh ditaip, dijalankan, dan **difahami** oleh
 5. **Jangan jalankan `dotnet ef migrations add` tanpa disuruh.** Migration mengikut sistem slot bergilir (`KOLABORASI.md` §5); menjananya pada masa salah memecahkan kerja tiga kumpulan lain.
 6. **Jangan tukar** `SubmissionStatus`, nama peranan, atau prefix nombor rujukan. Ia muktamad dalam `SPEC-KURSUS.md`.
 7. **Jangan reka keperluan pengguna.** Peraturan perniagaan datang dari URS/dokumen NRES. Jika keperluan tidak jelas, nyatakan andaian secara eksplisit — jangan diam-diam mereka satu.
-8. **Jangan tulis kandungan modul PKS** — di luar skop.
+8. **Pematuhan PKS kini dalam skop** (PKS = **Polisi Keselamatan Siber**, bukan "Kod Setia") — projek ke-2 Kumpulan 1 (`Models/Pks/`, prefix `PKS`, peranan `IctSecurityOfficer`). Guna nama entiti dalam `SPEC-KURSUS.md`.
 9. **Jangan simpan kata laluan** dalam mana-mana entiti permohonan (modul ID/AD/Email khususnya). Ini titik pengajaran keselamatan.
 10. **Jangan guna data NRES sebenar.** Semua contoh sintetik.
 
@@ -105,11 +105,13 @@ Semak siapa anda bantu, kemudian tulis **hanya** di sini:
 | Kumpulan | Modul | Folder yang dibenarkan | Prefix |
 |----------|-------|------------------------|--------|
 | **1** | Lapor Diri | `Models/LaporDiri/`, `Controllers/OfficerReporting*`, `Views/OfficerReporting/`, `ViewModels/LaporDiri/`, `Services/LaporDiri/` | `LD` |
-| **2** | Pas, Parkir & Pelekat | `Models/Akses/`, `Controllers/{AccessPass,Parking,VehicleSticker}*`, `Views/Akses/`, `ViewModels/Akses/`, `Services/Akses/` | `PAS` `PKR` `STK` |
+| **1** | Pematuhan PKS | `Models/Pks/`, `Controllers/Compliance*`, `Views/Compliance/`, `ViewModels/Pks/`, `Services/Pks/` | `PKS` |
+| **1** | Pengurusan Kontrak | `Models/Kontrak/`, `Controllers/Contract*`, `Views/Contract/`, `ViewModels/Kontrak/`, `Services/Kontrak/` | `KON` |
+| **2** | Pas Bangunan, Parkir & Pelekat | `Models/Akses/`, `Controllers/{AccessPass,Parking,VehicleSticker}*`, `Views/Akses/`, `ViewModels/Akses/`, `Services/Akses/` | `PAS` `PKR` `STK` |
 | **3** | ID, AD & Email | `Models/Akaun/`, `Controllers/AccountRequest*`, `Views/Akaun/`, `ViewModels/Akaun/`, `Services/Akaun/` | `ICT-ID` |
-| **4** | Perisian & Aset ICT | `Models/Aset/`, `Controllers/{Asset,Software}*`, `Views/Aset/`, `ViewModels/Aset/`, `Services/Aset/` | `SW` `AST-L` `AST-R` |
+| **4** | Tempahan Fasiliti Sukan | `Models/Fasiliti/`, `Controllers/FacilityBooking*`, `Views/FacilityBooking/`, `ViewModels/Fasiliti/`, `Services/Fasiliti/` | `TFS` |
 
-Peranan admin: K1 `HrAdmin` · K2 `SecurityAdmin` · K3 `IctAdmin` (+`Supervisor` peringkat 1) · K4 `IctAdmin`.
+Peranan admin: K1 `HrAdmin` (Lapor Diri) · `IctSecurityOfficer` (PKS) · `IctAdmin` (Kontrak) · K2 `SecurityAdmin` · K3 `Supervisor` → `IctAdmin` (2 peringkat) · K4 `FacilityAdmin`. *(Model K2 sebenar dipisahkan kepada UPKF/Parkir/Pengawal — diringkaskan kepada `SecurityAdmin` dalam lab; lihat `SPEC-KURSUS.md`.)*
 
 ---
 
