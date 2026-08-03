@@ -40,9 +40,11 @@ docs/
    | Kumpulan | Modul | Admin | Prefix |
    |----------|-------|-------|--------|
    | 1 | Lapor Diri | `HrAdmin` | `LD` |
+   | 1 | Pematuhan PKS | `IctSecurityOfficer` | `PKS` |
+   | 1 | Pengurusan Kontrak | `IctAdmin` | `KON` |
    | 2 | Pas, Parkir & Pelekat | `SecurityAdmin` | `PAS` `PKR` `STK` |
    | 3 | ID, AD & Email | `Supervisor` → `IctAdmin` | `ICT-ID` |
-   | 4 | Perisian & Aset ICT | `IctAdmin` | `SW` `AST-L` `AST-R` |
+   | 4 | Tempahan Fasiliti Sukan | `FacilityAdmin` | `TFS` |
 
 2. Baca borang NRES sebenar bagi modul anda. Senaraikan **setiap medan** yang anda nampak.
 
@@ -109,6 +111,41 @@ dan modul kami hanya menyimpan medan khususnya.
 
 ---
 
+## Latihan 1b — Design Thinking → URS (jejak keperluan dalam FigJam)
+
+**Objektif:** Terjemah pemahaman pengguna kepada keperluan yang boleh diuji — setiap URS mesti dijejak balik ke **satu** titik kesakitan sebenar. Guna template FigJam.
+
+> **Kenapa latihan ini:** ini benang yang menghalang dua kesilapan paling biasa — (1) *mereka keperluan* yang tiada sumber, dan (2) keperluan *kabur* yang tak boleh diuji. Kaedah "jejak balik" memaksa setiap URS berpunca daripada pain sebenar.
+
+### Langkah
+
+1. **Duplikasi template FigJam** — buka board *"TEMPLATE PELAJAR — Design Thinking → URS → Perancangan"*, klik kanan board → **Duplicate**, namakan untuk modul kumpulan anda.
+2. **Lorong 1 — Empathize.** Isi kad **Persona** (nama, peranan, konteks, matlamat, kekecewaan, satu petikan) dan empat kuadran **Says / Thinks / Does / Feels** untuk pemohon modul anda. Guna pemohon **sintetik** — jangan data NRES sebenar.
+3. **Lorong 2 — Define.** Tampal sticky **titik kesakitan** (satu idea satu sticky), kelompokkan, kemudian tulis **1 ayat masalah** bagi setiap kelompok.
+4. **Lorong 3 — Convert → URS.** Untuk setiap ayat masalah, isi satu baris jadual jejak:
+   - **① Pain** — salin daripada sticky empati.
+   - **② Ayat masalah** — daripada Lorong 2.
+   - **③ URS** — tulis bermula *"Sistem MESTI…"* (boleh diuji, tunggal).
+   - **④ Kriteria penerimaan** — bagaimana kita tahu ia dipenuhi.
+5. **Salin ke `docs/URS-modul-N.md`** — setiap baris jadi satu keperluan berformat (guna prefix modul, cth `URS-LD-###`). Baris ini juga menjadi asas **user story** di Hari 2 (Sebagai… saya mahu… supaya…, dengan kriteria penerimaan = ④).
+
+### Contoh baris (Lapor Diri)
+
+| ① Pain | ② Ayat masalah | ③ URS "Sistem mesti…" | ④ Kriteria penerimaan |
+|--------|----------------|------------------------|------------------------|
+| Telefon berkali-kali tanya status | Pemohon perlu tahu status tanpa menelefon | Sistem MESTI paparkan status semasa & sejarah setiap permohonan kepada pemohon | Diberi ref → status & tarikh setiap peralihan dipaparkan; tiada perlu telefon |
+
+### ✅ Semakan
+
+- [ ] Board FigJam kumpulan wujud dengan Persona + Empathy Map penuh
+- [ ] Setiap baris jadual jejak bermula daripada **pain sebenar** (bukan direka)
+- [ ] Setiap URS ditulis *"Sistem MESTI…"* dan **boleh diuji** (ada kriteria penerimaan)
+- [ ] ≥3 baris keperluan disalin ke `docs/URS-modul-N.md`
+
+> **Benang kolaborasi:** sebelum menulis URS untuk ciri kongsi (cth status, audit log), semak [`../../AGENTS.md`](../../AGENTS.md) — jika ia keperluan merentas modul, ia milik pasukan, bukan kumpulan anda sahaja.
+
+---
+
 ## Latihan 2 — Tulis URS: draf AI
 
 **Objektif:** Hasilkan draf pertama URS dengan AI — dengan konteks yang betul, bukan prompt kosong.
@@ -129,7 +166,7 @@ Saya sedang menulis URS (User Requirements Specification) untuk modul
 Konteks:
 - Ini sistem aliran kerja permohonan. Setiap permohonan mengikut:
   Form → Validation → Draft → Submit → Review → Approve/Reject → Audit → Report
-- Peranan: Applicant, Supervisor, HrAdmin, SecurityAdmin, IctAdmin, SystemAdmin
+- Peranan: Applicant, Supervisor, HrAdmin, IctSecurityOfficer, IctAdmin, SecurityAdmin, FacilityAdmin, SystemAdmin
 - Admin bagi modul saya: <peranan admin anda>
 - Medan borang sebenar: <tampal senarai anda>
 

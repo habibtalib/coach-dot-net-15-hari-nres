@@ -14,6 +14,7 @@ Kursus: **DOTNET-NRES-15** — *Latihan Secara Coaching Pembangunan Sistem Onboa
 
 | Topik | Rujukan |
 |-------|---------|
+| **Design Thinking** — empathize, define, persona, empathy map | [Design Thinking — gambaran](https://en.wikipedia.org/wiki/Design_thinking) |
 | Keperluan pengguna (URS) vs spesifikasi perisian (SRS) | [ISO/IEC/IEEE 29148 — ringkasan](https://en.wikipedia.org/wiki/ISO/IEC_IEEE_29148) |
 | Use case & aktor | [UML Use Case — gambaran](https://en.wikipedia.org/wiki/Use_case_diagram) |
 | Diagram sebagai kod | [Mermaid — dokumentasi rasmi](https://mermaid.js.org/intro/) |
@@ -27,13 +28,13 @@ Kursus: **DOTNET-NRES-15** — *Latihan Secara Coaching Pembangunan Sistem Onboa
 
 | Masa | Agenda |
 |------|--------|
-| 8.30 – 9.00 pagi | Pendaftaran Peserta & Minum Pagi |
-| **9.00 – 10.30 pagi** | **SESI 1: Perancangan Projek & Skop** — sistem NRES sebagai *request workflow system*; 4 modul & kumpulan; peranan; risiko; definisi "siap". 🧠 Bengkel: peta medan sama merentas 4 modul |
-| **10.30 – 1.00 tgh** | **SESI 2: URS & SRS** — beza URS vs SRS; keperluan yang boleh diuji; kriteria penerimaan. 💻 Lab: URS modul sendiri (draf AI → semakan manusia) |
-| 1.00 – 2.30 petang | Rehat dan Makan Tengah Hari |
-| **2.30 – 3.45 petang** | **SESI 3: Process Flow & Use Case** — aktor, use case, aliran utama vs alternatif; diagram sebagai kod (Mermaid). 💻 Lab: process flow + use case diagram |
-| **3.45 – 5.00 petang** | **SESI 4: ERD & Reka Bentuk Data** — entiti, hubungan, kardinaliti, kunci asing; kenapa satu `Submission` induk dikongsi. 💻 Lab: ERD modul + sahkan terhadap SPEC |
-| 5.00 petang | Bersurai |
+| 9.15 – 9.30 pagi | Pendaftaran Peserta & Minum Pagi |
+| **9.30 – 11.00 pagi** | **SESI 1: Perancangan Projek & Skop** — sistem NRES sebagai *request workflow system*; 4 modul & kumpulan; peranan; risiko; definisi "siap". 🧠 Bengkel: peta medan sama merentas modul |
+| **11.00 – 12.30 tgh** | **SESI 2: Design Thinking → URS & SRS** — empathize/define (persona, empathy map) dalam FigJam; beza URS vs SRS; jejak setiap URS balik ke satu *pain*; kriteria penerimaan. 💻 Lab: empathy map + URS modul (draf AI → semakan manusia) |
+| 12.30 – 2.30 petang | Rehat dan Makan Tengah Hari |
+| **2.30 – 3.30 petang** | **SESI 3: Process Flow & Use Case** — aktor, use case, aliran utama vs alternatif; diagram sebagai kod (Mermaid). 💻 Lab: process flow + use case diagram |
+| **3.30 – 4.30 petang** | **SESI 4: ERD & Reka Bentuk Data** — entiti, hubungan, kardinaliti, kunci asing; kenapa satu `Submission` induk dikongsi. 💻 Lab: ERD modul + sahkan terhadap SPEC |
+| 4.30 petang | Bersurai |
 
 **Hasil Hari 1:** `docs/URS-modul-N.md`, `docs/use-case-modul-N.md`, `docs/erd-modul-N.md`, `docs/soalan-terbuka-modul-N.md` bagi setiap kumpulan; peserta boleh terangkan keempat-empat modul dan corak aliran kerja kongsi.
 
@@ -55,24 +56,26 @@ Kalau kita nampak corak ini **hari ini**, kita boleh membina bahagian yang sama 
 
 **Perancangan hari ini secara langsung menjimatkan kerja pada Hari 15.** Itu argumennya — bukan "dokumentasi itu amalan baik".
 
-### Empat modul, empat kumpulan
+### Enam modul, empat kumpulan (Kumpulan 1 memikul 3 projek)
 
 | Kumpulan | Modul | Admin | Prefix |
 |----------|-------|-------|--------|
-| 1 | **Lapor Diri** — permohonan lapor diri pekerja baharu | `HrAdmin` | `LD` |
+| 1 | **Lapor Diri** — lapor diri pekerja baharu | `HrAdmin` | `LD` |
+| 1 | **Pematuhan PKS** — Akuan Polisi Keselamatan Siber | `IctSecurityOfficer` | `PKS` |
+| 1 | **Pengurusan Kontrak** — daftar & jejak kontrak | `IctAdmin` | `KON` |
 | 2 | **Pas, Parkir & Pelekat** — akses kawasan & kenderaan | `SecurityAdmin` | `PAS` `PKR` `STK` |
 | 3 | **ID, AD & Email** — akaun pengguna & akses sistem | `Supervisor` → `IctAdmin` | `ICT-ID` |
-| 4 | **Perisian & Aset ICT** — lesen, pinjaman & pemulangan | `IctAdmin` | `SW` `AST-L` `AST-R` |
+| 4 | **Tempahan Fasiliti Sukan** — tempahan gelanggang & kemudahan | `FacilityAdmin` | `TFS` |
 
 Setiap kumpulan memiliki modulnya **hujung ke hujung** — reka bentuk data, borang, aliran kelulusan, laporan, ujian. Kumpulan tidak menulis kod untuk modul kumpulan lain.
 
-### Bengkel: peta medan sama merentas 4 modul
+### Bengkel: peta medan sama merentas modul
 
 Sebelum menulis apa-apa, kenal pasti medan yang **berulang** dalam hampir semua borang NRES:
 
 nama pemohon · nombor rujukan · jabatan · status · tarikh hantar · lampiran sokongan · catatan kelulusan/penolakan · siapa lulus/tolak dan bila
 
-Medan-medan inilah yang akan menjadi `Submission` + `Attachment` + `AuditLog` — bukan kerana kebetulan, tetapi kerana ia **benar-benar sama** merentas Lapor Diri, Pas Keselamatan, Permohonan ID AD, dan Aset ICT.
+Medan-medan inilah yang akan menjadi `Submission` + `Attachment` + `AuditLog` — bukan kerana kebetulan, tetapi kerana ia **benar-benar sama** merentas Lapor Diri, Pas Keselamatan, Permohonan ID AD, dan Tempahan Fasiliti Sukan.
 
 **Kenapa satu `Submission` induk dikongsi?** Kalau setiap modul mereka status dan aliran kerjanya sendiri (`LaporDiriStatus`, `PasStatus`, `IctStatus`, …), maka setiap laporan pengurusan, setiap dashboard, dan setiap logik kelulusan perlu ditulis **empat kali**. Dengan satu jadual `Submissions` yang menyimpan `ReferenceNo`, `ModuleCode`, `Status`, `ApplicantUserId`, dan tarikh penting, setiap modul cuma menambah jadual **detail** sendiri yang berkongsi kunci asing `SubmissionId`. Dashboard induk, carian rujukan global, dan panel audit (Hari 15) ditulis **sekali** dan berfungsi untuk keempat-empat modul.
 
@@ -91,6 +94,37 @@ Corak ini dipanggil **kongsi induk, khusus detail** (*shared header, specific de
 ### Definisi "siap"
 
 Satu ciri **bukan** siap apabila ia "berfungsi pada mesin saya". Definition of Done penuh ada dalam [`KOLABORASI.md`](../KOLABORASI.md) §9 — baca hari ini, guna selama 11 hari.
+
+---
+
+## Design Thinking — mula dengan empati (sebelum URS)
+
+Sebelum kita tulis keperluan, kita **faham pengguna dahulu**. Skop kursus ini tetap (4 kumpulan, 6 modul), jadi kita **tidak** guna Design Thinking untuk *mencipta ciri* — kita gunakannya untuk menulis **URS yang tajam**, berpunca daripada kesakitan sebenar pemohon.
+
+### Lima peringkat — kita berat pada dua yang awal
+
+```text
+Empathize → Define → Ideate → Prototype → Test
+```
+
+Kerana skop sudah tetap, tumpuan Hari 1 ialah **Empathize** (faham pengguna) dan **Define** (takrif masalah). Silap *Define*, sempurna kod pun tetap salah.
+
+### Alat: Persona & Empathy Map
+
+- **Persona** — satu pengguna sebenar (**sintetik**) bagi modul anda: nama, peranan, konteks, **matlamat**, **kekecewaan**, satu petikan.
+- **Empathy Map** — empat kuadran: **Says / Thinks / Does / Feels**.
+
+Contoh (Lapor Diri): *Puan Aini, kerani baharu* — kesakitan sebenar **bukan** "borang tak cantik", tetapi **"saya tak tahu kedudukan permohonan saya."** Itulah yang menjadi keperluan.
+
+### Jambatan ke URS — jejak setiap keperluan balik ke satu *pain*
+
+| ① Pain (empati) | ② Ayat masalah | ③ URS "Sistem mesti…" | ④ Kriteria penerimaan |
+|-----------------|----------------|------------------------|------------------------|
+| Telefon berkali-kali tanya status | Pemohon perlu tahu status tanpa menelefon | Sistem **MESTI** paparkan status semasa & sejarah setiap permohonan | Diberi ref → status & tarikh setiap peralihan dipaparkan |
+
+**Peraturan emas:** tiada URS tanpa titik kesakitan sebenar. Setiap baris kemudian menjadi **user story** (Hari 2) → backlog Jira.
+
+> **Bengkel:** guna template FigJam *"TEMPLATE PELAJAR — Design Thinking → URS → Perancangan"* — langkah penuh di [`snippets/lab.md`](./snippets/lab.md) **Latihan 1b**. Papan contoh (persona + empathy map) tersedia bagi keempat-empat modul.
 
 ---
 
@@ -161,11 +195,13 @@ Aliran kerja yang kita guna hari ini:
 
 ## SESI 3 — Process Flow & Use Case
 
+> 📊 **Contoh diagram penuh (Mermaid) untuk SESI 3–4:** [`snippets/contoh-diagram.md`](./snippets/contoh-diagram.md) — use case, process flow & ERD bagi Lapor Diri, dijejak terus dari persona/URS.
+
 ### Aktor dan use case
 
 **Aktor** ialah sesiapa (atau apa) yang berinteraksi dengan sistem. Dalam sistem NRES, aktor kita sepadan terus dengan peranan dalam [`SPEC-KURSUS.md`](../SPEC-KURSUS.md):
 
-`Applicant` · `Supervisor` · `HrAdmin` · `SecurityAdmin` · `IctAdmin` · `SystemAdmin`
+`Applicant` · `Supervisor` · `HrAdmin` · `IctSecurityOfficer` · `IctAdmin` · `SecurityAdmin` · `FacilityAdmin` · `SystemAdmin`
 
 **Use case** ialah satu matlamat lengkap yang seorang aktor capai — "Hantar permohonan lapor diri", bukan "klik butang simpan". Ujian ringkas: jika aktor berhenti selepas melakukannya, adakah mereka mencapai sesuatu yang berguna?
 
@@ -331,7 +367,7 @@ Baca [`../KOLABORASI.md`](../KOLABORASI.md) sepenuhnya. Esok kita menandatangani
 
 Ikuti langkah demi langkah di [`snippets/lab.md`](./snippets/lab.md) — anda akan:
 
-1. Peta medan sama merentas 4 modul (bengkel berkumpulan)
+1. Peta medan sama merentas modul (bengkel berkumpulan)
 2. Tulis URS modul kumpulan anda — draf AI, kemudian semakan manusia baris demi baris
 3. Lukis process flow dalam Mermaid
 4. Tulis use case dengan aliran utama **dan** alternatif
