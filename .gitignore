@@ -36,3 +36,6 @@ nota/
 projek/
 _arkib/
 templates/
+
+# Trainer source packs (derived from real NRES forms — LOCAL ONLY, never push)
+_sumber-urs/
