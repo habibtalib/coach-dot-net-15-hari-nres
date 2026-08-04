@@ -203,6 +203,8 @@ Setiap PR memerlukan seorang penyemak. Penyemak menjawab **empat soalan mengikut
 
 ## SESI 7 — Agile & Pengurusan Kerja
 
+> 🎬 **Video rujukan:** [Agile — pengenalan](https://www.youtube.com/watch?v=8eVXTyIZ1Hs) (sprint, backlog, board).
+
 ### Konsep yang benar-benar penting
 
 Kita tidak mengajar sijil Scrum. Kita mengajar lima perkara yang menjadikan pasukan 4-kumpulan berfungsi:

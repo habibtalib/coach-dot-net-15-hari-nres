@@ -99,6 +99,8 @@ Satu ciri **bukan** siap apabila ia "berfungsi pada mesin saya". Definition of D
 
 ## Design Thinking — mula dengan empati (sebelum URS)
 
+> 🎬 **Video rujukan:** [Design Thinking](https://www.youtube.com/watch?v=_r0VX-aU_T8) · [MVP — bina yang teras dahulu](https://www.youtube.com/watch?v=fs76olRvEqg) (skop & keutamaan).
+
 Sebelum kita tulis keperluan, kita **faham pengguna dahulu**. Skop kursus ini tetap (4 kumpulan, 6 modul), jadi kita **tidak** guna Design Thinking untuk *mencipta ciri* — kita gunakannya untuk menulis **URS yang tajam**, berpunca daripada kesakitan sebenar pemohon.
 
 ### Lima peringkat — kita berat pada dua yang awal
