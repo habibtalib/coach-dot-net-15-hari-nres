@@ -1,4 +1,4 @@
-# Hari 2 — Git, Branching, Agile & Kolaborasi Pasukan
+# Hari 2 — Agile, Git, Branching & Kolaborasi Pasukan
 
 Nota ini mengikut **aturcara rasmi HARI 2** dalam [`../JADUAL.md`](../JADUAL.md) — SESI 5 hingga SESI 8. Konsep di sini; hands-on penuh di [`snippets/lab.md`](./snippets/lab.md).
 
@@ -26,10 +26,10 @@ Nota ini mengikut **aturcara rasmi HARI 2** dalam [`../JADUAL.md`](../JADUAL.md)
 | Masa | Agenda |
 |------|--------|
 | 9.15 – 9.30 pagi | Pendaftaran & Minum Pagi |
-| **9.30 – 11.00 pagi** | **SESI 5: Git Asas & Repositori** — `clone`, `status`, `add`, `commit`, `push`, `pull --rebase`; format mesej commit; `.gitignore`. 💻 Lab: commit pertama |
-| **11.00 – 12.30 tgh** | **SESI 6: Strategi Percabangan & Code Review** — cabang kumpulan, cabang ciri, pull request, templat PR, senarai semak penyemak; **selesaikan konflik gabungan secara langsung**. 💻 Lab: cipta konflik & selesaikannya |
+| **9.30 – 11.00 pagi** | **SESI 5: Agile & Pengurusan Kerja** — Agile Manifesto (4 nilai), backlog, sprint, stand-up, DoD; **Jira** (epic → user story → task → bug → spike, subtask, board sendiri setiap pasukan & **swimlanes** mengikut epic, issue key) & **GitHub Projects**. 💻 Lab: backlog modul dari URS Hari 1. *Rancang kerja dahulu — belum sentuh Git.* |
+| **11.00 – 12.30 tgh** | **SESI 6: Git Asas & Repositori** — `clone`, `status`, `add`, `commit`, `push`, `pull --rebase`; format mesej commit (sertakan issue key); `.gitignore`. 💻 Lab: commit pertama |
 | 12.30 – 2.30 petang | Rehat & Makan Tengah Hari |
-| **2.30 – 3.30 petang** | **SESI 7: Agile & Pengurusan Kerja** — backlog, sprint, stand-up, DoD; **GitHub Projects** (hands-on) & **Jira** (demo + pemetaan). 💻 Lab: backlog modul dari URS Hari 1 |
+| **2.30 – 3.30 petang** | **SESI 7: Strategi Percabangan & Code Review** — cabang kumpulan, cabang ciri, pull request, templat PR, senarai semak penyemak; **selesaikan konflik gabungan secara langsung**. 💻 Lab: cipta konflik & selesaikannya |
 | **3.30 – 4.30 petang** | **SESI 8: Kolaborasi, AI Berpasukan & Persekitaran** — matriks pemilikan fail, slot migration, `AGENTS.md`; pasang .NET 10 SDK & tools. 💻 Lab: persekitaran sedia + tandatangan kontrak |
 | 4.30 petang | Bersurai |
 
@@ -37,7 +37,81 @@ Nota ini mengikut **aturcara rasmi HARI 2** dalam [`../JADUAL.md`](../JADUAL.md)
 
 ---
 
-## SESI 5 — Git Asas & Repositori
+## SESI 5 — Agile & Pengurusan Kerja
+
+> 🎬 **Video rujukan:** [Agile — pengenalan](https://www.youtube.com/watch?v=8eVXTyIZ1Hs) (sprint, backlog, board).
+
+### Konsep yang benar-benar penting
+
+Kita tidak mengajar sijil Scrum. Kita mengajar lima perkara yang menjadikan pasukan 4-kumpulan berfungsi:
+
+| Konsep | Maksud dalam kursus kita |
+|--------|--------------------------|
+| **Backlog** | Senarai kerja yang belum siap, disusun mengikut keutamaan — datang terus dari URS Hari 1 |
+| **Sprint** | Satu blok kerja bermatlamat. Bagi kita, setiap **blok trek** ialah satu sprint (Hari 4, 5–6, 7–9, 10–12, 13–14) |
+| **Stand-up** | 15 minit setiap pagi: semalam / hari ini / halangan |
+| **Definition of Done** | Bila sesuatu benar-benar siap — satu definisi, semua kumpulan ([`../KOLABORASI.md`](../KOLABORASI.md) §9) |
+| **Board** | Papan lihat-pandang: To Do → In Progress → In Review → Done |
+
+**Kenapa ini penting di sini secara khusus:** setiap pasukan mengurus **board sendiri**, dan board itu ialah cara jurulatih menyemak kemajuan pasukan itu. Isu yang tidak ada pada board ialah kerja yang tiada siapa tahu sedang berlaku. Penyelarasan **antara** pasukan (elak dua pasukan bina benda sama) datang dari stand-up harian + semakan silang AI + [`../AGENTS.md`](../AGENTS.md) — bukan satu board dikongsi.
+
+### GitHub Projects — hands-on dalam kelas
+
+Kita gunakan GitHub Projects untuk kerja sebenar kursus kerana ia hidup di tempat yang sama dengan kod:
+
+```text
+Isu #14 "Semakan pendua nombor plat"
+   ↓  cipta cabang dari isu
+kump-2/feat/semakan-pendua-plat
+   ↓  commit dengan "Closes #14"
+Pull request
+   ↓  disemak & digabung
+Isu ditutup automatik → kad bergerak ke Done
+```
+
+Rantaian itu — isu → cabang → PR → tutup — ialah keseluruhan aliran kerja. Semuanya boleh dijejak, tiada langkah manual.
+
+### Jira — demo & pemetaan
+
+Ramai peserta akan menggunakan **Jira** di pejabat, jadi kita tunjukkan pemetaannya:
+
+| GitHub Projects | Jira | Nota |
+|-----------------|------|------|
+| Isu | Story / Task / Bug | Jira mempunyai jenis isu yang lebih kaya |
+| Label | Label / Component | |
+| Milestone | Sprint / Version | Jira memisahkan kedua-duanya |
+| Papan Projects | Sprint board / Kanban board | |
+| `Closes #14` dalam commit | `NRES-42` dalam mesej commit | Jira memadan issue key secara automatik |
+| Epic (melalui label) | **Epic** (jenis isu terbina) | Hierarki Jira lebih tegas |
+
+**Hierarki Jira** yang perlu diketahui:
+
+```text
+Epic:    "Modul Pas, Parkir & Pelekat"
+ └─ Story:   "Sebagai pemohon, saya mahu memohon pelekat kenderaan"
+     └─ Subtask: "Tambah entiti Vehicle + konfigurasi"
+     └─ Subtask: "Bina borang permohonan pelekat"
+     └─ Subtask: "Laksana semakan pendua plat"
+```
+
+**Jenis isu Jira** yang kita guna: **Epic** (matlamat/modul, payung banyak story) · **User Story** (*Sebagai… saya mahu… supaya…* — nilai pengguna) · **Task** (kerja teknikal tanpa muka pengguna) · **Bug** (kelakuan salah) · **Spike** (kotak-masa untuk siasat/belajar sebelum anggar — hasilnya keputusan, bukan ciri) · **Subtask** (pecahan kecil di bawah story/task).
+
+**Setiap pasukan ada board sendiri** — bukan satu board dikongsi. Dalam board sesebuah pasukan, **swimlane** ialah baris yang mengumpulkan kad, biasanya **mengikut epic**. Contoh Kumpulan 1 (yang memikul 3 projek) — 3 epic menjadi 3 swimlane:
+
+```text
+Board KUMPULAN 1        │ To Do  │ In Progress │ In Review │ Done   │
+ Epic: Lapor Diri       │ LD-14  │ LD-12       │ LD-08     │ LD-03  │
+ Epic: Pematuhan PKS    │ PKS-06 │ PKS-04      │           │ PKS-01 │
+ Epic: Pengurusan Kontrak│ KON-09 │            │ KON-05    │        │
+```
+
+Lajur ialah status (To Do → In Progress → In Review → Done); kad bergerak kiri → kanan dan "Done" bermaksud lulus DoD. Penyelarasan **antara** 4 pasukan datang dari stand-up harian + [`../AGENTS.md`](../AGENTS.md), bukan board dikongsi.
+
+**Peraturan yang terpakai pada kedua-dua alat:** setiap kerja mempunyai kad. Jika anda mengerjakan sesuatu yang tiada pada board, hentikan dan buat kadnya dahulu — bukan kerana proses, tetapi kerana itulah cara tiga kumpulan lain tahu anda sedang membinanya.
+
+---
+
+## SESI 6 — Git Asas & Repositori
 
 ### Kenapa Git, bukan folder kongsi
 
@@ -129,7 +203,7 @@ App_Data/uploads/
 
 ---
 
-## SESI 6 — Percabangan & Code Review
+## SESI 7 — Percabangan & Code Review
 
 ### Strategi percabangan kita
 
@@ -198,67 +272,6 @@ Setiap PR memerlukan seorang penyemak. Penyemak menjawab **empat soalan mengikut
 4. Bolehkah penulis menerangkan setiap baris? *(khususnya kod jana-AI)*
 
 > Code review mengambil kira **15%** penilaian capstone. Ia bukan formaliti.
-
----
-
-## SESI 7 — Agile & Pengurusan Kerja
-
-> 🎬 **Video rujukan:** [Agile — pengenalan](https://www.youtube.com/watch?v=8eVXTyIZ1Hs) (sprint, backlog, board).
-
-### Konsep yang benar-benar penting
-
-Kita tidak mengajar sijil Scrum. Kita mengajar lima perkara yang menjadikan pasukan 4-kumpulan berfungsi:
-
-| Konsep | Maksud dalam kursus kita |
-|--------|--------------------------|
-| **Backlog** | Senarai kerja yang belum siap, disusun mengikut keutamaan — datang terus dari URS Hari 1 |
-| **Sprint** | Satu blok kerja bermatlamat. Bagi kita, setiap **blok trek** ialah satu sprint (Hari 4, 5–6, 7–9, 10–12, 13–14) |
-| **Stand-up** | 15 minit setiap pagi: semalam / hari ini / halangan |
-| **Definition of Done** | Bila sesuatu benar-benar siap — satu definisi, semua kumpulan ([`../KOLABORASI.md`](../KOLABORASI.md) §9) |
-| **Board** | Papan lihat-pandang: To Do → In Progress → In Review → Done |
-
-**Kenapa ini penting di sini secara khusus:** dengan empat pasukan yang bekerja selari, board ialah satu-satunya cara jurulatih (dan kumpulan lain) melihat siapa membina apa. Isu yang tidak ada pada board ialah kerja yang tiada siapa tahu sedang berlaku — dan kerja yang tiada siapa tahu ialah kerja yang seseorang mungkin sedang duplikasi.
-
-### GitHub Projects — hands-on dalam kelas
-
-Kita gunakan GitHub Projects untuk kerja sebenar kursus kerana ia hidup di tempat yang sama dengan kod:
-
-```text
-Isu #14 "Semakan pendua nombor plat"
-   ↓  cipta cabang dari isu
-kump-2/feat/semakan-pendua-plat
-   ↓  commit dengan "Closes #14"
-Pull request
-   ↓  disemak & digabung
-Isu ditutup automatik → kad bergerak ke Done
-```
-
-Rantaian itu — isu → cabang → PR → tutup — ialah keseluruhan aliran kerja. Semuanya boleh dijejak, tiada langkah manual.
-
-### Jira — demo & pemetaan
-
-Ramai peserta akan menggunakan **Jira** di pejabat, jadi kita tunjukkan pemetaannya:
-
-| GitHub Projects | Jira | Nota |
-|-----------------|------|------|
-| Isu | Story / Task / Bug | Jira mempunyai jenis isu yang lebih kaya |
-| Label | Label / Component | |
-| Milestone | Sprint / Version | Jira memisahkan kedua-duanya |
-| Papan Projects | Sprint board / Kanban board | |
-| `Closes #14` dalam commit | `NRES-42` dalam mesej commit | Jira memadan issue key secara automatik |
-| Epic (melalui label) | **Epic** (jenis isu terbina) | Hierarki Jira lebih tegas |
-
-**Hierarki Jira** yang perlu diketahui:
-
-```text
-Epic:    "Modul Pas, Parkir & Pelekat"
- └─ Story:   "Sebagai pemohon, saya mahu memohon pelekat kenderaan"
-     └─ Subtask: "Tambah entiti Vehicle + konfigurasi"
-     └─ Subtask: "Bina borang permohonan pelekat"
-     └─ Subtask: "Laksana semakan pendua plat"
-```
-
-**Peraturan yang terpakai pada kedua-dua alat:** setiap kerja mempunyai kad. Jika anda mengerjakan sesuatu yang tiada pada board, hentikan dan buat kadnya dahulu — bukan kerana proses, tetapi kerana itulah cara tiga kumpulan lain tahu anda sedang membinanya.
 
 ---
 
@@ -342,11 +355,11 @@ Panduan penuh: [`../nota/00-setup-dotnet.md`](../nota/00-setup-dotnet.md).
 
 Ikuti [`snippets/lab.md`](./snippets/lab.md) — anda akan:
 
-1. Clone repo & buat commit pertama (dokumen Hari 1 anda)
-2. Bina & selesaikan konflik gabungan sebenar dengan sengaja
-3. Buka pull request dan menyemak PR kumpulan lain
-4. Bina backlog modul anda dalam GitHub Projects dari URS Hari 1
-5. Petakan backlog yang sama kepada struktur Jira
+1. Bina backlog modul anda dalam GitHub Projects dari URS Hari 1 — **board sendiri, swimlane mengikut epic**
+2. Petakan backlog yang sama kepada struktur Jira (**board Jira sendiri setiap pasukan**)
+3. Clone repo & buat commit pertama (dokumen Hari 1 anda)
+4. Buka pull request, semak PR kumpulan lain, dan cipta cabang kumpulan
+5. Bina & selesaikan konflik gabungan sebenar dengan sengaja
 6. Konfigurasi pembantu AI anda dengan `AGENTS.md` dan uji peraturan "cari dahulu"
 7. Sahkan persekitaran .NET 10 & tandatangani kontrak `KOLABORASI.md`
 

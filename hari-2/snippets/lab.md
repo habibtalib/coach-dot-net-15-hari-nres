@@ -1,4 +1,4 @@
-# Lab Hari 2 — Git, Branching, Agile & Kolaborasi
+# Lab Hari 2 — Agile, Git, Branching & Kolaborasi
 
 > Konsep di [`../README.md`](../README.md). Kontrak pasukan: [`../../KOLABORASI.md`](../../KOLABORASI.md). Konteks AI: [`../../AGENTS.md`](../../AGENTS.md).
 
@@ -12,7 +12,129 @@
 
 ---
 
-## Latihan 0 — Konfigurasi Git & commit pertama
+## Latihan 0 — Bina backlog dalam GitHub Projects
+
+**Objektif:** Tukar URS Hari 1 menjadi backlog yang boleh dilaksanakan.
+
+### Langkah
+
+1. **Setiap kumpulan mencipta board GitHub Project sendiri** (bukan satu board dikongsi) dengan lajur:
+
+```text
+To Do  →  In Progress  →  In Review  →  Done
+```
+
+   Guna **swimlane mengikut epic**. Kumpulan 1 (3 projek) → 3 swimlane: `Lapor Diri` · `Pematuhan PKS` · `Pengurusan Kontrak`. Kumpulan lain → swimlane mengikut epic/ciri utama modul mereka.
+
+2. **Setiap kumpulan mencipta isu dari URSnya.** Bagi setiap keperluan "Mesti ada", cipta satu isu:
+
+```markdown
+Tajuk: [K2] Semakan pendua nombor plat
+
+## Keperluan
+URS-PAS-007
+
+## Perihalan
+Sistem menolak permohonan pelekat baharu jika nombor plat yang sama sudah
+mempunyai permohonan berstatus Submitted, SupervisorApproved, atau AdminApproved.
+
+## Kriteria penerimaan
+- [ ] Semakan berjalan sebelum menyimpan permohonan
+- [ ] Mesej ralat menamakan nombor plat bertindih
+- [ ] Permohonan Rejected/Cancelled TIDAK menyekat permohonan baharu
+- [ ] Diliputi ujian unit
+
+## Anggaran
+Sederhana (½ hari)
+```
+
+3. **Labelkan setiap isu:**
+   - Epic / modul: cth `lapor-diri`, `pematuhan-pks`, `pengurusan-kontrak` — ini yang jadi swimlane
+   - Jenis: `feature` · `bug` · `docs` · `test` · `spike`
+   - **`shared`** — jika ia memerlukan sesuatu di luar folder kumpulan anda *(ini menjadi keputusan jurulatih, bukan kerja anda)*
+
+4. **Susun mengikut keutamaan** dalam lajur To Do. Tertib mesti mencerminkan blok trek:
+
+   | Blok | Isu jenis apa |
+   |------|---------------|
+   | Hari 4 | Skema, entiti, skrin pertama |
+   | Hari 5–6 | Borang, validation, peraturan perniagaan |
+   | Hari 7–9 | Aliran kelulusan, skrin admin |
+   | Hari 10–12 | Notifikasi, laporan, dashboard |
+   | Hari 13–14 | Ujian, refactor |
+
+5. **Semakan silang untuk isu `shared`.** Kerana setiap pasukan ada board sendiri, isu `shared` dibawa ke **semakan silang harian** (stand-up + [`../../AGENTS.md`](../../AGENTS.md)) supaya seluruh kelas nampak. Bagi setiap satu:
+   - Adakah ia sudah wujud dalam daftar komponen kongsi ([`../../AGENTS.md`](../../AGENTS.md))?
+   - Adakah lebih daripada satu kumpulan memerlukannya? → ia menjadi kerja Hari 3
+   - Adakah ia sebenarnya khusus modul? → nyahlabel, simpan dalam kumpulan
+
+6. Sahkan setiap kumpulan mempunyai **sekurang-kurangnya 12 isu** dalam To Do.
+
+### ✅ Semakan
+
+- [ ] Setiap pasukan ada board GitHub Project sendiri (4 lajur + swimlane mengikut epic)
+- [ ] Setiap kumpulan ada ≥12 isu dari URSnya
+- [ ] Setiap isu memaut ke ID URS
+- [ ] Setiap isu ada kriteria penerimaan yang boleh diuji
+- [ ] Isu dilabel mengikut kumpulan & jenis
+- [ ] Isu `shared` disemak seluruh kelas
+- [ ] To Do disusun mengikut blok trek
+
+---
+
+## Latihan 1 — Petakan backlog yang sama ke Jira
+
+**Objektif:** Faham struktur Jira supaya anda boleh membawa aliran kerja ini ke pejabat.
+
+> Jurulatih mendemokan ini pada projek Jira demo. Peserta mengikut secara membaca — kita **tidak** menjalankan kursus dari Jira.
+
+### Langkah
+
+> **Setiap pasukan ada board Jira sendiri** (bukan satu board dikongsi) — sama seperti board GitHub Project mereka. Dalam board itu, **swimlane mengikut epic**; Kumpulan 1 (3 projek) ada 3 epic.
+
+1. Perhatikan hierarki Jira pada skrin:
+
+```text
+Epic:  "Modul Pas, Parkir & Pelekat"           ← satu atau lebih epic setiap kumpulan (K1 ada 3)
+ ├─ Story: "Sebagai pemohon, saya mahu memohon pelekat kenderaan"
+ │   ├─ Subtask: "Tambah entiti Vehicle + IEntityTypeConfiguration"
+ │   ├─ Subtask: "Bina borang permohonan pelekat"
+ │   └─ Subtask: "Laksana semakan pendua plat"
+ └─ Story: "Sebagai Pegawai Keselamatan, saya mahu menyemak permohonan pas"
+ └─ Spike: "Siasat integrasi QR/AD — berapa lama & bagaimana?"
+```
+
+2. **Petakan tiga isu GitHub anda** kepada struktur Jira. Tulis dalam `docs/kumpulan-N/pemetaan-jira.md`:
+
+```markdown
+# Pemetaan GitHub Projects ↔ Jira — Kumpulan N
+
+| Isu GitHub | Jenis Jira | Epic induk |
+|------------|-----------|------------|
+| #14 Semakan pendua nombor plat | Subtask | Story: Mohon pelekat kenderaan |
+| #15 Borang permohonan pas | Story | Epic: Modul Pas, Parkir & Pelekat |
+| #16 Betulkan ralat validation tarikh | Bug | Story: Mohon pas keselamatan |
+
+## Perbezaan yang kami perasan
+- Jira menguatkuasakan hierarki Epic→Story→Subtask; GitHub gunakan label secara longgar
+- Jira memisahkan Sprint dan Version; GitHub gabungkan menjadi Milestone
+- Rujukan commit: GitHub `Closes #14` (menutup isu) vs Jira `NRES-42` (memaut, tidak menutup)
+```
+
+3. Perhatikan demo memaut commit ke Jira: mesej commit `NRES-42 akses: tambah semakan pendua plat` muncul secara automatik pada isu Jira.
+
+4. **Perbincangan:** untuk sistem dalaman NRES sebenar, alat mana yang anda cadangkan dan kenapa? Rekod pandangan kumpulan anda dalam fail pemetaan.
+
+### ✅ Semakan
+
+- [ ] `docs/kumpulan-N/pemetaan-jira.md` wujud
+- [ ] Tiga isu dipetakan kepada jenis Jira dengan epic induk
+- [ ] Kumpulan boleh menerangkan Epic vs Story vs Subtask
+- [ ] Kumpulan boleh menerangkan `Closes #14` vs `NRES-42`
+
+---
+
+## Latihan 2 — Konfigurasi Git & commit pertama
 
 **Objektif:** Clone repo, konfigurasi identiti anda, dan commit dokumentasi Hari 1.
 
@@ -75,7 +197,7 @@ git show --stat HEAD
 
 ---
 
-## Latihan 1 — Cabang & pull request pertama
+## Latihan 3 — Cabang & pull request pertama
 
 **Objektif:** Bekerja dalam cabang ciri, buka PR, dan gabungkannya.
 
@@ -168,7 +290,7 @@ git branch -d kump-N/docs/ringkasan-modul     # buang cabang yang sudah digabung
 
 ---
 
-## Latihan 2 — Cipta konflik gabungan dengan sengaja & selesaikannya
+## Latihan 4 — Cipta konflik gabungan dengan sengaja & selesaikannya
 
 **Objektif:** Alami konflik gabungan dalam keadaan selamat, supaya ia terasa biasa apabila ia berlaku sebenar.
 
@@ -304,7 +426,7 @@ Ini selamat. Anda tidak boleh merosakkan apa-apa yang tidak boleh dibatalkan.
 
 ---
 
-## Latihan 3 — Cipta cabang kumpulan
+## Latihan 5 — Cipta cabang kumpulan
 
 **Objektif:** Tetapkan cabang jangka panjang yang kumpulan anda akan guna dari Hari 4 hingga 14.
 
@@ -357,123 +479,6 @@ git branch -r
 - [ ] Nama cabang sepadan `SPEC-KURSUS.md` **tepat**
 - [ ] Setiap peserta berada pada cabang kumpulannya
 - [ ] `git branch -vv` menunjukkan penjejakan dikonfigurasi
-
----
-
-## Latihan 4 — Bina backlog dalam GitHub Projects
-
-**Objektif:** Tukar URS Hari 1 menjadi backlog yang boleh dilaksanakan.
-
-### Langkah
-
-1. Jurulatih mencipta satu papan **GitHub Project** untuk kursus dengan lajur:
-
-```text
-To Do  →  In Progress  →  In Review  →  Done
-```
-
-2. **Setiap kumpulan mencipta isu dari URSnya.** Bagi setiap keperluan "Mesti ada", cipta satu isu:
-
-```markdown
-Tajuk: [K2] Semakan pendua nombor plat
-
-## Keperluan
-URS-PAS-007
-
-## Perihalan
-Sistem menolak permohonan pelekat baharu jika nombor plat yang sama sudah
-mempunyai permohonan berstatus Submitted, SupervisorApproved, atau AdminApproved.
-
-## Kriteria penerimaan
-- [ ] Semakan berjalan sebelum menyimpan permohonan
-- [ ] Mesej ralat menamakan nombor plat bertindih
-- [ ] Permohonan Rejected/Cancelled TIDAK menyekat permohonan baharu
-- [ ] Diliputi ujian unit
-
-## Anggaran
-Sederhana (½ hari)
-```
-
-3. **Labelkan setiap isu:**
-   - Kumpulan: `kumpulan-1` … `kumpulan-4`
-   - Jenis: `feature` · `bug` · `docs` · `test`
-   - **`shared`** — jika ia memerlukan sesuatu di luar folder kumpulan anda *(ini menjadi keputusan jurulatih, bukan kerja anda)*
-
-4. **Susun mengikut keutamaan** dalam lajur To Do. Tertib mesti mencerminkan blok trek:
-
-   | Blok | Isu jenis apa |
-   |------|---------------|
-   | Hari 4 | Skema, entiti, skrin pertama |
-   | Hari 5–6 | Borang, validation, peraturan perniagaan |
-   | Hari 7–9 | Aliran kelulusan, skrin admin |
-   | Hari 10–12 | Notifikasi, laporan, dashboard |
-   | Hari 13–14 | Ujian, refactor |
-
-5. **Semakan silang untuk isu `shared`.** Seluruh kelas melihat semua isu berlabel `shared`. Bagi setiap satu:
-   - Adakah ia sudah wujud dalam daftar komponen kongsi ([`../../AGENTS.md`](../../AGENTS.md))?
-   - Adakah lebih daripada satu kumpulan memerlukannya? → ia menjadi kerja Hari 3
-   - Adakah ia sebenarnya khusus modul? → nyahlabel, simpan dalam kumpulan
-
-6. Sahkan setiap kumpulan mempunyai **sekurang-kurangnya 12 isu** dalam To Do.
-
-### ✅ Semakan
-
-- [ ] Papan wujud dengan 4 lajur
-- [ ] Setiap kumpulan ada ≥12 isu dari URSnya
-- [ ] Setiap isu memaut ke ID URS
-- [ ] Setiap isu ada kriteria penerimaan yang boleh diuji
-- [ ] Isu dilabel mengikut kumpulan & jenis
-- [ ] Isu `shared` disemak seluruh kelas
-- [ ] To Do disusun mengikut blok trek
-
----
-
-## Latihan 5 — Petakan backlog yang sama ke Jira
-
-**Objektif:** Faham struktur Jira supaya anda boleh membawa aliran kerja ini ke pejabat.
-
-> Jurulatih mendemokan ini pada projek Jira demo. Peserta mengikut secara membaca — kita **tidak** menjalankan kursus dari Jira.
-
-### Langkah
-
-1. Perhatikan hierarki Jira pada skrin:
-
-```text
-Epic:  "Modul Pas, Parkir & Pelekat"           ← satu epic setiap kumpulan
- ├─ Story: "Sebagai pemohon, saya mahu memohon pelekat kenderaan"
- │   ├─ Subtask: "Tambah entiti Vehicle + IEntityTypeConfiguration"
- │   ├─ Subtask: "Bina borang permohonan pelekat"
- │   └─ Subtask: "Laksana semakan pendua plat"
- └─ Story: "Sebagai Pegawai Keselamatan, saya mahu menyemak permohonan pas"
-```
-
-2. **Petakan tiga isu GitHub anda** kepada struktur Jira. Tulis dalam `docs/kumpulan-N/pemetaan-jira.md`:
-
-```markdown
-# Pemetaan GitHub Projects ↔ Jira — Kumpulan N
-
-| Isu GitHub | Jenis Jira | Epic induk |
-|------------|-----------|------------|
-| #14 Semakan pendua nombor plat | Subtask | Story: Mohon pelekat kenderaan |
-| #15 Borang permohonan pas | Story | Epic: Modul Pas, Parkir & Pelekat |
-| #16 Betulkan ralat validation tarikh | Bug | Story: Mohon pas keselamatan |
-
-## Perbezaan yang kami perasan
-- Jira menguatkuasakan hierarki Epic→Story→Subtask; GitHub gunakan label secara longgar
-- Jira memisahkan Sprint dan Version; GitHub gabungkan menjadi Milestone
-- Rujukan commit: GitHub `Closes #14` (menutup isu) vs Jira `NRES-42` (memaut, tidak menutup)
-```
-
-3. Perhatikan demo memaut commit ke Jira: mesej commit `NRES-42 akses: tambah semakan pendua plat` muncul secara automatik pada isu Jira.
-
-4. **Perbincangan:** untuk sistem dalaman NRES sebenar, alat mana yang anda cadangkan dan kenapa? Rekod pandangan kumpulan anda dalam fail pemetaan.
-
-### ✅ Semakan
-
-- [ ] `docs/kumpulan-N/pemetaan-jira.md` wujud
-- [ ] Tiga isu dipetakan kepada jenis Jira dengan epic induk
-- [ ] Kumpulan boleh menerangkan Epic vs Story vs Subtask
-- [ ] Kumpulan boleh menerangkan `Closes #14` vs `NRES-42`
 
 ---
 

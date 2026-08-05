@@ -30,7 +30,7 @@
 ```text
 FASA 1 — SESI BERSAMA (Hari 1–3)          semua kumpulan, satu bilik
   Hari 1   Perancangan · Dokumentasi · URS/SRS · ERD · Use Case & Process Flow   (AI-assisted)
-  Hari 2   Git & Branching · Agile (GitHub Projects + Jira) · Kolaborasi · Persekitaran
+  Hari 2   Agile (Jira + GitHub Projects) · Git & Branching · Kolaborasi · Persekitaran
   Hari 3   Refresher .NET · EF Core · Identity/RBAC · ASAS KONGSI + migration InitialShared
                                           └── 4 cabang kumpulan dibuka ──┐
                                                                          │
@@ -88,17 +88,17 @@ FASA 3 — SESI BERSAMA (Hari 15)
 
 ---
 
-## HARI 2 — Git, Branching, Agile & Kolaborasi Pasukan
+## HARI 2 — Agile, Git, Branching & Kolaborasi Pasukan
 
 **Fokus:** Cara 4 pasukan menulis kod serentak tanpa berlanggar. Hari ini menetapkan disiplin yang menentukan sama ada Hari 15 berjalan lancar atau menjadi malapetaka gabungan.
 
 | Masa | Agenda |
 |------|--------|
 | 9.15 – 9.30 pagi | Pendaftaran & Minum Pagi |
-| **9.30 – 11.00 pagi** | **SESI 5: Git Asas & Repositori** — `clone`, `status`, `add`, `commit`, `push`, `pull --rebase`; format mesej commit kursus; `.gitignore`. 💻 **Lab:** setiap peserta clone repo & buat commit pertama |
-| **11.00 – 12.30 tgh** | **SESI 6: Strategi Percabangan & Code Review** — `master` dilindungi, `asas/shared-foundation`, 4 cabang kumpulan, cabang ciri pendek; **pull request**, templat PR, senarai semak penyemak; **selesaikan konflik gabungan** secara langsung. 💻 **Lab:** cipta konflik dengan sengaja dan selesaikannya |
+| **9.30 – 11.00 pagi** | **SESI 5: Agile & Pengurusan Kerja** — Agile Manifesto (4 nilai), backlog, sprint, stand-up, Definition of Done; **Jira** (jenis isu: **epic → user story → task → bug → spike**, subtask, sprint board **sendiri setiap pasukan** & **swimlanes** mengikut epic, issue key dalam commit) dan **GitHub Projects** (isu → board → cabang → PR → tutup; pemetaan GitHub ↔ Jira). 💻 **Lab:** setiap kumpulan bina backlog modulnya dari URS Hari 1. *Rasional: rancang kerja dahulu — belum sentuh Git.* |
+| **11.00 – 12.30 tgh** | **SESI 6: Git Asas & Repositori** — `clone`, `status`, `add`, `commit`, `push`, `pull --rebase`; format mesej commit kursus (sertakan issue key Jira); `.gitignore`. 💻 **Lab:** setiap peserta clone repo & buat commit pertama |
 | 12.30 – 2.30 petang | Rehat & Makan Tengah Hari |
-| **2.30 – 3.30 petang** | **SESI 7: Agile & Pengurusan Kerja** — backlog, sprint, stand-up, Definition of Done; **GitHub Projects** (hands-on: isu → board → cabang → PR → tutup) dan **Jira** (demo: epic → story → subtask, sprint board, issue key dalam commit, pemetaan konsep GitHub ↔ Jira). 💻 **Lab:** setiap kumpulan bina backlog modulnya dari URS Hari 1 |
+| **2.30 – 3.30 petang** | **SESI 7: Strategi Percabangan & Code Review** — `master` dilindungi, `asas/shared-foundation`, 4 cabang kumpulan, cabang ciri pendek; **pull request**, templat PR, senarai semak penyemak; **selesaikan konflik gabungan** secara langsung. 💻 **Lab:** cipta konflik dengan sengaja dan selesaikannya |
 | **3.30 – 4.30 petang** | **SESI 8: Kolaborasi, AI Berpasukan & Persekitaran** — matriks pemilikan fail, protokol fail kongsi, slot migration, peraturan AI kongsi (`AGENTS.md`); pasang .NET 10 SDK, IDE, `dotnet ef`, sahkan `dotnet --version`. 💻 **Lab:** persekitaran sedia + setiap kumpulan tandatangan kontrak `KOLABORASI.md` |
 | 4.30 petang | Bersurai |
 
