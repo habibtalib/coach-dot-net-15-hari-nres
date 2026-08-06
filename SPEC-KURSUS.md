@@ -4,7 +4,31 @@
 
 Kursus: **Latihan Secara *Coaching* Pembangunan Sistem Onboarding & Khidmat Dalaman NRES Menggunakan ASP.NET Core** — 15 hari, hands-on, berpaksikan lab. Kod kursus **DOTNET-NRES-15**.
 
-Projek kursus tunggal: **`Nres.Onboarding.Web`** — satu aplikasi ASP.NET Core MVC dalaman yang menyatukan modul-modul permohonan & aliran kerja kelulusan merentas **4 kumpulan** (Kumpulan 1 memikul **tiga** projek).
+Seni bina: **poly-repo**. **Setiap modul ialah aplikasi ASP.NET Core (.NET 10) yang berasingan** — repo sendiri, subdomain sendiri, pangkalan data sendiri. **Satu-satunya komponen yang dikongsi ialah Profile DB.** Empat kumpulan latihan memiliki modul masing-masing (Kumpulan 1 memikul **tiga** repo).
+
+---
+
+## Seni bina — MUKTAMAD (poly-repo)
+
+> **Perubahan seni bina (disahkan):** kursus ini **tidak lagi** satu repo / satu aplikasi / satu pangkalan data. Ia kini **poly-repo** — enam sistem `.NET` bebas, diintegrasikan **hanya** melalui **Profile DB** yang dikongsi. Semua kandungan mesti mematuhi model ini; abaikan mana-mana rujukan lama kepada "satu repositori", `Nres.Onboarding.Web`, `master` bersama, `asas/shared-foundation`, atau `InitialShared`.
+
+- **Organisasi GitHub:** [`nres-bpm`](https://github.com/nres-bpm) — satu repo bagi setiap sistem.
+- **Setiap sistem** = **repo sendiri + subdomain sendiri + pangkalan data sendiri**, semua **ASP.NET Core MVC / .NET 10 / EF Core 10**.
+- **Satu-satunya yang dikongsi:** **Profile DB** (jadual `UserProfile` berpusat). Tiada lagi entiti kongsi merentas sistem — setiap sistem memiliki `Submission`/`Attachment`/`AuditLog`/`ApprovalStep`-nya sendiri dalam DB sendiri.
+- **Model akses:**
+  - **Lapor Diri = sistem AWAM (public-facing)** — pintu masuk untuk staf baharu; **mencipta** profil pengguna dalam Profile DB.
+  - **Semua sistem lain = DALAMAN** — akses staf melalui **SSO**; pengguna **sudah ada** profil dalam Profile DB (sistem **membaca** profil). **Pematuhan PKS** dan **Pengurusan Kontrak** dalaman sepenuhnya (tiada borang luar).
+- **Integrasi:** Profile DB juga titik integrasi dengan **sistem sedia ada NRES**.
+
+| Sistem | Repo (`nres-bpm/…`) | Subdomain | Akses | Profile DB |
+|--------|---------------------|-----------|-------|------------|
+| Lapor Diri | [`lapor-diri`](https://github.com/nres-bpm/lapor-diri) | `lapordiri.` | **Awam** | **Cipta** profil |
+| Pematuhan PKS | [`pematuhan-pks`](https://github.com/nres-bpm/pematuhan-pks) | `pks.` | Dalaman (SSO) | Guna profil |
+| Pengurusan Kontrak | [`pengurusan-kontrak`](https://github.com/nres-bpm/pengurusan-kontrak) | `kontrak.` | Dalaman (SSO) | Guna profil |
+| Pas/Parkir/Pelekat | [`pas-parkir-pelekat`](https://github.com/nres-bpm/pas-parkir-pelekat) | `pas.` | Dalaman (SSO) | Guna profil |
+| ID/AD/Email | [`id-ad-email`](https://github.com/nres-bpm/id-ad-email) | `id.` | Dalaman (SSO) | Guna profil |
+| Tempahan Fasiliti Sukan | [`tempahan-fasiliti-sukan`](https://github.com/nres-bpm/tempahan-fasiliti-sukan) | `fasiliti.` | Dalaman (SSO) | Guna profil |
+| **Profil (dikongsi)** | [`profile`](https://github.com/nres-bpm/profile) | — | Perkhidmatan/skema kongsi | **Sumber** Profile DB |
 
 ---
 
@@ -15,16 +39,16 @@ Kursus ini **bukan** satu kohort yang membina semua modul berturutan. Ia mengiku
 | Fasa | Hari | Mod | Kandungan |
 |------|------|-----|-----------|
 | **Fasa 1** | **1 – 3** | **Sesi bersama** (semua kumpulan) | Perancangan, dokumentasi, URS/SRS, ERD & diagram · Git, branching, Agile & kolaborasi · Refresher .NET + asas kongsi |
-| **Fasa 2** | **4 – 14** | **4 trek selari** (setiap kumpulan modulnya sendiri) | Pembangunan modul mengikut kumpulan, pada cabang Git masing-masing |
+| **Fasa 2** | **4 – 14** | **4 trek selari** (setiap kumpulan modulnya sendiri) | Pembangunan modul mengikut kumpulan, dalam **repo masing-masing** (poly-repo) |
 | **Fasa 3** | **15** | **Sesi bersama** | Penggabungan kod, Papan Pemuka Induk, SIT & UAT pre-check, demo |
 
 > **Kenapa Fasa 1 tiga hari — MUKTAMAD:** cadangan NRES memperuntukkan Hari 1–2 sahaja untuk sesi bersama. Skop Fasa 1 dikembangkan untuk merangkumi **perancangan projek, dokumentasi, URS, ERD, Agile (Jira/GitHub Projects), kolaborasi pasukan, dan penggunaan AI** — topik ini tidak muat dalam dua hari bersama-sama refresher .NET dan pembinaan asas kongsi.
 >
 > Keputusan yang **disahkan** ialah **kekal tiga hari sesi bersama**. Kesannya: setiap trek kumpulan mendapat **11 hari** (Hari 4–14) berbanding 12 hari dalam docx; blok terakhir setiap trek dipendekkan dari 3 hari ke 2 hari. Isu ini **ditutup** — jangan tulis kandungan yang mengandaikan trek 12 hari.
 
-### Kenapa asas kongsi mesti siap Hari 3, sebelum kumpulan bercabang
+### Kenapa kontrak Profile DB mesti siap Hari 3, sebelum kumpulan berpecah ke repo masing-masing
 
-Keempat-empat kumpulan bekerja dalam **satu repositori dan satu aplikasi**, kemudian bergabung pada Hari 15. Entiti kongsi (`Submission`, `Attachment`, `AuditLog`, `ApprovalStep`, `UserProfile`), `ApplicationDbContext`, konfigurasi Identity, dan migration `InitialShared` **mesti dibina sekali sahaja, bersama-sama, pada Hari 3**. Jika setiap kumpulan membinanya sendiri, Hari 15 akan menjadi konflik gabungan (merge conflict) yang tidak boleh diselesaikan.
+Setiap kumpulan bekerja dalam **repo dan aplikasi berasingan** — jadi **tiada konflik gabungan merentas pasukan** (itulah kelebihan poly-repo). Yang **mesti dipersetujui bersama pada Hari 3** ialah **kontrak Profile DB**: skema jadual `UserProfile`, cara **Lapor Diri mencipta** profil, dan cara sistem lain **membaca** profil (melalui SSO / capaian Profile DB). Jika setiap sistem mentafsir profil secara berlainan, integrasi akan pecah — jadi Profile DB dibina & dipersetujui **sekali** (repo [`profile`](https://github.com/nres-bpm/profile)), dan setiap sistem lain mematuhinya. Selebihnya (`Submission`, `Attachment`, `AuditLog`, corak `SubmissionStatus`) **dibina dalam setiap repo sendiri** mengikut corak kongsi yang sama, tetapi **bukan** pangkalan data yang sama.
 
 ---
 
@@ -41,13 +65,14 @@ Nota, penerangan & agenda dalam **Bahasa Melayu**. Semua **kod, nama kelas/pembo
 | ORM | **Entity Framework Core 10** |
 | Pangkalan data (latihan) | **SQLite** (mula pantas, sifar pemasangan) |
 | Pangkalan data (pengeluaran) | SQL Server / PostgreSQL |
-| Authentication | **ASP.NET Core Identity** |
-| Authorization | Role-based + policy |
+| Authentication | **Lapor Diri (awam):** ASP.NET Core Identity · **sistem dalaman:** **SSO** (guna profil Profile DB) |
+| Authorization | Role-based + policy (peranan dari Profile DB) |
+| Integrasi | **Profile DB** dikongsi (satu-satunya); setiap sistem baca/tulis mengikut kontrak `profile` |
 | Storan fail | Folder peribadi luar `wwwroot` (`App_Data/uploads/`) |
 | Laporan | Razor print view · CSV export · PDF (QuestPDF) · Excel (ClosedXML) |
 | Kod QR / Barcode | **QRCoder** (Kumpulan 2) |
 | Ujian | **xUnit** + EF Core SQLite/in-memory |
-| Kawalan versi | **Git** + GitHub (repo tunggal, 4 cabang kumpulan) |
+| Kawalan versi | **Git** + GitHub — **poly-repo**: 6 repo dalam org [`nres-bpm`](https://github.com/nres-bpm), satu repo/sistem |
 | Pengurusan kerja | **GitHub Projects** (hands-on) + **Jira** (demo & pemetaan) |
 | IDE | Visual Studio 2022 (17.12+) / VS Code + C# Dev Kit |
 | SDK | **.NET 10 SDK** (`dotnet --version` → `10.x`) |
@@ -62,7 +87,7 @@ Nota, penerangan & agenda dalam **Bahasa Melayu**. Semua **kod, nama kelas/pembo
 
 ## Modul & Kumpulan — MUKTAMAD
 
-Empat kumpulan dedicated. **Kumpulan 1 membina tiga projek**; kumpulan lain satu trek modul. Setiap modul tetap mengikut corak aliran kerja kongsi yang sama (`Submission` induk, `SubmissionStatus`, audit).
+Empat kumpulan dedicated. **Kumpulan 1 membina tiga projek** (tiga repo); kumpulan lain satu trek modul (satu repo). Setiap modul ialah **repo / aplikasi / pangkalan data sendiri** dan mengikut corak aliran kerja yang sama (`Submission` induk, `SubmissionStatus`, audit) — tetapi dalam **DB sendiri**, bukan dikongsi. Pemetaan repo & subdomain: lihat jadual **Seni bina** di atas.
 
 | Kumpulan | Modul | Prefix | Admin peranan | Trek |
 |----------|-------|--------|---------------|------|
@@ -81,77 +106,75 @@ Empat kumpulan dedicated. **Kumpulan 1 membina tiga projek**; kumpulan lain satu
 
 ---
 
-## Struktur projek (monolit ringkas — guna sepanjang kursus)
+## Struktur setiap repo (poly-repo — guna sepanjang kursus)
+
+**Setiap sistem = satu repo = satu solution `.NET` bebas.** Contoh (Lapor Diri):
 
 ```text
-Nres.Onboarding.Web/
-  Controllers/
-  Data/                 # ApplicationDbContext, seed
-  Models/               # entiti (domain)
-    Shared/             # Hari 3 — dikongsi semua kumpulan
-    LaporDiri/          # Kumpulan 1 — Lapor Diri
-    Pks/                # Kumpulan 1 — Pematuhan PKS
-    Kontrak/            # Kumpulan 1 — Pengurusan Kontrak
-    Akses/              # Kumpulan 2
-    Akaun/              # Kumpulan 3
-    Fasiliti/           # Kumpulan 4 — Tempahan Fasiliti Sukan
-  ViewModels/
-  Services/             # IReferenceNumberService, IFileStorageService, dll.
-  Views/
-    Shared/
-    OfficerReporting/ Compliance/ Contract/   # Kumpulan 1
-    AccessPass/ ...     # Kumpulan 2
-    AccountRequest/     # Kumpulan 3
-    FacilityBooking/    # Kumpulan 4
-  wwwroot/
-  App_Data/uploads/     # fail dimuat naik (bukan bawah wwwroot)
-Nres.Onboarding.Tests/  # xUnit
+lapor-diri/                       # repo nres-bpm/lapor-diri
+  src/
+    LaporDiri.Web/                # ASP.NET Core MVC (.NET 10)
+      Controllers/
+      Data/                       # AppDbContext — DB SENDIRI sistem ini
+      Models/                     # entiti SENDIRI: Submission, Attachment, AuditLog,
+                                  #   ApprovalStep + OfficerReportingApplication
+      ViewModels/
+      Services/                   # ReferenceNumberService, FileStorageService, dll. (dalam repo ini)
+      Views/
+      wwwroot/
+      App_Data/uploads/           # fail dimuat naik (bukan bawah wwwroot)
+    LaporDiri.Profile/            # klien/kontrak Profile DB (rujuk paket 'profile')
+  tests/
+    LaporDiri.Tests/              # xUnit
+  README.md
 ```
 
-> **Peraturan anti-konflik:** setiap kumpulan **hanya** mencipta fail dalam folder modulnya sendiri. Fail kongsi (`Program.cs`, `ApplicationDbContext.cs`, `_Layout.cshtml`) **tidak disentuh langsung selepas Hari 3** — ia direka supaya modul mendaftar diri, bukan diedit. Kontrak penuh: [`KOLABORASI.md`](./KOLABORASI.md).
+- **Setiap repo mempunyai versi sendiri** bagi entiti aliran kerja (`Submission`, `Attachment`, `AuditLog`, `ApprovalStep`, `SubmissionStatus`) — **dalam DB sendiri**. Ia bukan lagi jadual dikongsi.
+- **`profile`** ([`nres-bpm/profile`](https://github.com/nres-bpm/profile)) menyediakan **skema + kontrak Profile DB** (sebagai pustaka/paket kongsi atau API). Setiap sistem lain **merujuk** kontrak ini untuk baca profil; **Lapor Diri** merujuknya untuk **cipta** profil.
+
+> **Anti-konflik dalam poly-repo:** kerana setiap pasukan bekerja dalam **repo berasingan**, **tiada konflik gabungan merentas pasukan** dan **tiada slot migration bersama**. Titik disiplin berpindah ke **satu tempat**: **kontrak Profile DB** — jangan ubah skema profil tanpa menyelaras dalam repo [`profile`](https://github.com/nres-bpm/profile). Kontrak kolaborasi penuh: [`KOLABORASI.md`](./KOLABORASI.md).
 
 ---
 
 ## Kolaborasi, anti-konflik & anti-redundan — TERAS KURSUS
 
-Empat kumpulan menulis kod serentak dalam satu repositori, keempat-empatnya dibantu AI. Tanpa disiplin, dua perkara **pasti** berlaku menjelang Hari 15: (1) konflik gabungan pada fail kongsi, dan (2) empat versi berlainan bagi logik yang sama (empat servis nombor rujukan, empat panel kelulusan, empat cara audit). AI **memburukkan** kedua-duanya — ia dengan senang hati menjana semula sesuatu yang sudah wujud kerana ia tidak tahu apa yang pasukan lain sudah tulis.
+Dalam poly-repo, setiap pasukan bekerja dalam **repo berasingan** — jadi risiko **konflik gabungan merentas pasukan hilang**. Tetapi risiko baharu muncul: sistem-sistem **bebas mesti tetap saling faham**. Tanpa disiplin, dua perkara berlaku: (1) **Profile DB ditafsir berlainan** oleh setiap sistem → integrasi pecah, dan (2) **konvensyen berselerak** (nama, `SubmissionStatus`, corak aliran kerja berbeza setiap repo) → sukar diselenggara & diaudit. AI memburukkan (2) — ia menjana gaya berbeza setiap kali melainkan diberi konteks kongsi.
 
-Kursus ini menangani risiko itu secara **seni bina**, bukan sekadar peraturan:
+Kursus menangani risiko poly-repo secara **seni bina & kontrak**, bukan sekadar peraturan:
 
-| Sumber konflik | Penyelesaian seni bina | Diajar |
-|----------------|------------------------|--------|
-| 4 kumpulan edit `Program.cs` | Setiap modul ada `Add<Modul>Module(this IServiceCollection)` sendiri; `Program.cs` memanggil 4 baris yang ditulis **sekali** pada Hari 3 | Hari 2–3 |
-| 4 kumpulan edit `ApplicationDbContext` | Tiada `DbSet` ditambah manual — guna `IEntityTypeConfiguration<T>` dalam folder modul + `ApplyConfigurationsFromAssembly()` dipanggil sekali pada Hari 3 | Hari 3 |
-| 4 kumpulan edit menu `_Layout.cshtml` | Navigasi dijana dari `ModuleDescriptor` — setiap kumpulan tambah **fail baharunya sendiri** | Hari 3 |
-| 4 kumpulan jana migration serentak (`ModelSnapshot` bertembung) | **Slot migration**: satu kumpulan sahaja `dotnet ef migrations add` pada satu masa, diumumkan di board; wajib `pull --rebase` dahulu | Hari 2–3 |
-| 4 versi logik yang sama | **Daftar servis & komponen kongsi** — dibina Hari 3, disenaraikan sebagai "sudah wujud, jangan tulis semula" | Hari 3 |
-| AI jana semula kod sedia ada | **`AGENTS.md` kongsi** dibaca oleh AI setiap kumpulan + peraturan *cari dahulu, jana kemudian* | Hari 1–2 |
-| Proses berulang antara kumpulan | **Satu** board, **satu** Definition of Done, **satu** templat PR, **satu** senarai semak review | Hari 2 |
+| Risiko poly-repo | Penyelesaian | Diajar |
+|------------------|--------------|--------|
+| Sistem tafsir Profile DB berlainan | **Kontrak Profile DB tunggal** dalam repo [`profile`](https://github.com/nres-bpm/profile) — skema + pustaka/paket klien yang **dirujuk** semua sistem | Hari 3 |
+| Lapor Diri cipta profil; lain-lain baca | Kontrak jelas: **hanya `lapor-diri` menulis** `UserProfile`; sistem dalaman **baca** (via SSO) | Hari 3 |
+| Konvensyen berbeza setiap repo | **`SubmissionStatus`, corak aliran kerja, peranan** ditakrif di sini (SPEC) & diikut **setiap** repo — walaupun jadual dalam DB masing-masing | Hari 1–3 |
+| AI jana gaya berbeza setiap sistem | **`AGENTS.md`** dimuat dalam **setiap** repo; peraturan *cari dahulu, jana kemudian* dalam repo itu | Hari 1–2 |
+| Integrasi silang gagal lewat | **SSO + akaun ujian kongsi**; **SIT Hari 15** menguji aliran rentas sistem melalui Profile DB | Hari 15 |
+| Proses tak konsisten antar pasukan | **Satu** Definition of Done, **satu** templat PR, **satu** senarai semak review — dikuatkuasa **dalam setiap repo** | Hari 2 |
 
-**Dua fail kontrak yang mengikat semua kumpulan:**
+**Dua fail kontrak yang mengikat semua pasukan:**
 
-- [`KOLABORASI.md`](./KOLABORASI.md) — matriks pemilikan fail, protokol fail kongsi, slot migration, Definition of Done, aliran PR & code review, proses permintaan komponen kongsi.
-- [`AGENTS.md`](./AGENTS.md) — konteks AI kongsi. **Setiap** kumpulan menghalakan pembantu AI-nya ke fail ini supaya keempat-empat pasukan menjana kod dengan konvensyen, nama, dan struktur yang **sama** — ini yang menghalang empat gaya kod berbeza bergabung pada Hari 15.
+- [`KOLABORASI.md`](./KOLABORASI.md) — kontrak Profile DB, konvensyen kongsi merentas repo, Definition of Done, aliran PR & code review (per repo), protokol perubahan skema profil.
+- [`AGENTS.md`](./AGENTS.md) — konteks AI kongsi. **Setiap** repo menyertakan/menghalakan pembantu AI-nya ke fail ini supaya **enam sistem** menjana kod dengan konvensyen, nama, dan struktur yang **sama** — walaupun ia repo berasingan.
 
-> **Peraturan emas anti-redundan:** sebelum menulis mana-mana helper, servis, atau partial view — **cari dalam repo dahulu** (`grep`/`Ctrl+T`), kemudian tanya AI *"adakah ini sudah wujud dalam repo ini?"* sambil merujuk `AGENTS.md`. Jika sesuatu berguna untuk lebih daripada satu modul, ia **bukan** milik folder kumpulan anda — buka isu berlabel `shared` (lihat `KOLABORASI.md`).
+> **Peraturan emas:** dalam repo sistem anda sendiri, tulis apa yang perlu (setiap sistem ada `ReferenceNumberService`, panel kelulusan, dll. **sendiri** — itu OK dalam poly-repo). Tetapi **jangan sesekali** ubah skema/kontrak **Profile DB** tanpa menyelaras dalam repo [`profile`](https://github.com/nres-bpm/profile) — itu satu-satunya perkara yang benar-benar dikongsi.
 
 ---
 
-## Strategi percabangan Git — MUKTAMAD
+## Strategi Git — MUKTAMAD (poly-repo)
+
+**Setiap sistem = repo sendiri** dalam org [`nres-bpm`](https://github.com/nres-bpm). **Tiada** cabang kumpulan bersama, **tiada** merge merentas pasukan. Setiap repo menguruskan cabangnya sendiri:
 
 ```text
-master                        # integrasi; dilindungi, merge melalui PR sahaja
-├── asas/shared-foundation    # Hari 3 — digabung ke master hujung Hari 3
-├── kump-1/pentadbiran        # Kumpulan 1 (Lapor Diri · PKS · Kontrak), Hari 4–14
-├── kump-2/akses-kenderaan    # Kumpulan 2, Hari 4–14
-├── kump-3/id-ad-email        # Kumpulan 3, Hari 4–14
-└── kump-4/tempahan-fasiliti  # Kumpulan 4, Hari 4–14
+<repo>  (cth nres-bpm/pas-parkir-pelekat)
+main                          # dilindungi; merge melalui PR sahaja
+└── feat/<ciri-pendek>        # cabang ciri → PR ke main repo ini
+    cth: feat/semakan-pendua-plat
 ```
 
-- Setiap kumpulan bercabang dari `master` **selepas** `asas/shared-foundation` digabung (hujung Hari 3).
-- Kerja harian dalam cabang ciri pendek: `kump-2/feat/semakan-pendua-plat` → PR ke cabang kumpulan.
-- `git pull --rebase origin master` **setiap pagi** untuk kekal segerak dan mengecilkan konflik Hari 15.
-- Hari 15: keempat-empat cabang kumpulan digabung ke `master` mengikut turutan berjadual.
+- Setiap repo bermula daripada scaffold `.NET` sendiri (Hari 3) dan **merujuk kontrak `profile`**.
+- Kerja harian dalam **cabang ciri pendek** → PR ke `main` **repo itu**; `git pull --rebase` setiap pagi **dalam repo sendiri**.
+- **Tiada gabungan cabang Hari 15.** Sebaliknya setiap sistem berdiri sendiri; **integrasi diuji melalui Profile DB (SIT Hari 15)** dan setiap sistem boleh di-deploy bebas ke subdomainnya.
+- **Repo [`profile`](https://github.com/nres-bpm/profile):** sebarang perubahan skema Profile DB melalui **PR + persetujuan** semua sistem yang bergantung — ini satu-satunya titik penyelarasan merentas pasukan.
 
 ### Format commit
 
@@ -205,13 +228,14 @@ Form → Validation → Draft → Submit → Review → Approve/Reject → Audit
 
 > Model K2 sebenar (UPKF / Pentadbir Parkir / Pengawal berasingan) diringkaskan kepada `SecurityAdmin` dalam lab — lihat *Nota domain* di atas.
 
-## Entiti kongsi (shared) — dibina Hari 3
+## Entiti dikongsi vs entiti setiap sistem
 
-`Submission` (induk), `Attachment`, `AuditLog`, `ApprovalStep`, `UserProfile`, dan lookup: `LookupDepartments`, `LookupGrades`, `LookupPositions`.
+- **Dikongsi (Profile DB — repo [`profile`](https://github.com/nres-bpm/profile)):** **`UserProfile`** sahaja (profil pengguna berpusat) + lookup identiti asas jika perlu. **Hanya Lapor Diri menulis; sistem lain membaca.**
+- **Dalam setiap repo/DB sendiri (corak sama, jadual berasingan):** `Submission` (induk), `Attachment`, `AuditLog`, `ApprovalStep`, dan lookup setempat (`LookupDepartments`, `LookupGrades`, `LookupPositions`) jika diperlukan sistem itu. Ini **bukan lagi** dikongsi — setiap sistem memilikinya dalam DB sendiri, mengikut corak `SubmissionStatus` yang sama.
 
-## Servis kongsi (shared services) — dibina Hari 3
+## Servis dalam setiap sistem
 
-`IReferenceNumberService`, `IFileStorageService`, `IAuditLogService`, `IWorkflowService`, `INotificationService` (guna `ConsoleNotificationService` untuk latihan), `ICurrentUserService`.
+Setiap repo mempunyai **versi sendiri**: `IReferenceNumberService`, `IFileStorageService`, `IAuditLogService`, `IWorkflowService`, `INotificationService` (guna `ConsoleNotificationService` untuk latihan), `ICurrentUserService`. **Satu-satunya servis kongsi:** klien Profile DB (cth `IProfileService` / paket `profile`) untuk baca/tulis `UserProfile`.
 
 ## Prefix nombor rujukan — MUKTAMAD
 
@@ -228,15 +252,16 @@ Form → Validation → Draft → Submit → Review → Approve/Reject → Audit
 
 ## Jadual entiti per kumpulan
 
-| Kumpulan | Tables |
-|----------|--------|
-| Kongsi (Hari 3) | `Submissions`, `Attachments`, `AuditLogs`, `ApprovalSteps`, `UserProfiles`, `Lookup*` |
-| 1 · Lapor Diri | `OfficerReportingApplications` |
-| 1 · Pematuhan PKS | `ComplianceDeclarations` (varian staf & kontraktor: `CompanyName`, `CompanyRegNo`), `PolicyVersions` (versi Polisi Keselamatan Siber) |
-| 1 · Pengurusan Kontrak | `ContractRecords`, `ContractParties`, `ContractMilestones` |
-| 2 · Pas/Parkir/Pelekat | `AccessPassApplications`, `ParkingApplications`, `VehicleStickerApplications`, `Vehicles` |
-| 3 · ID AD & Email | `AccountRequests`, `RequestedSystemAccesses` |
-| 4 · Tempahan Fasiliti Sukan | `SportsFacilities`, `FacilityBookingApplications`, `FacilityBookingSlots` |
+| DB | Tables |
+|----|--------|
+| **Profile DB** (repo `profile`, **dikongsi**) | `UserProfiles` (+ lookup identiti asas) |
+| **Setiap sistem** (DB sendiri) — corak sama | `Submissions`, `Attachments`, `AuditLogs`, `ApprovalSteps`, `Lookup*` setempat |
+| Lapor Diri (DB sendiri) | + `OfficerReportingApplications` |
+| Pematuhan PKS (DB sendiri) | + `ComplianceDeclarations` (varian staf & kontraktor: `CompanyName`, `CompanyRegNo`), `PolicyVersions` (versi Polisi Keselamatan Siber) |
+| Pengurusan Kontrak (DB sendiri) | + `ContractRecords`, `ContractParties`, `ContractMilestones` |
+| Pas/Parkir/Pelekat (DB sendiri) | + `AccessPassApplications`, `ParkingApplications`, `VehicleStickerApplications`, `Vehicles` |
+| ID AD & Email (DB sendiri) | + `AccountRequests`, `RequestedSystemAccesses` |
+| Tempahan Fasiliti Sukan (DB sendiri) | + `SportsFacilities`, `FacilityBookingApplications`, `FacilityBookingSlots` |
 
 ---
 
@@ -247,8 +272,8 @@ Form → Validation → Draft → Submit → Review → Approve/Reject → Audit
 | Hari | Fokus utama |
 |------|-------------|
 | **1** | Perancangan projek & skop · dokumentasi · **URS/SRS** · **Use Case & Process Flow** · **ERD** — kesemuanya dengan bantuan AI |
-| **2** | **Git & strategi percabangan** · **Agile** (GitHub Projects hands-on + Jira demo) · kolaborasi pasukan & code review · persediaan persekitaran (.NET 10 SDK, IDE, tools) |
-| **3** | **Refresher .NET**: C# OOP/LINQ/DI/async · EF Core (DbContext, annotations, Fluent API, migration) · MVC + validation · Identity + RBAC. **Deliverable:** entiti kongsi + `ApplicationDbContext` + migration `InitialShared` digabung ke `master`; 4 cabang kumpulan dibuka |
+| **2** | **Agile** (Jira/GitHub Projects) · **Git & strategi poly-repo** (satu repo/sistem, cabang ciri, PR per repo) · kolaborasi & code review · persediaan persekitaran (.NET 10 SDK, IDE, tools) |
+| **3** | **Refresher .NET**: C# OOP/LINQ/DI/async · EF Core (DbContext, annotations, Fluent API, migration) · MVC + validation · Identity/SSO + RBAC. **Deliverable:** **kontrak Profile DB** dipersetujui (repo `profile`); setiap sistem **di-scaffold dalam repo sendiri** merujuk kontrak profil; corak aliran kerja & `SubmissionStatus` disepakati |
 
 ### Fasa 2 — 4 trek selari (Hari 4–14)
 
@@ -258,13 +283,13 @@ Form → Validation → Draft → Submit → Review → Approve/Reject → Audit
 | **Hari 5–6** | LD muat naik · PKS akuan polisi siber (kait versi) · Kontrak daftar (no. rujukan) | Borang pas/pelekat + semakan pendua no. plat | Borang akaun + kelulusan Penyelia | Borang tempahan + semakan slot bertindih |
 | **Hari 7–9** | Kelulusan HR / IctSecurityOfficer / IctAdmin + skrin admin | Semakan keselamatan + kelulusan bersyarat | Pemprosesan ICT + RBAC + simulasi AD | Kelulusan FacilityAdmin + kalendar slot |
 | **Hari 10–12** | Notifikasi + Slip/laporan PDF + dashboard | QR/Barcode + skrin ronda + laporan | Penjejakan status + audit trail + dashboard ICT | Peringatan tempahan + kalendar + eksport PDF/Excel |
-| **Hari 13–14** | xUnit + refactor + sedia merge | Ujian E2E + bug fixing + sedia merge | RBAC testing + security audit + sedia merge | Ujian bertindih slot + refactor + sedia merge |
+| **Hari 13–14** | xUnit + refactor + sedia integrasi/deploy | Ujian E2E + bug fixing + sedia integrasi | RBAC testing + security audit + sedia integrasi | Ujian bertindih slot + refactor + sedia integrasi |
 
 ### Fasa 3 — Sesi bersama (Hari 15)
 
 | Hari | Fokus utama |
 |------|-------------|
-| **15** | Penggabungan 4 cabang ke `master` · Papan Pemuka Induk NRES · **SIT + UAT pre-check** (aliran rentas modul, RBAC, muat naik fail, audit log) · demo & penilaian capstone |
+| **15** | **Integrasi rentas sistem melalui Profile DB** (bukan merge cabang) · Papan Pemuka Induk NRES · **SIT + UAT pre-check** (aliran rentas sistem via profil & SSO, RBAC, muat naik fail, audit log) · **deploy bebas** setiap sistem ke subdomainnya · demo & penilaian capstone |
 
 ---
 
@@ -314,15 +339,16 @@ AI (Claude, Copilot, dll.) diajar sebagai **alat bantu berdisiplin**, bukan penj
 | Corak aliran kerja betul (draft→submit→approve→audit) | 15% |
 | Validation, authorization & keselamatan | 15% |
 | Ujian (xUnit) & kualiti kod | 15% |
-| **Kolaborasi Git & Agile** (kualiti commit, PR, board, merge bersih) | 15% |
+| **Kolaborasi Git & Agile** (kualiti commit, PR per repo, board, integrasi bersih via Profile DB) | 15% |
 | **Dokumentasi** (URS, ERD, diagram, README modul) | 10% |
 | Pembentangan demo | 5% |
 
-> Peserta yang menyiapkan semua lab treknya, menyumbang kepada gabungan Hari 15, dan membentangkan demo menerima **Sijil Penyertaan** — *Pembangunan Sistem Dalaman NRES Dengan ASP.NET Core*.
+> Peserta yang menyiapkan semua lab treknya, menyumbang kepada integrasi Hari 15, dan membentangkan demo menerima **Sijil Penyertaan** — *Pembangunan Sistem Dalaman NRES Dengan ASP.NET Core*.
 
 ## Jangan
 
 - Jangan simpan kata laluan sebenar dalam modul ID/AD/Email (ajar peserta **jangan** — ini titik pengajaran keselamatan).
 - Jangan guna data NRES sebenar — semua contoh **sintetik**.
-- Jangan tukar `SubmissionStatus`, peranan, prefix rujukan, atau nama cabang tanpa mengemas kini dokumen ini dahulu.
-- Jangan biarkan satu kumpulan mengubah fail kongsi tanpa protokol Hari 2.
+- Jangan tukar `SubmissionStatus`, peranan, prefix rujukan, atau **kontrak Profile DB** tanpa mengemas kini dokumen ini dahulu.
+- Jangan ubah skema/kontrak **Profile DB** (repo [`profile`](https://github.com/nres-bpm/profile)) tanpa **PR + persetujuan** semua sistem yang bergantung.
+- Jangan bina semula "entiti kongsi" merentas sistem — **hanya Profile DB dikongsi**; `Submission`/`Attachment`/`AuditLog` milik setiap repo sendiri.

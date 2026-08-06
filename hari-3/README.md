@@ -1,5 +1,7 @@
 # Hari 3 — Refresher .NET & Asas Kongsi
 
+> ⚠️ **Nota migrasi (poly-repo):** kandungan ini sedang dikemas kini kepada seni bina **poly-repo** (6 repo dalam `nres-bpm`; **hanya Profile DB dikongsi**). "Asas kongsi" & `InitialShared` di bawah ialah model lama — dalam poly-repo, Hari 3 = **terbitkan kontrak Profile DB (repo `profile`) + scaffold setiap repo**. **Kanun terkini & muktamad:** [`../SPEC-KURSUS.md`](../SPEC-KURSUS.md) · [`../AGENTS.md`](../AGENTS.md) · [`../KOLABORASI.md`](../KOLABORASI.md).
+
 Nota ini mengikut **aturcara rasmi HARI 3** dalam [`../JADUAL.md`](../JADUAL.md) — SESI 9 hingga SESI 12. Konsep di sini; hands-on penuh di [`snippets/lab.md`](./snippets/lab.md).
 
 > **Hari ini kita menaip kod — bersama-sama, sekali sahaja.** Semua yang dibina hari ini dikongsi oleh keempat-empat kumpulan. Selepas hari ini, setiap kumpulan bekerja dalam modulnya sendiri selama 11 hari.

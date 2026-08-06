@@ -1,5 +1,7 @@
 # Hari 2 — Agile, Git, Branching & Kolaborasi Pasukan
 
+> ⚠️ **Nota migrasi (poly-repo):** kandungan ini sedang dikemas kini kepada seni bina **poly-repo** (6 repo dalam `nres-bpm`, Profile DB dikongsi). Sebahagian langkah masih mengandaikan model lama (satu repo · `master` · asas kongsi). **Kanun terkini & muktamad:** [`../SPEC-KURSUS.md`](../SPEC-KURSUS.md) · [`../AGENTS.md`](../AGENTS.md) · [`../KOLABORASI.md`](../KOLABORASI.md).
+
 Nota ini mengikut **aturcara rasmi HARI 2** dalam [`../JADUAL.md`](../JADUAL.md) — SESI 5 hingga SESI 8. Konsep di sini; hands-on penuh di [`snippets/lab.md`](./snippets/lab.md).
 
 > **Hari ini menentukan sama ada Hari 15 berjalan lancar atau menjadi malapetaka gabungan.** Empat kumpulan akan menulis kod dalam satu repositori selama 11 hari. Disiplin yang kita tetapkan hari ini ialah satu-satunya perkara yang menghalang kerja itu daripada bertembung.

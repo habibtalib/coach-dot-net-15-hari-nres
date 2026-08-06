@@ -1,5 +1,7 @@
 # Lab Hari 3 — Refresher .NET & Asas Kongsi
 
+> ⚠️ **Nota migrasi (poly-repo):** lab ini masih mengikut model **lama (monorepo)** — ia membina **satu** `ApplicationDbContext` + `Models/Shared` + migration `InitialShared`, kemudian gabung ke `master`. Dalam seni bina **poly-repo** terkini, Hari 3 = **terbitkan kontrak Profile DB (repo `profile`) + setiap pasukan scaffold repo sendiri** (setiap sistem ada `Submission`/`Attachment`/`AuditLog` sendiri; **hanya Profile DB dikongsi**). Lab ini akan **ditulis semula**. **Kanun muktamad:** [`../../SPEC-KURSUS.md`](../../SPEC-KURSUS.md) · [`../../AGENTS.md`](../../AGENTS.md) · [`../../KOLABORASI.md`](../../KOLABORASI.md).
+
 > Konsep di [`../README.md`](../README.md). Kanun: [`../../SPEC-KURSUS.md`](../../SPEC-KURSUS.md). Kontrak: [`../../KOLABORASI.md`](../../KOLABORASI.md).
 >
 > **Semua kumpulan bekerja bersama hari ini pada cabang yang sama: `asas/shared-foundation`.** Semua yang dibina hari ini dikongsi. Esok anda bercabang.

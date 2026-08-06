@@ -1,5 +1,7 @@
 # Lab Hari 2 — Agile, Git, Branching & Kolaborasi
 
+> ⚠️ **Nota migrasi (poly-repo):** lab ini sedang dikemas kini kepada seni bina **poly-repo** (6 repo dalam `nres-bpm`, Profile DB dikongsi). Sebahagian langkah masih mengandaikan model lama (satu repo · `master` · cabang kumpulan bersama). **Kanun terkini & muktamad:** [`../../SPEC-KURSUS.md`](../../SPEC-KURSUS.md) · [`../../AGENTS.md`](../../AGENTS.md) · [`../../KOLABORASI.md`](../../KOLABORASI.md).
+
 > Konsep di [`../README.md`](../README.md). Kontrak pasukan: [`../../KOLABORASI.md`](../../KOLABORASI.md). Konteks AI: [`../../AGENTS.md`](../../AGENTS.md).
 
 ## Persediaan
