@@ -25,16 +25,19 @@ Thumbs.db
 slides/
 **/nota-penceramah.md
 
-# Local-only (not pushed yet): other days / Fasa-2 tracks / reference app
+# Local-only (not pushed yet): other days / reference app
 hari-15/
-kumpulan-1-pentadbiran/
-kumpulan-2-pas-parkir-pelekat/
-kumpulan-3-id-ad-email/
-kumpulan-4-tempahan-fasiliti-sukan/
 nota/
 projek/
 _arkib/
 templates/
+
+# Fasa-2 tracks: Hari 4 IS pushed; later blocks stay local until delivered
+**/hari-5-6/
+**/hari-7-9/
+**/hari-10-12/
+**/hari-13-14/
+_draf-rujukan/
 
 # Trainer source packs (derived from real NRES forms — LOCAL ONLY, never push)
 _sumber-urs/
