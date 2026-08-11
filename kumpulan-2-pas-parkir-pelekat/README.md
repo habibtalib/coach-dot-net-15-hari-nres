@@ -65,3 +65,32 @@ Daftar penuh: [`../AGENTS.md`](../AGENTS.md).
 2. Semak daftar komponen kongsi dalam [`../AGENTS.md`](../AGENTS.md)
 3. Tanya AI: *"Merujuk AGENTS.md, adakah repo ini sudah ada cara untuk `<X>`?"*
 4. Jika lebih daripada satu modul perlukannya → buka isu berlabel `shared`, jangan bina sendiri
+
+---
+
+## 🎨 Prompt reka bentuk UI — Claude
+
+Tampal `AGENTS.md` + README ini sebagai konteks dahulu. **Semak setiap cadangan — jangan terima membuta.**
+
+```text
+Anda pembantu reka bentuk UI untuk sistem "Pas, Parkir & Pelekat Kenderaan" NRES (ASP.NET Core MVC, .NET 10, Razor + Bootstrap 5). Baca AGENTS.md dan README modul ini dahulu.
+
+Sempadan (WAJIB):
+- Guna semula _Layout.cshtml, site.css, dan partial kongsi (_StatusBadge, _AuditTrail, _AttachmentList, _ApprovalPanel, _FilterBar, _ValidationSummary). JANGAN cipta semula.
+- Gaya khusus modul dalam wwwroot/css/modul-akses.css. Hanya folder Views/Akses/.
+- Label Bahasa Melayu, istilah teknikal English. Data SINTETIK. Sistem DALAMAN (SSO).
+- Status ikut SubmissionStatus melalui _StatusBadge (kelulusan + penolakan bersyarat).
+
+Tiga jenis permohonan (PAS/PKR/STK) berkongsi Submission induk + entiti Vehicle boleh dikongsi. Ciri teras: semakan pendua nombor plat.
+
+Reka bentuk skrin:
+1. Halaman utama modul — pilih jenis: Pas (PAS) / Parkir (PKR) / Pelekat (STK), + Index setiap jenis dengan _FilterBar + badge status.
+2. Borang permohonan (3 varian) — butiran pemohon + pilih/masuk Vehicle (guna semula kenderaan sedia ada); AMARAN INLINE bila nombor plat sudah wujud (pendua); _ValidationSummary.
+3. Skrin Pegawai Keselamatan (SecurityAdmin) — approve / reject / kelulusan BERSYARAT + peruntukan lot/siri pelekat.
+4. Paparan pas/pelekat DILULUSKAN — kad dengan KOD QR + butiran ringkas untuk cetak.
+5. Skrin semakan pantas rondaan — imbas/masukkan kod, papar sah/tidak sah dengan pantas (mesra mobil).
+
+Untuk setiap skrin: wireframe ringkas, komponen Bootstrap, markup Razor contoh (asp-for), dan kelas modul-akses.css. Tunjuk cara papar amaran pendua plat & kod QR. Tanya jika andaian skema tak pasti.
+```
+
+> Selepas Claude jawab: sahkan guna partial kongsi, tiada plat/pemilik sebenar (sintetik), dan tidak menyunting fail kongsi.

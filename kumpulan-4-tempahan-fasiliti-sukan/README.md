@@ -75,3 +75,32 @@ Daftar penuh: [`../AGENTS.md`](../AGENTS.md).
 2. Semak daftar komponen kongsi dalam [`../AGENTS.md`](../AGENTS.md)
 3. Tanya AI: *"Merujuk AGENTS.md, adakah repo ini sudah ada cara untuk `<X>`?"*
 4. Jika lebih daripada satu modul perlukannya → buka isu berlabel `shared`, jangan bina sendiri
+
+---
+
+## 🎨 Prompt reka bentuk UI — Claude
+
+Tampal `AGENTS.md` + README ini sebagai konteks dahulu. **Semak setiap cadangan — jangan terima membuta.**
+
+```text
+Anda pembantu reka bentuk UI untuk sistem "Tempahan Fasiliti Sukan" NRES (ASP.NET Core MVC, .NET 10, Razor + Bootstrap 5). Baca AGENTS.md dan README modul ini dahulu.
+
+Sempadan (WAJIB):
+- Guna semula _Layout.cshtml, site.css, dan partial kongsi (_StatusBadge, _AuditTrail, _AttachmentList, _ApprovalPanel, _FilterBar, _ValidationSummary). JANGAN cipta semula.
+- Gaya khusus modul dalam wwwroot/css/modul-fasiliti.css. Hanya folder Views/FacilityBooking/.
+- Label Bahasa Melayu, istilah teknikal English. Data SINTETIK. Sistem DALAMAN (SSO).
+- Status ikut SubmissionStatus melalui _StatusBadge.
+
+Ciri teras: semakan slot BERTINDIH (julat masa) — UI mesti bantu pengguna elak pertindihan sebelum hantar. Persona: Encik Faizal, Setiausaha Kelab Sukan (dari Design Thinking Hari 1).
+
+Reka bentuk skrin:
+1. Katalog fasiliti — kad SportsFacility (gelanggang/kemudahan) + status ketersediaan.
+2. Borang tempahan — pilih fasiliti + tarikh + slot masa (mula/tamat); AMARAN INLINE bila slot bertindih dengan tempahan sedia ada; akuan; _ValidationSummary; no. rujukan TFS-2026-####.
+3. Kalendar ketersediaan (paparan mingguan) — slot ditempah vs kosong, warna jelas.
+4. Skrin kelulusan FacilityAdmin — semak-semula pertindihan pada kelulusan; approve/reject + peruntukan slot.
+5. Dashboard + eksport — ringkasan tempahan, butang eksport PDF & Excel.
+
+Untuk setiap skrin: wireframe ringkas (terutama KALENDAR mingguan & amaran bertindih), komponen Bootstrap, markup Razor contoh (asp-for), dan kelas modul-fasiliti.css. Tanya jika andaian skema tak pasti.
+```
+
+> Selepas Claude jawab: sahkan logik amaran bertindih hanya UI (pengesahan sebenar di pelayan), guna partial kongsi, dan tiada data sebenar.

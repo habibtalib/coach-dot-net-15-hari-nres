@@ -63,3 +63,34 @@ Daftar penuh: [`../AGENTS.md`](../../AGENTS.md).
 2. Semak daftar komponen kongsi dalam [`../AGENTS.md`](../../AGENTS.md)
 3. Tanya AI: *"Merujuk AGENTS.md, adakah repo ini sudah ada cara untuk `<X>`?"*
 4. Jika lebih daripada satu modul perlukannya → buka isu berlabel `shared`, jangan bina sendiri
+
+---
+
+## 🎨 Prompt reka bentuk UI — Claude
+
+Tampal `AGENTS.md` + README ini sebagai konteks dahulu, kemudian beri Claude prompt di bawah untuk **mereka bentuk UI** modul (Razor + Bootstrap + CSS modul). **Semak setiap cadangan — jangan terima membuta.** Reka bentuk/wireframe dahulu, baru minta markup penuh.
+
+```text
+Anda pembantu reka bentuk UI untuk sistem "Lapor Diri" NRES (ASP.NET Core MVC, .NET 10, Razor + Bootstrap 5). Baca AGENTS.md dan README modul ini dahulu.
+
+Sempadan (WAJIB):
+- Guna semula Views/Shared/_Layout.cshtml, wwwroot/css/site.css, dan partial kongsi: _StatusBadge, _AuditTrail, _AttachmentList, _ApprovalPanel, _FilterBar, _ValidationSummary. JANGAN cipta semula.
+- Gaya khusus modul hanya dalam wwwroot/css/modul-lapor-diri.css. Jangan sunting _Layout atau site.css.
+- Hanya folder Views/OfficerReporting/ + CSS modul anda.
+- Label Bahasa Melayu, istilah teknikal English. Data contoh SINTETIK sahaja.
+- Status ikut SubmissionStatus (Draft -> Submitted -> AdminApproved / Rejected) melalui _StatusBadge.
+- Responsif, kontras tinggi, boleh diakses (label, aria), konsisten dengan sistem NRES lain.
+
+Nada: Lapor Diri = sistem AWAM (public-facing) yang MENCIPTA profil pengguna dalam Profile DB. Rasa seperti wizard onboarding mesra untuk pekerja baharu.
+
+Reka bentuk skrin:
+1. Index "Permohonan saya" — kad/jadual + _FilterBar + badge status + butang "Sambung draf".
+2. Borang lapor diri (cipta/edit) — maklumat peribadi pekerja baharu, jabatan, tarikh lapor diri; _AttachmentList untuk dokumen sokongan; _ValidationSummary; "Simpan draf" vs "Hantar".
+3. Butiran permohonan — ringkasan + _AttachmentList + _AuditTrail + _ApprovalPanel.
+4. Dashboard HR (HrAdmin) — kiraan ikut status, _FilterBar, approve/reject + ulasan wajib bila tolak.
+5. Slip Akuan Lapor Diri — susun atur cetak/PDF (A4 ringkas, no. rujukan LD-2026-####).
+
+Untuk setiap skrin beri: wireframe ringkas, komponen Bootstrap, markup Razor contoh (tag helper asp-for), dan kelas modul-lapor-diri.css yang perlu. Tanya jika andaian tentang kontrak Profile DB tak pasti.
+```
+
+> Selepas Claude jawab: sahkan ia **tidak** menyunting fail kongsi, guna partial sedia ada, dan tiada data sebenar. Baru salin ke projek.

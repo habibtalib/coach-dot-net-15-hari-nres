@@ -69,3 +69,33 @@ Daftar penuh: [`../AGENTS.md`](../AGENTS.md).
 2. Semak daftar komponen kongsi dalam [`../AGENTS.md`](../AGENTS.md)
 3. Tanya AI: *"Merujuk AGENTS.md, adakah repo ini sudah ada cara untuk `<X>`?"*
 4. Jika lebih daripada satu modul perlukannya → buka isu berlabel `shared`, jangan bina sendiri
+
+---
+
+## 🎨 Prompt reka bentuk UI — Claude
+
+Tampal `AGENTS.md` + README ini sebagai konteks dahulu. **Semak setiap cadangan — jangan terima membuta.**
+
+```text
+Anda pembantu reka bentuk UI untuk sistem "ID, AD & Email" NRES (ASP.NET Core MVC, .NET 10, Razor + Bootstrap 5). Baca AGENTS.md dan README modul ini dahulu.
+
+Sempadan (WAJIB):
+- Guna semula _Layout.cshtml, site.css, dan partial kongsi (_StatusBadge, _AuditTrail, _AttachmentList, _ApprovalPanel, _FilterBar, _ValidationSummary). JANGAN cipta semula.
+- Gaya khusus modul dalam wwwroot/css/modul-akaun.css. Hanya folder Views/Akaun/.
+- Label Bahasa Melayu, istilah teknikal English. Data SINTETIK. Sistem DALAMAN (SSO).
+
+KESELAMATAN (WAJIB): ini modul paling sensitif. JANGAN reka apa-apa medan kata laluan / input password di mana-mana skrin — akaun dicipta di luar sistem. Ini titik pengajaran & akan diperiksa.
+
+Aliran DUA PERINGKAT: Draft -> Submitted -> SupervisorApproved -> Completed / Rejected. Papar penunjuk peringkat (stepper) dengan jelas.
+
+Reka bentuk skrin:
+1. Index permohonan — jadual + _FilterBar + badge status + stepper 2 peringkat + no. rujukan ICT-ID-2026-####.
+2. Borang permohonan akaun — jenis (AD / e-mel / akses sistem); senarai RequestedSystemAccess (tambah berbilang akses); TIADA medan kata laluan; _ValidationSummary.
+3. Skrin kelulusan Penyelia (peringkat 1) — sahkan identiti & role mapping; approve/reject peringkat 1.
+4. Skrin Pentadbir ICT (peringkat 2) — kelulusan SEPARA (luluskan 3 drpd 5 akses secara individu); tandakan selesai.
+5. Dashboard ICT + audit — penjejakan status, _AuditTrail penuh, carian/penapis mengikut peranan (RBAC).
+
+Untuk setiap skrin: wireframe ringkas, komponen Bootstrap (stepper, senarai akses boleh-luluskan-satu-satu), markup Razor contoh (asp-for), dan kelas modul-akaun.css. Tanya jika andaian skema tak pasti.
+```
+
+> Selepas Claude jawab: sahkan TIADA medan kata laluan, guna partial kongsi, dan tiada data sebenar.

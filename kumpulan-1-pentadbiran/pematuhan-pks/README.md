@@ -33,3 +33,32 @@
 | **Hari 13–14** | xUnit + refactor + sedia merge |
 
 > Setiap blok mesti sisip benang kolaborasi (semakan "sudah wujud?", sempadan folder, slot migration, semakan silang AI, DoD) — lihat [`../../KOLABORASI.md`](../../KOLABORASI.md).
+
+---
+
+## 🎨 Prompt reka bentuk UI — Claude
+
+Tampal `../../AGENTS.md` + README ini sebagai konteks dahulu. **Semak setiap cadangan — jangan terima membuta.**
+
+```text
+Anda pembantu reka bentuk UI untuk sistem "Pematuhan PKS (Polisi Keselamatan Siber)" NRES (ASP.NET Core MVC, .NET 10, Razor + Bootstrap 5). Baca AGENTS.md dan README modul ini dahulu.
+
+Sempadan (WAJIB):
+- Guna semula Views/Shared/_Layout.cshtml, site.css, dan partial kongsi (_StatusBadge, _AuditTrail, _AttachmentList, _ApprovalPanel, _FilterBar, _ValidationSummary). JANGAN cipta semula.
+- Gaya khusus modul dalam wwwroot/css/ (fail CSS modul anda, cth modul-pks.css). Hanya folder Views/Compliance/.
+- Label Bahasa Melayu, istilah teknikal English. Data SINTETIK sahaja.
+- Status ikut SubmissionStatus melalui _StatusBadge. Sistem DALAMAN (SSO) — pengguna sudah ada profil.
+
+Ciri khas modul: dua VARIAN borang (staf: Nama/No. KP/Jawatan/Bahagian; kontraktor: tambah CompanyName/CompanyRegNo). Setiap akuan dikait PolicyVersion semasa; bila polisi berubah, staf perlu AKUI SEMULA.
+
+Reka bentuk skrin:
+1. Index pematuhan — jadual akuan + _FilterBar + badge status pematuhan (Patuh / Perlu akui semula) + no. rujukan PKS-2026-####.
+2. Borang akuan (staf/kontraktor) — pilih varian; papar TEKS polisi + NDA (Akta Rahsia Rasmi 1972); checkbox "Saya faham & akui"; _ValidationSummary.
+3. Banner "Polisi telah dikemas kini — sila akui semula" untuk pengguna yang tertunggak.
+4. Butiran akuan — ringkasan + versi polisi + _AuditTrail + _ApprovalPanel.
+5. Dashboard Pegawai Keselamatan ICT (IctSecurityOfficer) — kadar pematuhan, senarai perlu-akui-semula, approve/reject.
+
+Untuk setiap skrin: wireframe ringkas, komponen Bootstrap, markup Razor contoh (asp-for), dan kelas CSS modul. Tanya jika andaian skema tak pasti.
+```
+
+> Selepas Claude jawab: sahkan tiada data sebenar, guna partial kongsi, dan teks NDA/polisi ialah contoh sintetik.
