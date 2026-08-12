@@ -112,8 +112,9 @@ Untuk setiap skrin: wireframe ringkas (terutama KALENDAR mingguan & amaran berti
 > Scaffold **poly-repo**: repo/DB sendiri; hanya **Profile DB** dikongsi. Kanun: [`../SPEC-KURSUS.md`](../SPEC-KURSUS.md) · [`../AGENTS.md`](../AGENTS.md). Struktur: `src/TempahanFasilitiSukan.Web` + `src/TempahanFasilitiSukan.Profile` + `tests/TempahanFasilitiSukan.Tests`.
 
 ```bash
-# 1) Clone repo kosong
+# 1) Clone repo pasukan (repo sudah ada README.md)
 git clone https://github.com/nres-bpm/tempahan-fasiliti-sukan.git && cd tempahan-fasiliti-sukan
+dotnet new gitignore          # abaikan bin/ obj/ *.db
 
 # 2) Solution + 3 projek  (DALAMAN → SSO kemudian)
 dotnet new sln -n TempahanFasilitiSukan
@@ -136,10 +137,11 @@ cd src/TempahanFasilitiSukan.Web
 mkdir -p Models/Fasiliti/Configurations Views/FacilityBooking ViewModels/Fasiliti Services/Fasiliti Data App_Data/uploads
 cd ../..
 
-# 6) Sahkan & 7) push
+# 6) Sahkan; 7) scaffold pada cabang -> PR ke main (main ada README)
 dotnet run --project src/TempahanFasilitiSukan.Web
+git switch -c chore/scaffold
 git add . && git commit -m "TFS: scaffold skeleton (Web + Profile + Tests)"
-git push -u origin main
+git push -u origin chore/scaffold   # buka PR ke main di GitHub
 ```
 
 **Nota:** Peranan `FacilityAdmin` · Prefix `TFS`. Sistem **MEMBACA** profil (via SSO/`TempahanFasilitiSukan.Profile` → kontrak `nres-bpm/profile`). Ciri teras (semakan slot bertindih) datang Hari 5–6.

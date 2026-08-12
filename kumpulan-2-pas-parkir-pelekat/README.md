@@ -102,8 +102,9 @@ Untuk setiap skrin: wireframe ringkas, komponen Bootstrap, markup Razor contoh (
 > Scaffold **poly-repo**: repo/DB sendiri; hanya **Profile DB** dikongsi. Kanun: [`../SPEC-KURSUS.md`](../SPEC-KURSUS.md) · [`../AGENTS.md`](../AGENTS.md). Struktur: `src/PasParkirPelekat.Web` + `src/PasParkirPelekat.Profile` + `tests/PasParkirPelekat.Tests`.
 
 ```bash
-# 1) Clone repo kosong
+# 1) Clone repo pasukan (repo sudah ada README.md)
 git clone https://github.com/nres-bpm/pas-parkir-pelekat.git && cd pas-parkir-pelekat
+dotnet new gitignore          # abaikan bin/ obj/ *.db
 
 # 2) Solution + 3 projek  (DALAMAN → SSO kemudian)
 dotnet new sln -n PasParkirPelekat
@@ -126,10 +127,11 @@ cd src/PasParkirPelekat.Web
 mkdir -p Models/Akses/Configurations Views/Akses ViewModels/Akses Services/Akses Data App_Data/uploads
 cd ../..
 
-# 6) Sahkan & 7) push
+# 6) Sahkan; 7) scaffold pada cabang -> PR ke main (main ada README)
 dotnet run --project src/PasParkirPelekat.Web
+git switch -c chore/scaffold
 git add . && git commit -m "PAS: scaffold skeleton (Web + Profile + Tests)"
-git push -u origin main
+git push -u origin chore/scaffold   # buka PR ke main di GitHub
 ```
 
 **Nota:** Peranan `SecurityAdmin` · Prefix `PAS` `PKR` `STK`. Sistem **MEMBACA** profil (via SSO/`PasParkirPelekat.Profile` → kontrak `nres-bpm/profile`).

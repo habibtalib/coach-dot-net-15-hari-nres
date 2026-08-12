@@ -60,8 +60,9 @@ Untuk setiap skrin: wireframe ringkas (terutama komponen TIMELINE milestone), ko
 > Scaffold **poly-repo**: repo/DB sendiri; hanya **Profile DB** dikongsi. Kanun: [`../../SPEC-KURSUS.md`](../../SPEC-KURSUS.md) · [`../../AGENTS.md`](../../AGENTS.md). Struktur: `src/PengurusanKontrak.Web` + `src/PengurusanKontrak.Profile` + `tests/PengurusanKontrak.Tests`.
 
 ```bash
-# 1) Clone repo kosong
+# 1) Clone repo pasukan (repo sudah ada README.md)
 git clone https://github.com/nres-bpm/pengurusan-kontrak.git && cd pengurusan-kontrak
+dotnet new gitignore          # abaikan bin/ obj/ *.db
 
 # 2) Solution + 3 projek  (DALAMAN → SSO kemudian)
 dotnet new sln -n PengurusanKontrak
@@ -84,10 +85,11 @@ cd src/PengurusanKontrak.Web
 mkdir -p Models/Kontrak/Configurations Views/Contract ViewModels/Kontrak Services/Kontrak Data App_Data/uploads
 cd ../..
 
-# 6) Sahkan & 7) push
+# 6) Sahkan; 7) scaffold pada cabang -> PR ke main (main ada README)
 dotnet run --project src/PengurusanKontrak.Web
+git switch -c chore/scaffold
 git add . && git commit -m "KON: scaffold skeleton (Web + Profile + Tests)"
-git push -u origin main
+git push -u origin chore/scaffold   # buka PR ke main di GitHub
 ```
 
 **Nota:** Peranan `IctAdmin` · Prefix `KON`. Sistem **MEMBACA** profil (via SSO/`PengurusanKontrak.Profile` → kontrak `nres-bpm/profile`).

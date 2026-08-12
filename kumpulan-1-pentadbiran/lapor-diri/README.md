@@ -102,8 +102,9 @@ Untuk setiap skrin beri: wireframe ringkas, komponen Bootstrap, markup Razor con
 > Scaffold **poly-repo** (permulaan Fasa 2): sistem ini = repo, subdomain & DB **sendiri**; hanya **Profile DB** dikongsi. Kanun: [`../../SPEC-KURSUS.md`](../../SPEC-KURSUS.md) · [`../../AGENTS.md`](../../AGENTS.md). Struktur: `src/LaporDiri.Web` + `src/LaporDiri.Profile` + `tests/LaporDiri.Tests`.
 
 ```bash
-# 1) Clone repo kosong pasukan
+# 1) Clone repo pasukan (repo sudah ada README.md)
 git clone https://github.com/nres-bpm/lapor-diri.git && cd lapor-diri
+dotnet new gitignore          # abaikan bin/ obj/ *.db
 
 # 2) Solution + 3 projek  (Lapor Diri = AWAM → Identity terbina)
 dotnet new sln -n LaporDiri
@@ -129,9 +130,10 @@ cd ../..
 # 6) Sahkan ia berjalan
 dotnet run --project src/LaporDiri.Web            # buka https://localhost:7xxx, Ctrl+C
 
-# 7) Commit awal + push (repo kosong → main; selepas ini main dilindungi, PR sahaja)
+# 7) Scaffold pada cabang -> PR ke main (main sudah ada README)
+git switch -c chore/scaffold
 git add . && git commit -m "LD: scaffold skeleton (Web + Profile + Tests)"
-git push -u origin main
+git push -u origin chore/scaffold   # buka PR ke main di GitHub
 ```
 
 **Nota:** Peranan admin `HrAdmin` · Prefix `LD`. Lapor Diri **MENCIPTA** `UserProfile` dalam Profile DB — `LaporDiri.Profile` merujuk kontrak `nres-bpm/profile` (mekanisme paket/submodule ditetapkan Hari 3).

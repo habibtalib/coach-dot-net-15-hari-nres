@@ -70,8 +70,9 @@ Untuk setiap skrin: wireframe ringkas, komponen Bootstrap, markup Razor contoh (
 > Scaffold **poly-repo**: repo/DB sendiri; hanya **Profile DB** dikongsi. Kanun: [`../../SPEC-KURSUS.md`](../../SPEC-KURSUS.md) · [`../../AGENTS.md`](../../AGENTS.md). Struktur: `src/PematuhanPks.Web` + `src/PematuhanPks.Profile` + `tests/PematuhanPks.Tests`.
 
 ```bash
-# 1) Clone repo kosong
+# 1) Clone repo pasukan (repo sudah ada README.md)
 git clone https://github.com/nres-bpm/pematuhan-pks.git && cd pematuhan-pks
+dotnet new gitignore          # abaikan bin/ obj/ *.db
 
 # 2) Solution + 3 projek  (DALAMAN → SSO ditambah kemudian, tiada --auth)
 dotnet new sln -n PematuhanPks
@@ -94,10 +95,11 @@ cd src/PematuhanPks.Web
 mkdir -p Models/Pks/Configurations Views/Compliance ViewModels/Pks Services/Pks Data App_Data/uploads
 cd ../..
 
-# 6) Sahkan & 7) push
+# 6) Sahkan; 7) scaffold pada cabang -> PR ke main (main ada README)
 dotnet run --project src/PematuhanPks.Web
+git switch -c chore/scaffold
 git add . && git commit -m "PKS: scaffold skeleton (Web + Profile + Tests)"
-git push -u origin main
+git push -u origin chore/scaffold   # buka PR ke main di GitHub
 ```
 
 **Nota:** Peranan `IctSecurityOfficer` · Prefix `PKS`. Sistem **MEMBACA** profil (via SSO/`PematuhanPks.Profile` → kontrak `nres-bpm/profile`).
