@@ -94,3 +94,44 @@ Untuk setiap skrin: wireframe ringkas, komponen Bootstrap, markup Razor contoh (
 ```
 
 > Selepas Claude jawab: sahkan guna partial kongsi, tiada plat/pemilik sebenar (sintetik), dan tidak menyunting fail kongsi.
+
+---
+
+## 🏗️ Bootstrap skeleton repo — `nres-bpm/pas-parkir-pelekat`
+
+> Scaffold **poly-repo**: repo/DB sendiri; hanya **Profile DB** dikongsi. Kanun: [`../SPEC-KURSUS.md`](../SPEC-KURSUS.md) · [`../AGENTS.md`](../AGENTS.md). Struktur: `src/PasParkirPelekat.Web` + `src/PasParkirPelekat.Profile` + `tests/PasParkirPelekat.Tests`.
+
+```bash
+# 1) Clone repo kosong
+git clone https://github.com/nres-bpm/pas-parkir-pelekat.git && cd pas-parkir-pelekat
+
+# 2) Solution + 3 projek  (DALAMAN → SSO kemudian)
+dotnet new sln -n PasParkirPelekat
+dotnet new mvc      -o src/PasParkirPelekat.Web
+dotnet new classlib -o src/PasParkirPelekat.Profile
+dotnet new xunit    -o tests/PasParkirPelekat.Tests
+dotnet sln add src/PasParkirPelekat.Web src/PasParkirPelekat.Profile tests/PasParkirPelekat.Tests
+
+# 3) Rujukan projek
+dotnet add src/PasParkirPelekat.Web    reference src/PasParkirPelekat.Profile
+dotnet add tests/PasParkirPelekat.Tests reference src/PasParkirPelekat.Web
+
+# 4) EF Core (DB sendiri)
+dotnet add src/PasParkirPelekat.Web package Microsoft.EntityFrameworkCore.Sqlite
+dotnet add src/PasParkirPelekat.Web package Microsoft.EntityFrameworkCore.Design
+dotnet tool install --global dotnet-ef
+
+# 5) Folder modul anda (3 jenis permohonan berkongsi Submission + entiti Vehicle)
+cd src/PasParkirPelekat.Web
+mkdir -p Models/Akses/Configurations Views/Akses ViewModels/Akses Services/Akses Data App_Data/uploads
+cd ../..
+
+# 6) Sahkan & 7) push
+dotnet run --project src/PasParkirPelekat.Web
+git add . && git commit -m "PAS: scaffold skeleton (Web + Profile + Tests)"
+git push -u origin main
+```
+
+**Nota:** Peranan `SecurityAdmin` · Prefix `PAS` `PKR` `STK`. Sistem **MEMBACA** profil (via SSO/`PasParkirPelekat.Profile` → kontrak `nres-bpm/profile`).
+
+> ⚠️ Lab Hari 4 semasa masih guna namespace `Nres.Onboarding.Web.*` (monorepo lama). Poly-repo = `PasParkirPelekat.Web.*`. Selaras dengan jurulatih.

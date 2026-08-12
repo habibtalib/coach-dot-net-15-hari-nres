@@ -62,3 +62,44 @@ Untuk setiap skrin: wireframe ringkas, komponen Bootstrap, markup Razor contoh (
 ```
 
 > Selepas Claude jawab: sahkan tiada data sebenar, guna partial kongsi, dan teks NDA/polisi ialah contoh sintetik.
+
+---
+
+## 🏗️ Bootstrap skeleton repo — `nres-bpm/pematuhan-pks`
+
+> Scaffold **poly-repo**: repo/DB sendiri; hanya **Profile DB** dikongsi. Kanun: [`../../SPEC-KURSUS.md`](../../SPEC-KURSUS.md) · [`../../AGENTS.md`](../../AGENTS.md). Struktur: `src/PematuhanPks.Web` + `src/PematuhanPks.Profile` + `tests/PematuhanPks.Tests`.
+
+```bash
+# 1) Clone repo kosong
+git clone https://github.com/nres-bpm/pematuhan-pks.git && cd pematuhan-pks
+
+# 2) Solution + 3 projek  (DALAMAN → SSO ditambah kemudian, tiada --auth)
+dotnet new sln -n PematuhanPks
+dotnet new mvc      -o src/PematuhanPks.Web
+dotnet new classlib -o src/PematuhanPks.Profile
+dotnet new xunit    -o tests/PematuhanPks.Tests
+dotnet sln add src/PematuhanPks.Web src/PematuhanPks.Profile tests/PematuhanPks.Tests
+
+# 3) Rujukan projek
+dotnet add src/PematuhanPks.Web    reference src/PematuhanPks.Profile
+dotnet add tests/PematuhanPks.Tests reference src/PematuhanPks.Web
+
+# 4) EF Core (DB sendiri)
+dotnet add src/PematuhanPks.Web package Microsoft.EntityFrameworkCore.Sqlite
+dotnet add src/PematuhanPks.Web package Microsoft.EntityFrameworkCore.Design
+dotnet tool install --global dotnet-ef
+
+# 5) Folder modul anda
+cd src/PematuhanPks.Web
+mkdir -p Models/Pks/Configurations Views/Compliance ViewModels/Pks Services/Pks Data App_Data/uploads
+cd ../..
+
+# 6) Sahkan & 7) push
+dotnet run --project src/PematuhanPks.Web
+git add . && git commit -m "PKS: scaffold skeleton (Web + Profile + Tests)"
+git push -u origin main
+```
+
+**Nota:** Peranan `IctSecurityOfficer` · Prefix `PKS`. Sistem **MEMBACA** profil (via SSO/`PematuhanPks.Profile` → kontrak `nres-bpm/profile`).
+
+> ⚠️ Lab Hari 4 semasa masih guna namespace `Nres.Onboarding.Web.*` (monorepo lama). Poly-repo = `PematuhanPks.Web.*`. Selaras dengan jurulatih.

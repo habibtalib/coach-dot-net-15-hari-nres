@@ -99,3 +99,45 @@ Untuk setiap skrin: wireframe ringkas, komponen Bootstrap (stepper, senarai akse
 ```
 
 > Selepas Claude jawab: sahkan TIADA medan kata laluan, guna partial kongsi, dan tiada data sebenar.
+
+---
+
+## 🏗️ Bootstrap skeleton repo — `nres-bpm/id-ad-email`
+
+> Scaffold **poly-repo**: repo/DB sendiri; hanya **Profile DB** dikongsi. Kanun: [`../SPEC-KURSUS.md`](../SPEC-KURSUS.md) · [`../AGENTS.md`](../AGENTS.md). Struktur: `src/IdAdEmail.Web` + `src/IdAdEmail.Profile` + `tests/IdAdEmail.Tests`.
+
+```bash
+# 1) Clone repo kosong
+git clone https://github.com/nres-bpm/id-ad-email.git && cd id-ad-email
+
+# 2) Solution + 3 projek  (DALAMAN → SSO kemudian)
+dotnet new sln -n IdAdEmail
+dotnet new mvc      -o src/IdAdEmail.Web
+dotnet new classlib -o src/IdAdEmail.Profile
+dotnet new xunit    -o tests/IdAdEmail.Tests
+dotnet sln add src/IdAdEmail.Web src/IdAdEmail.Profile tests/IdAdEmail.Tests
+
+# 3) Rujukan projek
+dotnet add src/IdAdEmail.Web    reference src/IdAdEmail.Profile
+dotnet add tests/IdAdEmail.Tests reference src/IdAdEmail.Web
+
+# 4) EF Core (DB sendiri)
+dotnet add src/IdAdEmail.Web package Microsoft.EntityFrameworkCore.Sqlite
+dotnet add src/IdAdEmail.Web package Microsoft.EntityFrameworkCore.Design
+dotnet tool install --global dotnet-ef
+
+# 5) Folder modul anda
+cd src/IdAdEmail.Web
+mkdir -p Models/Akaun/Configurations Views/Akaun ViewModels/Akaun Services/Akaun Data App_Data/uploads
+cd ../..
+
+# 6) Sahkan & 7) push
+dotnet run --project src/IdAdEmail.Web
+git add . && git commit -m "ICT-ID: scaffold skeleton (Web + Profile + Tests)"
+git push -u origin main
+```
+
+**Nota:** Peranan `Supervisor` → `IctAdmin` (2 peringkat) · Prefix `ICT-ID`. Sistem **MEMBACA** profil (via SSO/`IdAdEmail.Profile` → kontrak `nres-bpm/profile`).
+> 🔒 **Keselamatan:** jangan sekali-kali simpan kata laluan dalam mana-mana entiti — titik pengajaran, akan diperiksa.
+
+> ⚠️ Lab Hari 4 semasa masih guna namespace `Nres.Onboarding.Web.*` (monorepo lama). Poly-repo = `IdAdEmail.Web.*`. Selaras dengan jurulatih.

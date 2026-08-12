@@ -94,3 +94,46 @@ Untuk setiap skrin beri: wireframe ringkas, komponen Bootstrap, markup Razor con
 ```
 
 > Selepas Claude jawab: sahkan ia **tidak** menyunting fail kongsi, guna partial sedia ada, dan tiada data sebenar. Baru salin ke projek.
+
+---
+
+## 🏗️ Bootstrap skeleton repo — `nres-bpm/lapor-diri`
+
+> Scaffold **poly-repo** (permulaan Fasa 2): sistem ini = repo, subdomain & DB **sendiri**; hanya **Profile DB** dikongsi. Kanun: [`../../SPEC-KURSUS.md`](../../SPEC-KURSUS.md) · [`../../AGENTS.md`](../../AGENTS.md). Struktur: `src/LaporDiri.Web` + `src/LaporDiri.Profile` + `tests/LaporDiri.Tests`.
+
+```bash
+# 1) Clone repo kosong pasukan
+git clone https://github.com/nres-bpm/lapor-diri.git && cd lapor-diri
+
+# 2) Solution + 3 projek  (Lapor Diri = AWAM → Identity terbina)
+dotnet new sln -n LaporDiri
+dotnet new mvc      -o src/LaporDiri.Web --auth Individual
+dotnet new classlib -o src/LaporDiri.Profile      # klien/kontrak Profile DB
+dotnet new xunit    -o tests/LaporDiri.Tests
+dotnet sln add src/LaporDiri.Web src/LaporDiri.Profile tests/LaporDiri.Tests
+
+# 3) Rujukan projek
+dotnet add src/LaporDiri.Web    reference src/LaporDiri.Profile
+dotnet add tests/LaporDiri.Tests reference src/LaporDiri.Web
+
+# 4) EF Core (DB sendiri) — Hari 4 tambah entiti & migration
+dotnet add src/LaporDiri.Web package Microsoft.EntityFrameworkCore.Sqlite
+dotnet add src/LaporDiri.Web package Microsoft.EntityFrameworkCore.Design
+dotnet tool install --global dotnet-ef            # sekali per mesin
+
+# 5) Folder modul anda
+cd src/LaporDiri.Web
+mkdir -p Models/LaporDiri/Configurations Views/OfficerReporting ViewModels/LaporDiri Services/LaporDiri Data App_Data/uploads
+cd ../..
+
+# 6) Sahkan ia berjalan
+dotnet run --project src/LaporDiri.Web            # buka https://localhost:7xxx, Ctrl+C
+
+# 7) Commit awal + push (repo kosong → main; selepas ini main dilindungi, PR sahaja)
+git add . && git commit -m "LD: scaffold skeleton (Web + Profile + Tests)"
+git push -u origin main
+```
+
+**Nota:** Peranan admin `HrAdmin` · Prefix `LD`. Lapor Diri **MENCIPTA** `UserProfile` dalam Profile DB — `LaporDiri.Profile` merujuk kontrak `nres-bpm/profile` (mekanisme paket/submodule ditetapkan Hari 3).
+
+> ⚠️ **Namespace:** lab Hari 4 semasa masih guna `Nres.Onboarding.Web.*` (model monorepo lama, sedang dimigrasi). Dalam poly-repo namespace ialah `LaporDiri.Web.*`. Selaras dengan jurulatih.

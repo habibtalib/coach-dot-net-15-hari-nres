@@ -52,3 +52,44 @@ Untuk setiap skrin: wireframe ringkas (terutama komponen TIMELINE milestone), ko
 ```
 
 > Selepas Claude jawab: sahkan guna partial kongsi, tiada data sebenar, dan tidak menyunting fail kongsi.
+
+---
+
+## 🏗️ Bootstrap skeleton repo — `nres-bpm/pengurusan-kontrak`
+
+> Scaffold **poly-repo**: repo/DB sendiri; hanya **Profile DB** dikongsi. Kanun: [`../../SPEC-KURSUS.md`](../../SPEC-KURSUS.md) · [`../../AGENTS.md`](../../AGENTS.md). Struktur: `src/PengurusanKontrak.Web` + `src/PengurusanKontrak.Profile` + `tests/PengurusanKontrak.Tests`.
+
+```bash
+# 1) Clone repo kosong
+git clone https://github.com/nres-bpm/pengurusan-kontrak.git && cd pengurusan-kontrak
+
+# 2) Solution + 3 projek  (DALAMAN → SSO kemudian)
+dotnet new sln -n PengurusanKontrak
+dotnet new mvc      -o src/PengurusanKontrak.Web
+dotnet new classlib -o src/PengurusanKontrak.Profile
+dotnet new xunit    -o tests/PengurusanKontrak.Tests
+dotnet sln add src/PengurusanKontrak.Web src/PengurusanKontrak.Profile tests/PengurusanKontrak.Tests
+
+# 3) Rujukan projek
+dotnet add src/PengurusanKontrak.Web    reference src/PengurusanKontrak.Profile
+dotnet add tests/PengurusanKontrak.Tests reference src/PengurusanKontrak.Web
+
+# 4) EF Core (DB sendiri)
+dotnet add src/PengurusanKontrak.Web package Microsoft.EntityFrameworkCore.Sqlite
+dotnet add src/PengurusanKontrak.Web package Microsoft.EntityFrameworkCore.Design
+dotnet tool install --global dotnet-ef
+
+# 5) Folder modul anda
+cd src/PengurusanKontrak.Web
+mkdir -p Models/Kontrak/Configurations Views/Contract ViewModels/Kontrak Services/Kontrak Data App_Data/uploads
+cd ../..
+
+# 6) Sahkan & 7) push
+dotnet run --project src/PengurusanKontrak.Web
+git add . && git commit -m "KON: scaffold skeleton (Web + Profile + Tests)"
+git push -u origin main
+```
+
+**Nota:** Peranan `IctAdmin` · Prefix `KON`. Sistem **MEMBACA** profil (via SSO/`PengurusanKontrak.Profile` → kontrak `nres-bpm/profile`).
+
+> ⚠️ Lab Hari 4 semasa masih guna namespace `Nres.Onboarding.Web.*` (monorepo lama). Poly-repo = `PengurusanKontrak.Web.*`. Selaras dengan jurulatih.

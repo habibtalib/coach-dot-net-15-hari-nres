@@ -104,3 +104,44 @@ Untuk setiap skrin: wireframe ringkas (terutama KALENDAR mingguan & amaran berti
 ```
 
 > Selepas Claude jawab: sahkan logik amaran bertindih hanya UI (pengesahan sebenar di pelayan), guna partial kongsi, dan tiada data sebenar.
+
+---
+
+## 🏗️ Bootstrap skeleton repo — `nres-bpm/tempahan-fasiliti-sukan`
+
+> Scaffold **poly-repo**: repo/DB sendiri; hanya **Profile DB** dikongsi. Kanun: [`../SPEC-KURSUS.md`](../SPEC-KURSUS.md) · [`../AGENTS.md`](../AGENTS.md). Struktur: `src/TempahanFasilitiSukan.Web` + `src/TempahanFasilitiSukan.Profile` + `tests/TempahanFasilitiSukan.Tests`.
+
+```bash
+# 1) Clone repo kosong
+git clone https://github.com/nres-bpm/tempahan-fasiliti-sukan.git && cd tempahan-fasiliti-sukan
+
+# 2) Solution + 3 projek  (DALAMAN → SSO kemudian)
+dotnet new sln -n TempahanFasilitiSukan
+dotnet new mvc      -o src/TempahanFasilitiSukan.Web
+dotnet new classlib -o src/TempahanFasilitiSukan.Profile
+dotnet new xunit    -o tests/TempahanFasilitiSukan.Tests
+dotnet sln add src/TempahanFasilitiSukan.Web src/TempahanFasilitiSukan.Profile tests/TempahanFasilitiSukan.Tests
+
+# 3) Rujukan projek
+dotnet add src/TempahanFasilitiSukan.Web    reference src/TempahanFasilitiSukan.Profile
+dotnet add tests/TempahanFasilitiSukan.Tests reference src/TempahanFasilitiSukan.Web
+
+# 4) EF Core (DB sendiri)
+dotnet add src/TempahanFasilitiSukan.Web package Microsoft.EntityFrameworkCore.Sqlite
+dotnet add src/TempahanFasilitiSukan.Web package Microsoft.EntityFrameworkCore.Design
+dotnet tool install --global dotnet-ef
+
+# 5) Folder modul anda
+cd src/TempahanFasilitiSukan.Web
+mkdir -p Models/Fasiliti/Configurations Views/FacilityBooking ViewModels/Fasiliti Services/Fasiliti Data App_Data/uploads
+cd ../..
+
+# 6) Sahkan & 7) push
+dotnet run --project src/TempahanFasilitiSukan.Web
+git add . && git commit -m "TFS: scaffold skeleton (Web + Profile + Tests)"
+git push -u origin main
+```
+
+**Nota:** Peranan `FacilityAdmin` · Prefix `TFS`. Sistem **MEMBACA** profil (via SSO/`TempahanFasilitiSukan.Profile` → kontrak `nres-bpm/profile`). Ciri teras (semakan slot bertindih) datang Hari 5–6.
+
+> ⚠️ Lab Hari 4 semasa masih guna namespace `Nres.Onboarding.Web.*` (monorepo lama). Poly-repo = `TempahanFasilitiSukan.Web.*`. Selaras dengan jurulatih.
