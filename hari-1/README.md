@@ -12,15 +12,7 @@ Kursus: **DOTNET-NRES-15** — *Latihan Secara Coaching Pembangunan Sistem Onboa
 
 ## Fokus Hari Ini
 
-| Topik | Rujukan |
-|-------|---------|
-| **Design Thinking** — empathize, define, persona, empathy map | [Design Thinking — gambaran](https://en.wikipedia.org/wiki/Design_thinking) |
-| Keperluan pengguna (URS) vs spesifikasi perisian (SRS) | [ISO/IEC/IEEE 29148 — ringkasan](https://en.wikipedia.org/wiki/ISO/IEC_IEEE_29148) |
-| Use case & aktor | [UML Use Case — gambaran](https://en.wikipedia.org/wiki/Use_case_diagram) |
-| Diagram sebagai kod | [Mermaid — dokumentasi rasmi](https://mermaid.js.org/intro/) |
-| Mermaid flowchart | [mermaid.js.org/syntax/flowchart](https://mermaid.js.org/syntax/flowchart.html) |
-| Mermaid ERD | [mermaid.js.org/syntax/entityRelationshipDiagram](https://mermaid.js.org/syntax/entityRelationshipDiagram.html) |
-| Pemodelan data & hubungan | [learn.microsoft.com/ef/core/modeling/relationships](https://learn.microsoft.com/en-us/ef/core/modeling/relationships) |
+> **Rujukan rasmi Hari 1** (Design Thinking, URS/SRS, use case, Mermaid, pemodelan EF) dikumpulkan dalam [`docs/pautan-rujukan.md`](../docs/pautan-rujukan.md) → *Rujukan rasmi mengikut hari · Hari 1*.
 
 ---
 

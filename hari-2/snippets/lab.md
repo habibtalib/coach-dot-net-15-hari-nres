@@ -144,15 +144,11 @@ Epic:  "Modul Pas, Parkir & Pelekat"           ← satu atau lebih epic setiap k
 
 ### Langkah
 
-1. Konfigurasi identiti anda (guna nama dan e-mel sebenar — ia muncul dalam setiap commit):
+1. **Konfigurasi identiti Git.** Jika belum, ikut [`docs/persediaan-git.md`](../../docs/persediaan-git.md) — pasang Git + set `user.name`/`user.email` + `pull.rebase true`. Sahkan:
 
 ```bash
-git config --global user.name "Nama Penuh Anda"
-git config --global user.email "emel.anda@nres.gov.my"
-git config --global pull.rebase true
+git config user.name && git config user.email
 ```
-
-> `pull.rebase true` menjadikan `git pull` berkelakuan seperti `git pull --rebase` secara lalai — tepat apa yang kursus ini mahu.
 
 2. Clone repo kursus (jurulatih memberi URL):
 
@@ -606,52 +602,24 @@ Simpan kedua-dua prompt dalam `docs/kumpulan-N/nota-ai.md` — anda akan menggun
 
 **Objektif:** Setiap mesin sedia untuk menulis kod esok.
 
-### Langkah
+> **Panduan pasang penuh** (SDK · EF Core · IDE): [`docs/persediaan-dotnet.md`](../../docs/persediaan-dotnet.md) · Git & identiti: [`docs/persediaan-git.md`](../../docs/persediaan-git.md). Di sini kita **sahkan** sahaja.
 
-1. Sahkan .NET 10 SDK:
-
-```bash
-dotnet --version        # mesti 10.x
-dotnet --info
-```
-
-Jika belum: [dotnet.microsoft.com/download](https://dotnet.microsoft.com/download) · langkah penuh [`../../nota/00-setup-dotnet.md`](../../nota/00-setup-dotnet.md).
-
-2. Pasang alat EF Core:
+### Langkah (sahkan)
 
 ```bash
-dotnet tool install --global dotnet-ef
-dotnet ef --version
+dotnet --version                     # mesti 10.x
+dotnet ef --version                  # alat EF Core
+git fetch origin && git branch -r    # akses repo + cabang kumpulan
 ```
 
-Jika sudah dipasang: `dotnet tool update --global dotnet-ef`
-
-3. Sahkan IDE anda membina projek .NET:
-
-```bash
-cd /tmp
-dotnet new console -o ujian-persekitaran
-cd ujian-persekitaran
-dotnet run              # sepatutnya cetak "Hello, World!"
-cd .. && rm -rf ujian-persekitaran
-```
-
-4. Sahkan akses Git ke repo:
-
-```bash
-cd <repo-kursus>
-git fetch origin
-git branch -r           # sepatutnya senaraikan keempat-empat cabang kumpulan
-```
-
-5. **Semakan silang berpasangan.** Anda **tidak** siap sehingga rakan anda memerhati anda menjalankan `dotnet --version` dan `dotnet ef --version` dengan jayanya. Persekitaran yang rosak yang ditemui esok pagi membuang masa seisi kumpulan.
+**Semakan silang berpasangan.** Anda **tidak** siap sehingga rakan anda menyaksikan `dotnet --version` dan `dotnet ef --version` berjaya. Persekitaran rosak yang ditemui esok pagi membuang masa seisi kumpulan.
 
 ### ✅ Semakan
 
 - [ ] `dotnet --version` → `10.x`
 - [ ] `dotnet ef --version` berjaya
-- [ ] `dotnet new console` + `dotnet run` berjaya
-- [ ] `git fetch` berfungsi dan keempat-empat cabang kelihatan
+- [ ] `dotnet new console` + `dotnet run` berjaya (lihat panduan `docs/`)
+- [ ] `git fetch` berfungsi dan cabang kumpulan kelihatan
 - [ ] Rakan sekumpulan telah **menyaksikan** semakan anda
 
 ---

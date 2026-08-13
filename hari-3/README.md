@@ -10,20 +10,8 @@ Nota ini mengikut **aturcara rasmi HARI 3** dalam [`../JADUAL.md`](../JADUAL.md)
 
 ## Fokus Hari Ini
 
-| Topik | Rujukan rasmi |
-|-------|----------------|
-| `dotnet new` templates | [learn.microsoft.com/dotnet/core/tools/dotnet-new](https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-new) |
-| ASP.NET Core MVC — gambaran | [learn.microsoft.com/aspnet/core/mvc/overview](https://learn.microsoft.com/en-us/aspnet/core/mvc/overview) |
-| `Program.cs` & minimal hosting | [learn.microsoft.com/aspnet/core/fundamentals/minimal-apis](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/minimal-apis) |
-| Dependency Injection | [learn.microsoft.com/aspnet/core/fundamentals/dependency-injection](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection) |
-| LINQ | [learn.microsoft.com/dotnet/csharp/linq](https://learn.microsoft.com/en-us/dotnet/csharp/linq/) |
-| `async`/`await` | [learn.microsoft.com/dotnet/csharp/asynchronous-programming](https://learn.microsoft.com/en-us/dotnet/csharp/asynchronous-programming/) |
-| EF Core — permulaan | [learn.microsoft.com/ef/core/get-started/overview/first-app](https://learn.microsoft.com/en-us/ef/core/get-started/overview/first-app) |
-| EF Core — Fluent API & `IEntityTypeConfiguration` | [learn.microsoft.com/ef/core/modeling](https://learn.microsoft.com/en-us/ef/core/modeling/) |
-| EF Core — relationships | [learn.microsoft.com/ef/core/modeling/relationships](https://learn.microsoft.com/en-us/ef/core/modeling/relationships) |
-| EF Core Migrations | [learn.microsoft.com/ef/core/managing-schema/migrations](https://learn.microsoft.com/en-us/ef/core/managing-schema/migrations/) |
-| ASP.NET Core Identity | [learn.microsoft.com/aspnet/core/security/authentication/identity](https://learn.microsoft.com/en-us/aspnet/core/security/authentication/identity) |
-| Role-based authorization | [learn.microsoft.com/aspnet/core/security/authorization/roles](https://learn.microsoft.com/en-us/aspnet/core/security/authorization/roles) |
+> **Rujukan rasmi Hari 3** (`dotnet new`, MVC, DI, LINQ, async, EF Core, Migrations, Identity, authorization) dalam [`docs/pautan-rujukan.md`](../docs/pautan-rujukan.md) → *Hari 3*.
+> **Persediaan .NET:** [`docs/persediaan-dotnet.md`](../docs/persediaan-dotnet.md).
 
 ---
 

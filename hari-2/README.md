@@ -10,16 +10,8 @@ Nota ini mengikut **aturcara rasmi HARI 2** dalam [`../JADUAL.md`](../JADUAL.md)
 
 ## Fokus Hari Ini
 
-| Topik | Rujukan rasmi |
-|-------|----------------|
-| Git — asas | [git-scm.com/book/ms/v2](https://git-scm.com/book/en/v2) |
-| Percabangan Git | [git-scm.com/book — Branching](https://git-scm.com/book/en/v2/Git-Branching-Branches-in-a-Nutshell) |
-| Rebase vs merge | [git-scm.com/book — Rebasing](https://git-scm.com/book/en/v2/Git-Branching-Rebasing) |
-| Selesaikan konflik | [docs.github.com — resolving merge conflicts](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/addressing-merge-conflicts) |
-| Pull request | [docs.github.com — about pull requests](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests) |
-| GitHub Projects | [docs.github.com/issues/planning-and-tracking-with-projects](https://docs.github.com/en/issues/planning-and-tracking-with-projects) |
-| Jira — konsep asas | [atlassian.com/software/jira/guides](https://www.atlassian.com/software/jira/guides) |
-| .NET SDK & CLI | [learn.microsoft.com/dotnet/core/tools](https://learn.microsoft.com/en-us/dotnet/core/tools/) |
+> **Rujukan rasmi Hari 2** (Git, PR, konflik, GitHub Projects, Jira, .NET CLI) dalam [`docs/pautan-rujukan.md`](../docs/pautan-rujukan.md) → *Hari 2*.
+> **Persediaan:** [`docs/persediaan-git.md`](../docs/persediaan-git.md) · [`docs/persediaan-dotnet.md`](../docs/persediaan-dotnet.md).
 
 ---
 

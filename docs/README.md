@@ -10,7 +10,9 @@ Folder rujukan untuk **contoh dokumen** yang dibina dalam kursus (Hari 1 · pera
 | [`diagram-claude-code.md`](./diagram-claude-code.md) | Diagram **Mermaid** ekosistem Claude Code (model · sub-agent · MCP · skills · plugins · PRD) — Hari 2. |
 | [`cara-sambung-jira-claude-code.md`](./cara-sambung-jira-claude-code.md) | **Panduan pelajar** (tiada MCP Jira peribadi): sambung Jira ke Claude Code CLI **&** VS Code via MCP Atlassian — Hari 2. |
 | [`cara-jana-dokumentasi-diagram.md`](./cara-jana-dokumentasi-diagram.md) | **Panduan:** jana dokumentasi + diagram Mermaid dengan AI — skill `/dok-modul` + prompt terus — Hari 2. |
-| [`pautan-rujukan.md`](./pautan-rujukan.md) | **Hab pautan** — kanun kursus, panduan setup, rujukan teknikal, org repo. |
+| [`pautan-rujukan.md`](./pautan-rujukan.md) | **Hab pautan** — kanun kursus, panduan setup, rujukan teknikal, rujukan rasmi mengikut hari, org repo. |
+| [`persediaan-dotnet.md`](./persediaan-dotnet.md) | **Persediaan** .NET 10 SDK · EF Core · IDE (pasang & sahkan) — sebelum Hari 3. |
+| [`persediaan-git.md`](./persediaan-git.md) | **Persediaan** Git (pasang & identiti) — sebelum Hari 2. |
 
 ## Cara guna
 
