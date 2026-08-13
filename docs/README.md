@@ -9,6 +9,8 @@ Folder rujukan untuk **contoh dokumen** yang dibina dalam kursus (Hari 1 · pera
 | [`contoh-prd-tempahan-fasiliti-sukan.md`](./contoh-prd-tempahan-fasiliti-sukan.md) | Contoh **PRD** lengkap (7 bahagian) untuk modul Tempahan Fasiliti Sukan — dibina dari `AGENTS.md` sistem itu + URS `_sumber-urs/K4-fasiliti-sukan.md`. |
 | [`diagram-claude-code.md`](./diagram-claude-code.md) | Diagram **Mermaid** ekosistem Claude Code (model · sub-agent · MCP · skills · plugins · PRD) — Hari 2. |
 | [`cara-sambung-jira-claude-code.md`](./cara-sambung-jira-claude-code.md) | **Panduan pelajar** (tiada MCP Jira peribadi): sambung Jira ke Claude Code CLI **&** VS Code via MCP Atlassian — Hari 2. |
+| [`cara-jana-dokumentasi-diagram.md`](./cara-jana-dokumentasi-diagram.md) | **Panduan:** jana dokumentasi + diagram Mermaid dengan AI — skill `/dok-modul` + prompt terus — Hari 2. |
+| [`pautan-rujukan.md`](./pautan-rujukan.md) | **Hab pautan** — kanun kursus, panduan setup, rujukan teknikal, org repo. |
 
 ## Cara guna
 
