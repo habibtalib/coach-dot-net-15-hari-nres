@@ -6,6 +6,7 @@ Folder rujukan untuk **contoh dokumen** yang dibina dalam kursus (Hari 1 · pera
 
 | Fail | Apa |
 |------|-----|
+| [`pustaka-prompt.md`](./pustaka-prompt.md) | **Pustaka prompt** berfail (PRD · dokumentasi · diagram Mermaid · UI/UX · Jira · semakan) dengan ID — rujukan untuk lab & code review. |
 | [`contoh-prd-tempahan-fasiliti-sukan.md`](./contoh-prd-tempahan-fasiliti-sukan.md) | Contoh **PRD** lengkap (7 bahagian) untuk modul Tempahan Fasiliti Sukan — dibina dari `AGENTS.md` sistem itu + URS `_sumber-urs/K4-fasiliti-sukan.md`. |
 | [`diagram-claude-code.md`](./diagram-claude-code.md) | Diagram **Mermaid** ekosistem Claude Code (model · sub-agent · MCP · skills · plugins · PRD) — Hari 2. |
 | [`cara-sambung-jira-claude-code.md`](./cara-sambung-jira-claude-code.md) | **Panduan pelajar** (tiada MCP Jira peribadi): sambung Jira ke Claude Code CLI **&** VS Code via MCP Atlassian — Hari 2. |
