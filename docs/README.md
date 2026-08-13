@@ -13,6 +13,7 @@ Folder rujukan untuk **contoh dokumen** yang dibina dalam kursus (Hari 1 · pera
 | [`pautan-rujukan.md`](./pautan-rujukan.md) | **Hab pautan** — kanun kursus, panduan setup, rujukan teknikal, rujukan rasmi mengikut hari, org repo. |
 | [`persediaan-dotnet.md`](./persediaan-dotnet.md) | **Persediaan** .NET 10 SDK · EF Core · IDE (pasang & sahkan) — sebelum Hari 3. |
 | [`persediaan-git.md`](./persediaan-git.md) | **Persediaan** Git (pasang & identiti) — sebelum Hari 2. |
+| [`persediaan-scaffold.md`](./persediaan-scaffold.md) | **Persediaan** scaffold projek ASP.NET Core MVC + pakej NuGet — Hari 3. |
 
 ## Cara guna
 

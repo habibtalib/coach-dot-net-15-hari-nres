@@ -143,37 +143,19 @@ class Kotak { public string? Nilai { get; set; } }
 
 **Objektif:** Aplikasi ASP.NET Core MVC yang berjalan.
 
+> **Cara scaffold + jalankan + `.gitignore`:** [`docs/persediaan-scaffold.md`](../../docs/persediaan-scaffold.md). **Lab rujukan (monorepo)** ini menamakan projek `Nres.Onboarding.Web`; dalam **poly-repo**, namakan `<Sistem>.Web`.
+
 ### Langkah
 
-1. Cipta projek dalam root repo:
+1. Scaffold & jalankan projek — ikut [`docs/persediaan-scaffold.md`](../../docs/persediaan-scaffold.md) (Bahagian 1 & 3). Untuk lab ini:
 
 ```bash
 dotnet new mvc -o Nres.Onboarding.Web
 cd Nres.Onboarding.Web
+dotnet run          # halaman selamat datang → Ctrl+C
 ```
 
-2. Jalankannya:
-
-```bash
-dotnet run
-```
-
-Buka URL yang dipaparkan (biasanya `https://localhost:7xxx`). Anda sepatutnya melihat halaman selamat datang lalai. Tekan `Ctrl+C` untuk henti.
-
-3. Periksa struktur yang dijana:
-
-```text
-Nres.Onboarding.Web/
-  Controllers/HomeController.cs
-  Models/ErrorViewModel.cs
-  Views/
-  wwwroot/
-  Program.cs
-  appsettings.json
-  Nres.Onboarding.Web.csproj
-```
-
-4. Cipta struktur folder muktamad kita (rujuk `SPEC-KURSUS.md`):
+2. Cipta struktur folder muktamad kita (rujuk `SPEC-KURSUS.md`):
 
 ```bash
 mkdir -p Models/Shared Models/LaporDiri Models/Akses Models/Akaun Models/Aset
@@ -181,26 +163,6 @@ mkdir -p Models/Shared/Configurations
 mkdir -p ViewModels Services Data
 mkdir -p App_Data/uploads
 touch App_Data/uploads/.gitkeep
-```
-
-5. Sahkan `.gitignore` melindungi kita:
-
-```bash
-cd ..
-grep -E "App_Data|\.db|bin/|obj/" .gitignore
-```
-
-Jika tiada, tambah:
-
-```gitignore
-[Bb]in/
-[Oo]bj/
-*.db
-*.db-shm
-*.db-wal
-App_Data/uploads/*
-!App_Data/uploads/.gitkeep
-.vs/
 ```
 
 ### ✅ Semakan
@@ -215,29 +177,7 @@ App_Data/uploads/*
 
 **Objektif:** Tambah EF Core, SQLite, dan Identity.
 
-### Langkah
-
-```bash
-cd Nres.Onboarding.Web
-dotnet add package Microsoft.EntityFrameworkCore
-dotnet add package Microsoft.EntityFrameworkCore.Design
-dotnet add package Microsoft.EntityFrameworkCore.Sqlite
-dotnet add package Microsoft.AspNetCore.Identity.EntityFrameworkCore
-```
-
-| Pakej | Kegunaan |
-|-------|----------|
-| `EntityFrameworkCore` | Teras ORM |
-| `EntityFrameworkCore.Design` | Sokongan `dotnet ef` (migration) |
-| `EntityFrameworkCore.Sqlite` | Penyedia SQLite |
-| `Identity.EntityFrameworkCore` | Identity + storan EF Core |
-
-Sahkan:
-
-```bash
-dotnet build
-grep PackageReference Nres.Onboarding.Web.csproj
-```
+> Ikut [`docs/persediaan-scaffold.md`](../../docs/persediaan-scaffold.md) **Bahagian 2** — dalam folder `Nres.Onboarding.Web`, tambah empat pakej (`EntityFrameworkCore`, `.Design`, `.Sqlite`, `Identity.EntityFrameworkCore`) dan `dotnet build`.
 
 ### ✅ Semakan
 
