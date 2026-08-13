@@ -28,6 +28,11 @@
 | **DOK-01** | Jana dokumentasi modul | PRD siap; nak README modul |
 | **DIA-01** | Diagram ERD (Mermaid) | Ada ERD; nak kod Mermaid |
 | **DIA-02** | Carta alir proses (Mermaid) | Ada use case/PRD; nak flowchart |
+| **DIA-04** | Use case (flowchart) | Nak gambaran aktor → fungsi |
+| **DIA-05** | Aliran pengguna (user flow) | Nak langkah & keputusan pengguna |
+| **DIA-06** | Perjalanan pengguna (journey) | Nak peringkat + kepuasan (UX) |
+| **DIA-07** | Sequence diagram | Nak interaksi antara aktor/sistem |
+| **DIA-08** | State diagram (`SubmissionStatus`) | Nak kitaran status permohonan |
 | **DIA-03** | Semak silang ERD | Selepas ERD siap |
 | **UI-01** | Reka UI/UX modul | PRD siap; mula skrin/borang |
 | **JIRA-01** | Cipta isu Jira dari user story | Board tersambung (MCP); ada user story |
@@ -125,6 +130,76 @@ Kod Mermaid sahaja. Ikut peranan & status dalam PRD.
 
 - **Selepas:** Sahkan status & peranan sepadan `SubmissionStatus`/`SPEC-KURSUS.md`.
 - **Rujukan:** [`cara-jana-dokumentasi-diagram.md`](./cara-jana-dokumentasi-diagram.md).
+
+### DIA-04 — Use case (flowchart)
+
+- **Tujuan:** Gambaran aktor → fungsi. *(Mermaid tiada UML use case — guna `flowchart`.)*
+- **Input:** use case/PRD.
+
+```text
+Berdasarkan use case/PRD kami di bawah, beri kod Mermaid `flowchart LR` sebagai gambaran use case:
+- aktor (cth Pemohon, <peranan admin>) di kiri
+- setiap use case sebagai satu nod (cth "Mohon tempahan", "Semak permohonan")
+- sambungkan aktor ke use case yang mereka lakukan
+Kod Mermaid sahaja. Ikut aktor & fungsi dalam PRD; jangan reka.
+
+[tampal use case / PRD di sini]
+```
+
+- **Rujukan:** [`cara-jana-dokumentasi-diagram.md`](./cara-jana-dokumentasi-diagram.md) § C.
+
+### DIA-05 — Aliran pengguna (user flow)
+
+- **Tujuan:** Langkah & titik keputusan dari sudut pengguna.
+- **Input:** PRD.
+
+```text
+Berdasarkan PRD kami, beri kod Mermaid `flowchart TD` untuk aliran pengguna satu tugas
+(cth "hantar permohonan"): setiap langkah pengguna + titik keputusan (cth "Sah?", "Slot kosong?")
++ hasil (berjaya / ralat). Kod Mermaid sahaja. Ikut peranan & peraturan dalam PRD.
+```
+
+- **Rujukan:** [`cara-jana-dokumentasi-diagram.md`](./cara-jana-dokumentasi-diagram.md) § C.
+
+### DIA-06 — Perjalanan pengguna (journey)
+
+- **Tujuan:** Peringkat + tahap kepuasan (UX).
+- **Input:** PRD.
+
+```text
+Berdasarkan PRD kami, beri kod Mermaid `journey` untuk perjalanan pengguna:
+title <nama tugas>; beberapa section (cth Mohon, Semak, Keputusan); setiap langkah beri
+skor kepuasan (1–5) dan aktor. Kod Mermaid sahaja.
+```
+
+- **Rujukan:** [`cara-jana-dokumentasi-diagram.md`](./cara-jana-dokumentasi-diagram.md) § C.
+
+### DIA-07 — Sequence diagram
+
+- **Tujuan:** Mesej antara aktor/sistem mengikut masa.
+- **Input:** aliran (cth permohonan → kelulusan, SSO → baca profil).
+
+```text
+Berdasarkan aliran kami, beri kod Mermaid `sequenceDiagram` untuk <aliran>:
+peserta (cth Pemohon, Sistem, <peranan admin>) dan mesej antara mereka mengikut urutan.
+Kod Mermaid sahaja. Jangan tambah langkah yang tiada dalam aliran.
+```
+
+- **Rujukan:** [`cara-jana-dokumentasi-diagram.md`](./cara-jana-dokumentasi-diagram.md) § C.
+
+### DIA-08 — State diagram (`SubmissionStatus`)
+
+- **Tujuan:** Kitaran hayat status permohonan.
+- **Input:** `SubmissionStatus` (SPEC-KURSUS).
+
+```text
+Berdasarkan SubmissionStatus kami (Draft, Submitted, SupervisorApproved, AdminApproved,
+Rejected, Completed, Cancelled), beri kod Mermaid `stateDiagram-v2`:
+tunjukkan peralihan yang DIBENARKAN untuk modul kami sahaja (jangan tambah status baharu).
+Kod Mermaid sahaja. Ikut SubmissionStatus dalam SPEC-KURSUS.md.
+```
+
+- **Rujukan:** [`cara-jana-dokumentasi-diagram.md`](./cara-jana-dokumentasi-diagram.md) § C.
 
 ### DIA-03 — Semak silang ERD
 

@@ -553,13 +553,7 @@ Tugasan: <perihalkan satu ciri kecil dari backlog anda>
 
 6. **Latih prompt semakan.** Ini yang anda jalankan sebelum setiap PR:
 
-```text
-Semak diff ini terhadap AGENTS.md dan KOLABORASI.md:
-1. Adakah ia menduplikasi apa-apa dalam daftar komponen kongsi?
-2. Adakah ia menyentuh fail di luar folder Kumpulan N?
-3. Adakah authorization dan validation pelayan lengkap?
-Senaraikan masalah. JANGAN tulis semula kod.
-```
+> Guna prompt **SMK-01** (Semakan pra-PR) — [`docs/pustaka-prompt.md`](../../docs/pustaka-prompt.md).
 
 Simpan kedua-dua prompt dalam `docs/kumpulan-N/nota-ai.md` — anda akan menggunakannya setiap hari.
 

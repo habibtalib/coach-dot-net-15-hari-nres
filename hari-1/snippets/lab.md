@@ -459,14 +459,7 @@ erDiagram
 
 4. **Semak silang dengan AI:**
 
-```text
-Bandingkan ERD ini dengan SPEC-KURSUS.md (dilampirkan).
-1. Adakah ia memperkenalkan entiti atau medan yang tiada dalam spec?
-2. Adakah ia menduplikasi mana-mana medan yang sudah ada dalam Submission?
-3. Adakah kardinaliti betul bagi setiap hubungan?
-4. Nama jadual mana yang tidak sepadan dengan spec?
-Senaraikan percanggahan sahaja. JANGAN tulis semula ERD.
-```
+> Guna prompt **DIA-03** (Semak silang ERD) — [`docs/pustaka-prompt.md`](../../docs/pustaka-prompt.md).
 
 5. Betulkan setiap percanggahan **dengan tangan**.
 
@@ -500,13 +493,7 @@ Senaraikan percanggahan sahaja. JANGAN tulis semula ERD.
 
 2. **Draf pertama dengan AI.** Lampirkan `URS-modul-N.md`, `use-case-modul-N.md`, `erd-modul-N.md`, dan `SPEC-KURSUS.md`, kemudian:
 
-```text
-Berdasarkan URS, use case dan ERD modul kami (dilampirkan), draf PRD ringkas.
-Susun ikut: masalah & matlamat; pengguna & peranan; skop & luar-skop;
-user story + acceptance criteria; data & entiti; bukan-fungsi & polisi; soalan terbuka.
-Jangan reka keperluan — jika tidak pasti, senaraikan sebagai soalan terbuka.
-Guna Bahasa Melayu, ringkas dan jelas.
-```
+> Guna prompt **PRD-01** (Draf PRD) — [`docs/pustaka-prompt.md`](../../docs/pustaka-prompt.md). Lampirkan URS + use case + ERD.
 
 3. **Isi/kemaskan mengikut templat 7 bahagian ini:**
 
@@ -552,13 +539,7 @@ Guna Bahasa Melayu, ringkas dan jelas.
 
 5. **Semak silang dengan AI:**
 
-```text
-Bandingkan PRD ini dengan URS dan ERD kami (dilampirkan).
-1. Adakah PRD memperkenalkan keperluan atau entiti yang tiada dalam URS/ERD?
-2. Adakah setiap acceptance criteria boleh diuji?
-3. Adakah apa-apa yang sepatutnya "luar-skop" tetapi tertinggal?
-Senaraikan isu sahaja. JANGAN tulis semula PRD.
-```
+> Guna prompt **PRD-02** (Semak silang PRD) — [`docs/pustaka-prompt.md`](../../docs/pustaka-prompt.md).
 
 6. Betulkan setiap isu **dengan tangan**.
 

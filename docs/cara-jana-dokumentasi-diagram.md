@@ -58,6 +58,78 @@ Mohon → semak (bertindih / pendua / kelengkapan) → kelulusan admin → audit
 Kod Mermaid sahaja. Ikut peranan & status dalam PRD.
 ```
 
+## C · Lebih banyak diagram Mermaid
+
+Pilih jenis ikut apa yang anda hendak tunjuk. Semua prompt: **kod Mermaid sahaja**, **berpaksi PRD/use case/SPEC-KURSUS**, **jangan reka**.
+
+| Nak tunjuk… | Jenis Mermaid | Prompt |
+|-------------|---------------|--------|
+| Aktor + fungsi sistem | `flowchart` (wakil use case) | Use case |
+| Langkah & keputusan pengguna | `flowchart TD` | Aliran pengguna |
+| Peringkat + kepuasan (UX) | `journey` | Perjalanan pengguna |
+| Mesej antara aktor/sistem | `sequenceDiagram` | Sequence |
+| Kitaran status permohonan | `stateDiagram-v2` | State |
+
+### Use case (aktor → fungsi)
+
+> Mermaid **tiada** jenis UML "use case" — wakilkan sebagai `flowchart` (aktor di kiri, use case sebagai nod).
+
+```text
+Berdasarkan use case/PRD kami di bawah, beri kod Mermaid `flowchart LR` sebagai gambaran use case:
+- aktor (cth Pemohon, <peranan admin>) di kiri
+- setiap use case sebagai satu nod (cth "Mohon tempahan", "Semak permohonan")
+- sambungkan aktor ke use case yang mereka lakukan
+Kod Mermaid sahaja. Ikut aktor & fungsi dalam PRD; jangan reka.
+
+[tampal use case / PRD di sini]
+```
+
+### Aliran pengguna (user flow)
+
+```text
+Berdasarkan PRD kami, beri kod Mermaid `flowchart TD` untuk aliran pengguna satu tugas
+(cth "hantar permohonan"): setiap langkah pengguna + titik keputusan (cth "Sah?", "Slot kosong?")
++ hasil (berjaya / ralat). Kod Mermaid sahaja. Ikut peranan & peraturan dalam PRD.
+```
+
+### Perjalanan pengguna (user journey)
+
+```text
+Berdasarkan PRD kami, beri kod Mermaid `journey` untuk perjalanan pengguna:
+title <nama tugas>; beberapa section (cth Mohon, Semak, Keputusan); setiap langkah beri
+skor kepuasan (1–5) dan aktor. Kod Mermaid sahaja.
+```
+
+### Sequence diagram (interaksi mengikut masa)
+
+```text
+Berdasarkan aliran kami, beri kod Mermaid `sequenceDiagram` untuk <aliran>
+(cth permohonan → kelulusan, atau log masuk SSO → baca profil):
+peserta (cth Pemohon, Sistem, <peranan admin>) dan mesej antara mereka mengikut urutan.
+Kod Mermaid sahaja. Jangan tambah langkah yang tiada dalam aliran.
+```
+
+### State diagram (kitaran `SubmissionStatus`)
+
+```text
+Berdasarkan SubmissionStatus kami (Draft, Submitted, SupervisorApproved, AdminApproved,
+Rejected, Completed, Cancelled), beri kod Mermaid `stateDiagram-v2`:
+tunjukkan peralihan yang DIBENARKAN untuk modul kami sahaja (jangan tambah status baharu).
+Kod Mermaid sahaja. Ikut SubmissionStatus dalam SPEC-KURSUS.md.
+```
+
+Contoh output (illustratif — aliran sebenar ikut modul anda):
+
+```mermaid
+stateDiagram-v2
+  [*] --> Draft
+  Draft --> Submitted
+  Submitted --> AdminApproved
+  Submitted --> Rejected
+  AdminApproved --> Completed
+  Draft --> Cancelled
+```
+
 ## Semak (wajib)
 
 - Simpan hasil dalam `docs/`; sahkan diagram **merender** (VS Code atau GitHub).
