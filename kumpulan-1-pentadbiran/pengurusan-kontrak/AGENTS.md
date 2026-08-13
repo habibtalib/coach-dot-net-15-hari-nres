@@ -116,6 +116,18 @@ grep -ri "ReferenceNumber" src/
 grep -ri "ContractMilestone" src/
 ```
 
+## Git & Jira (aliran kerja repo ini)
+
+- **Repo & cabang:** kerja dalam repo `nres-bpm/pengurusan-kontrak`. `main` **dilindungi** — merge melalui **PR sahaja**. Buka cabang ciri pendek: `feat/<ciri-pendek>` (cth `feat/daftar-kontrak`).
+- **Rentak harian:** `git pull --rebase` setiap pagi; commit + push + kemas kini board setiap petang.
+- **Format commit:** `<modul>: <apa berubah, BM ringkas>`. Sertakan kunci Jira di hadapan — projek ini guna kunci **`CM-`**:
+
+  ```text
+  CM-42 kontrak: tambah ContractMilestone dan penjejakan tempoh
+  ```
+- **Board Jira:** projek **CM** ("Kontrak") di `bpm-nres.atlassian.net` — pindahkan isu ke sprint aktif & kemas kini status semasa kerja berjalan.
+- **Deploy:** sistem ini berdiri & di-deploy sendiri ke subdomain `kontrak.`.
+
 ## Gaya kandungan latihan (bila menulis nota/lab)
 
 Nota **Bahasa Melayu**, kod **Bahasa Inggeris**. Setiap lab: **Objektif** → langkah bernombor → blok kod penuh → **✅ Semakan**. Terangkan **kenapa** sebelum **bagaimana**. Kod lengkap & boleh dijalankan.

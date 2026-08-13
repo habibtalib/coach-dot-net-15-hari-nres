@@ -119,6 +119,18 @@ grep -ri "ReferenceNumber" src/
 grep -ri "IEntityTypeConfiguration" src/
 ```
 
+## Git & Jira (aliran kerja repo ini)
+
+- **Repo & cabang:** kerja dalam repo `nres-bpm/lapor-diri`. `main` **dilindungi** — merge melalui **PR sahaja**. Buka cabang ciri pendek: `feat/<ciri-pendek>` (cth `feat/borang-lapor-diri`).
+- **Rentak harian:** `git pull --rebase` setiap pagi; commit + push + kemas kini board setiap petang.
+- **Format commit:** `<modul>: <apa berubah, BM ringkas>`. Sertakan kunci Jira di hadapan — projek ini guna kunci **`LD-`**:
+
+  ```text
+  LD-42 lapor-diri: tambah muat naik lampiran dan metadata Attachment
+  ```
+- **Board Jira:** projek **LD** di `bpm-nres.atlassian.net` — pindahkan isu ke sprint aktif & kemas kini status semasa kerja berjalan.
+- **Deploy:** sistem ini berdiri & di-deploy sendiri ke subdomain `lapordiri.`.
+
 ## Gaya kandungan latihan (bila menulis nota/lab)
 
 Nota **Bahasa Melayu**, kod **Bahasa Inggeris**. Setiap lab: **Objektif** → langkah bernombor → blok kod penuh untuk ditaip → **✅ Semakan**. Terangkan **kenapa** sebelum **bagaimana**. Kod lengkap & boleh dijalankan — bukan pseudo-kod.

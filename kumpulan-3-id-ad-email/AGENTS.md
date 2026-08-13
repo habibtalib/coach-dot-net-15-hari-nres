@@ -122,6 +122,18 @@ grep -ri "ReferenceNumber" src/
 grep -ri "RequestedSystemAccess" src/
 ```
 
+## Git & Jira (aliran kerja repo ini)
+
+- **Repo & cabang:** kerja dalam repo `nres-bpm/id-ad-email`. `main` **dilindungi** — merge melalui **PR sahaja**. Buka cabang ciri pendek: `feat/<ciri-pendek>` (cth `feat/kelulusan-2-peringkat`).
+- **Rentak harian:** `git pull --rebase` setiap pagi; commit + push + kemas kini board setiap petang.
+- **Format commit:** `<modul>: <apa berubah, BM ringkas>`. Sertakan kunci Jira di hadapan — projek ini guna kunci **`ID-`**:
+
+  ```text
+  ID-42 id-ad-email: tambah kelulusan penyelia (peringkat 1) tanpa simpan kata laluan
+  ```
+- **Board Jira:** projek **ID** ("AD Email") di `bpm-nres.atlassian.net` — pindahkan isu ke sprint aktif & kemas kini status semasa kerja berjalan.
+- **Deploy:** sistem ini berdiri & di-deploy sendiri ke subdomain `id.`.
+
 ## Gaya kandungan latihan (bila menulis nota/lab)
 
 Nota **Bahasa Melayu**, kod **Bahasa Inggeris**. Setiap lab: **Objektif** → langkah bernombor → blok kod penuh → **✅ Semakan**. Terangkan **kenapa** sebelum **bagaimana** (terutama sebab **tiada kata laluan disimpan**). Kod lengkap & boleh dijalankan.

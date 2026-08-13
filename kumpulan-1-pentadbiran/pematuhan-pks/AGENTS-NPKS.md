@@ -74,6 +74,18 @@ public class ComplianceDeclarationConfiguration : IEntityTypeConfiguration<Compl
 
 Warisi `SubmissionControllerBase` untuk `SubmitForReview`/`Approve`/`Reject` + audit; kuatkuasa `[Authorize(Roles = "IctSecurityOfficer")]` pada tindakan semakan.
 
+## Git & Jira (aliran kerja repo ini)
+
+- **Repo & cabang:** kerja dalam repo `nres-bpm/pematuhan-pks` (sama seperti projek PKS). `main` **dilindungi** — merge melalui **PR sahaja**. Cabang ciri pendek: `feat/<ciri-pendek>`.
+- **Rentak harian:** `git pull --rebase` setiap pagi; commit + push + kemas kini board setiap petang.
+- **Format commit:** `<modul>: <apa berubah, BM ringkas>`. Sertakan kunci Jira di hadapan — projek ini guna kunci **`NPKS-`** (atau `PKS-` jika dijejak di sana):
+
+  ```text
+  NPKS-13 pematuhan-pks: tambah AGENTS.md dan konfigurasi ComplianceDeclaration
+  ```
+- **Board Jira:** projek **NPKS** di `bpm-nres.atlassian.net` — selaraskan dengan projek **PKS** kerana kedua-duanya menjejak repo yang sama.
+- **Deploy:** sistem ini berdiri & di-deploy sendiri ke subdomain `pks.`.
+
 ## Gaya kandungan latihan (bila menulis nota/lab)
 
 Nota **Bahasa Melayu**, kod **Bahasa Inggeris**. Setiap lab: **Objektif** → langkah bernombor → blok kod penuh → **✅ Semakan**. Kod lengkap & boleh dijalankan.

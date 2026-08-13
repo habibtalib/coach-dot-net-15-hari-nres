@@ -85,6 +85,18 @@ public class VisitorPassController(AppDbContext db, IWorkflowService workflow)
 
 Warisi `SubmissionControllerBase` — jangan tulis semula logik kelulusan setiap controller.
 
+## Git & Jira (aliran kerja repo ini)
+
+- **Repo & cabang:** kerja dalam repo `nres-bpm/pas-parkir-pelekat` (dikongsi dengan projek PK & PPK). `main` **dilindungi** — merge melalui **PR sahaja**. Cabang ciri pendek: `feat/<ciri-pendek>` (cth `feat/pas-pelawat-qr`).
+- **Rentak harian:** `git pull --rebase` setiap pagi; commit + push + kemas kini board setiap petang.
+- **Format commit:** `<modul>: <apa berubah, BM ringkas>`. Sertakan kunci Jira di hadapan — slice ini guna kunci **`PASP-`**:
+
+  ```text
+  PASP-42 pas-parkir-pelekat: tambah pas pelawat dan penjanaan kod QR
+  ```
+- **Board Jira:** projek **PASP** ("Pas Pelawat") di `bpm-nres.atlassian.net` — pindahkan isu ke sprint aktif & kemas kini status. Selaraskan dengan projek **PK**/**PPK** kerana ketiga-tiganya menjejak repo yang sama.
+- **Deploy:** sistem ini berdiri & di-deploy sendiri ke subdomain `pas.`.
+
 ## Gaya kandungan latihan (bila menulis nota/lab)
 
 Nota **Bahasa Melayu**, kod **Bahasa Inggeris**. Setiap lab: **Objektif** → langkah bernombor → blok kod penuh → **✅ Semakan**. Kod lengkap & boleh dijalankan.
