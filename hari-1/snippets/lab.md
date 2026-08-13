@@ -562,6 +562,8 @@ Senaraikan isu sahaja. JANGAN tulis semula PRD.
 
 6. Betulkan setiap isu **dengan tangan**.
 
+7. **Sedia untuk Jira (Hari 2).** Setiap **user story** (US-n) akan menjadi satu **Story** dalam board Jira / GitHub Project anda esok (Hari 2, Latihan 0–1); **acceptance criteria** PRD menjadi kriteria penerimaan Story itu, dan **kunci projek Jira** (cth `LD-`, `PKS-`, `CM-`, `FS-`) masuk ke nama cabang & mesej commit. Simpan **ID URS** dalam setiap user story supaya rantaian **URS → user story PRD → isu Jira** boleh dijejak.
+
 > 📎 **Rujukan bentuk:** lihat contoh PRD penuh dalam repo kursus — [`docs/contoh-prd-tempahan-fasiliti-sukan.md`](../../docs/contoh-prd-tempahan-fasiliti-sukan.md).
 
 ### ✅ Semakan
@@ -572,6 +574,7 @@ Senaraikan isu sahaja. JANGAN tulis semula PRD.
 - [ ] **Luar-skop** ditulis eksplisit
 - [ ] Setiap keperluan berpaksi **URS/dokumen NRES** — bukan rekaan AI
 - [ ] Yang tidak pasti direkod dalam **Soalan terbuka**
+- [ ] Setiap user story sedia dipetakan ke **isu Jira** esok (ada ID URS untuk jejak)
 
 ---
 

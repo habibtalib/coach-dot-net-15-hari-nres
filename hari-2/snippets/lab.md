@@ -16,7 +16,7 @@
 
 ## Latihan 0 — Bina backlog dalam GitHub Projects
 
-**Objektif:** Tukar URS Hari 1 menjadi backlog yang boleh dilaksanakan.
+**Objektif:** Tukar **user story PRD** (dan URS) Hari 1 menjadi backlog yang boleh dilaksanakan.
 
 ### Langkah
 
@@ -28,19 +28,19 @@ To Do  →  In Progress  →  In Review  →  Done
 
    Guna **swimlane mengikut epic**. Kumpulan 1 (3 projek) → 3 swimlane: `Lapor Diri` · `Pematuhan PKS` · `Pengurusan Kontrak`. Kumpulan lain → swimlane mengikut epic/ciri utama modul mereka.
 
-2. **Setiap kumpulan mencipta isu dari URSnya.** Bagi setiap keperluan "Mesti ada", cipta satu isu:
+2. **Setiap kumpulan mencipta isu dari user story PRDnya.** Bagi setiap **user story** (US-n) — atau keperluan "Mesti ada" URS yang belum ada user story — cipta satu isu. Salin **acceptance criteria** PRD terus ke medan kriteria penerimaan:
 
 ```markdown
 Tajuk: [K2] Semakan pendua nombor plat
 
-## Keperluan
-URS-PAS-007
+## Sumber
+User story PRD: US-<n>  ·  Keperluan URS: URS-PAS-007
 
 ## Perihalan
 Sistem menolak permohonan pelekat baharu jika nombor plat yang sama sudah
 mempunyai permohonan berstatus Submitted, SupervisorApproved, atau AdminApproved.
 
-## Kriteria penerimaan
+## Kriteria penerimaan (dari acceptance criteria PRD)
 - [ ] Semakan berjalan sebelum menyimpan permohonan
 - [ ] Mesej ralat menamakan nombor plat bertindih
 - [ ] Permohonan Rejected/Cancelled TIDAK menyekat permohonan baharu
@@ -75,8 +75,8 @@ Sederhana (½ hari)
 ### ✅ Semakan
 
 - [ ] Setiap pasukan ada board GitHub Project sendiri (4 lajur + swimlane mengikut epic)
-- [ ] Setiap kumpulan ada ≥12 isu dari URSnya
-- [ ] Setiap isu memaut ke ID URS
+- [ ] Setiap kumpulan ada ≥12 isu dari user story PRD / URSnya
+- [ ] Setiap isu memaut ke **user story PRD (US-n)** dan **ID URS**
 - [ ] Setiap isu ada kriteria penerimaan yang boleh diuji
 - [ ] Isu dilabel mengikut kumpulan & jenis
 - [ ] Isu `shared` disemak seluruh kelas
@@ -93,6 +93,8 @@ Sederhana (½ hari)
 ### Langkah
 
 > **Setiap pasukan ada board Jira sendiri** (bukan satu board dikongsi) — sama seperti board GitHub Project mereka. Dalam board itu, **swimlane mengikut epic**; Kumpulan 1 (3 projek) ada 3 epic.
+>
+> **Peta PRD → Jira:** setiap **user story PRD** (US-n) = satu **Story**; pecahan teknikal = **Subtask**; **acceptance criteria** PRD = kriteria penerimaan Story. Kunci projek Jira per sistem (cth `LD-`, `PKS-`, `CM-`, `FS-`) masuk ke mesej commit untuk memaut kod ↔ isu.
 
 1. Perhatikan hierarki Jira pada skrin:
 
