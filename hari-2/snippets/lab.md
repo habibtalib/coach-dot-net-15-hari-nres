@@ -593,6 +593,8 @@ claude mcp add --transport http atlassian https://mcp.atlassian.com/v1/mcp
 
 2. **Autentikasi.** Dalam Claude Code, buka panel `/mcp` → pilih `atlassian` → ikut aliran OAuth dalam pelayar. Log masuk **akaun Atlassian projek anda** (guna tetingkap **incognito** jika ada beberapa akaun supaya SSO tidak guna akaun salah).
 
+   > **Dalam VS Code:** jalankan arahan `claude mcp add …` (langkah 1) di **terminal bersepadu** (`` Cmd/Ctrl+` ``), kemudian taip `/mcp` dalam **panel chat** untuk authenticate. Konfigurasi dikongsi dengan CLI — tambah sekali, guna di kedua-dua. Panduan pelajar penuh: [`docs/cara-sambung-jira-claude-code.md`](../../docs/cara-sambung-jira-claude-code.md).
+
 3. Sahkan sambungan — dalam Claude Code:
 
 ```text
