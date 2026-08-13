@@ -577,6 +577,143 @@ Simpan kedua-dua prompt dalam `docs/kumpulan-N/nota-ai.md` — anda akan menggun
 
 ---
 
+## Latihan 6b — Sambung Claude Code ke Jira (MCP)
+
+> 🔧 **Khusus Claude Code** (MCP & skills). Pilihan/peningkatan — kursus tidak dijalankan dari Jira, tetapi **MCP** membolehkan AI membaca & mencipta isu terus dari **user story PRD** anda tanpa menyalin manual.
+
+**Objektif:** Sambungkan Claude Code ke Jira melalui MCP supaya anda boleh senarai & cipta isu dari terminal.
+
+### Langkah
+
+1. Tambah pelayan MCP Atlassian (Jira/Confluence):
+
+```bash
+claude mcp add --transport http atlassian https://mcp.atlassian.com/v1/mcp
+```
+
+2. **Autentikasi.** Dalam Claude Code, buka panel `/mcp` → pilih `atlassian` → ikut aliran OAuth dalam pelayar. Log masuk **akaun Atlassian projek anda** (guna tetingkap **incognito** jika ada beberapa akaun supaya SSO tidak guna akaun salah).
+
+3. Sahkan sambungan — dalam Claude Code:
+
+```text
+Senaraikan projek Jira yang saya boleh akses.
+```
+
+4. **Cipta isu dari user story PRD anda** (guna kunci projek per sistem, cth `LD`, `PKS`, `CM`, `FS`):
+
+```text
+Dalam projek Jira <KEY>, cipta satu Task untuk user story US-1 PRD kami:
+tajuk ringkas + perihalan, dan salin acceptance criteria PRD sebagai kriteria penerimaan.
+Tunjukkan draf dahulu sebelum mencipta.
+```
+
+5. **(Pilihan) Kongsi dengan pasukan.** Skop pelayan ke repo ini supaya rakan sepasukan dapat konfigurasi sama:
+
+```bash
+claude mcp add --transport http atlassian --scope project https://mcp.atlassian.com/v1/mcp
+# Menghasilkan .mcp.json di root repo — commit supaya pasukan kongsi konfigurasi.
+```
+
+> `.mcp.json` hanya kongsi **konfigurasi**, bukan token. Setiap ahli tetap **autentikasi sendiri** melalui `/mcp` dengan akaun mereka.
+
+### ✅ Semakan
+
+- [ ] Pelayan MCP `atlassian` ditambah & `/mcp` tunjuk **connected**
+- [ ] Boleh senaraikan projek Jira dari Claude Code
+- [ ] Sekurang-kurangnya satu isu dicipta dari user story PRD (draf disemak dahulu)
+
+---
+
+## Latihan 6c — Cipta skill projek (`SKILL.md`)
+
+> 🔧 **Khusus Claude Code.** Skill = arahan berulang yang dibungkus jadi perintah `/nama` yang boleh dikongsi seluruh pasukan.
+
+**Objektif:** Bungkus "jana dokumentasi + diagram ikut konvensyen kami" sebagai satu skill yang dipanggil `/dok-modul`.
+
+### Langkah
+
+1. Cipta fail `.claude/skills/dok-modul/SKILL.md` (skill ialah **folder** dengan fail `SKILL.md`, bukan satu fail longgar):
+
+````markdown
+---
+name: dok-modul
+description: Jana/kemas kini dokumentasi & diagram Mermaid modul ikut konvensyen NRES (BM, berpaksi PRD, jangan reka keperluan)
+---
+
+Bila dipanggil:
+1. Baca PRD modul (`docs/prd-modul-N.md`) dan `AGENTS.md` repo ini.
+2. Jana/kemas kini `docs/README-modul-N.md`: gambaran modul & pengguna, senarai fungsi utama, aliran permohonan (langkah demi langkah).
+3. Jana diagram Mermaid: `erDiagram` entiti utama & hubungan, dan `flowchart` proses permohonan → kelulusan.
+4. Guna Bahasa Melayu. JANGAN reka keperluan atau entiti yang tiada dalam PRD/ERD.
+5. Tunjukkan perubahan (diff) dahulu sebelum menulis fail.
+````
+
+2. Dalam Claude Code, panggil skill:
+
+```text
+/dok-modul
+```
+
+3. **Semak output** — betulkan fakta; pastikan diagram merender; buang apa-apa yang direka di luar PRD.
+
+4. **(Pilihan)** Commit `.claude/skills/dok-modul/` supaya seluruh pasukan guna skill yang sama.
+
+### ✅ Semakan
+
+- [ ] `.claude/skills/dok-modul/SKILL.md` wujud dengan frontmatter `name` + `description`
+- [ ] `/dok-modul` menghasilkan dokumentasi + diagram Mermaid
+- [ ] Output disemak manusia (fakta betul, tiada rekaan)
+
+---
+
+## Latihan 6d — Prompt dokumentasi & diagram Mermaid (terus)
+
+**Objektif:** Hasilkan dokumentasi modul & diagram Mermaid dari PRD/URS/ERD guna **prompt terus** (tanpa skill) — supaya anda faham apa yang skill di atas lakukan.
+
+### Langkah
+
+1. **Dokumentasi modul.** Lampirkan PRD anda, kemudian:
+
+```text
+Berdasarkan PRD modul kami di bawah, tulis dokumentasi ringkas (docs/README-modul-N.md):
+- gambaran modul & pengguna
+- senarai fungsi utama
+- aliran permohonan (langkah demi langkah)
+Guna Bahasa Melayu, ringkas dan jelas. Jangan tambah ciri yang tiada dalam PRD.
+
+[tampal PRD di sini]
+```
+
+2. **Diagram ERD (Mermaid).** Lampirkan ERD anda:
+
+```text
+Berdasarkan ERD kami di bawah, beri kod Mermaid `erDiagram` untuk entiti utama & hubungan.
+Kod Mermaid sahaja supaya saya boleh tampal terus. Jangan reka entiti baharu.
+
+[tampal ERD di sini]
+```
+
+3. **Carta alir proses (Mermaid).**
+
+```text
+Berdasarkan use case/PRD kami, beri kod Mermaid `flowchart`:
+Mohon → semak (bertindih / pendua / kelengkapan) → kelulusan admin → audit.
+Kod Mermaid sahaja. Ikut peranan & status dalam PRD.
+```
+
+4. Simpan hasil dalam `docs/` dan sahkan diagram **merender** (VS Code atau GitHub).
+
+5. **Semak silang:** adakah dokumentasi/diagram menokok keperluan atau entiti yang tiada dalam PRD/ERD? Betulkan dengan tangan.
+
+### ✅ Semakan
+
+- [ ] `docs/README-modul-N.md` dijana & disemak
+- [ ] Diagram **ERD** + **carta alir** (Mermaid) dihasilkan & merender
+- [ ] Tiada entiti/keperluan direka di luar PRD/ERD
+- [ ] Fail Mermaid disimpan dalam repo (boleh review seperti kod)
+
+---
+
 ## Latihan 7 — Persekitaran .NET 10
 
 **Objektif:** Setiap mesin sedia untuk menulis kod esok.
