@@ -102,6 +102,8 @@ Guna Bahasa Melayu, ringkas dan jelas. Jangan tambah ciri yang tiada dalam PRD.
 
 ## C · Diagram (Mermaid)
 
+> Semua prompt diagram: minta **HANYA satu blok kod Mermaid**, tiada nota di dalam blok (nota AI diletak **di luar** blok). **FigJam** tidak menyokong **DIA-06** (`journey`) — render dalam VS Code/GitHub, atau guna **DIA-05** (`flowchart`) untuk FigJam. Detail & sokongan penuh: [`cara-jana-dokumentasi-diagram.md`](./cara-jana-dokumentasi-diagram.md) § C.
+
 ### DIA-01 — Diagram ERD (Mermaid)
 
 - **Tujuan:** Kod Mermaid `erDiagram` untuk entiti & hubungan.
@@ -109,7 +111,7 @@ Guna Bahasa Melayu, ringkas dan jelas. Jangan tambah ciri yang tiada dalam PRD.
 
 ```text
 Berdasarkan ERD kami di bawah, beri kod Mermaid `erDiagram` untuk entiti utama & hubungan.
-Kod Mermaid sahaja supaya saya boleh tampal terus. Jangan reka entiti baharu.
+Beri HANYA satu blok kod Mermaid (tiada nota/teks lain di dalam blok) supaya saya boleh tampal terus. Jangan reka entiti baharu.
 
 [tampal ERD di sini]
 ```
@@ -125,7 +127,7 @@ Kod Mermaid sahaja supaya saya boleh tampal terus. Jangan reka entiti baharu.
 ```text
 Berdasarkan use case/PRD kami, beri kod Mermaid `flowchart`:
 Mohon → semak (bertindih / pendua / kelengkapan) → kelulusan admin → audit.
-Kod Mermaid sahaja. Ikut peranan & status dalam PRD.
+Beri HANYA satu blok kod Mermaid (tiada nota/teks lain di dalam blok). Ikut peranan & status dalam PRD.
 ```
 
 - **Selepas:** Sahkan status & peranan sepadan `SubmissionStatus`/`SPEC-KURSUS.md`.
@@ -141,7 +143,7 @@ Berdasarkan use case/PRD kami di bawah, beri kod Mermaid `flowchart LR` sebagai 
 - aktor (cth Pemohon, <peranan admin>) di kiri
 - setiap use case sebagai satu nod (cth "Mohon tempahan", "Semak permohonan")
 - sambungkan aktor ke use case yang mereka lakukan
-Kod Mermaid sahaja. Ikut aktor & fungsi dalam PRD; jangan reka.
+Beri HANYA satu blok kod Mermaid (tiada nota/teks lain di dalam blok). Ikut aktor & fungsi dalam PRD; jangan reka.
 
 [tampal use case / PRD di sini]
 ```
@@ -156,7 +158,7 @@ Kod Mermaid sahaja. Ikut aktor & fungsi dalam PRD; jangan reka.
 ```text
 Berdasarkan PRD kami, beri kod Mermaid `flowchart TD` untuk aliran pengguna satu tugas
 (cth "hantar permohonan"): setiap langkah pengguna + titik keputusan (cth "Sah?", "Slot kosong?")
-+ hasil (berjaya / ralat). Kod Mermaid sahaja. Ikut peranan & peraturan dalam PRD.
++ hasil (berjaya / ralat). Beri HANYA satu blok kod Mermaid (tiada nota/teks lain di dalam blok). Ikut peranan & peraturan dalam PRD.
 ```
 
 - **Rujukan:** [`cara-jana-dokumentasi-diagram.md`](./cara-jana-dokumentasi-diagram.md) § C.
@@ -169,7 +171,7 @@ Berdasarkan PRD kami, beri kod Mermaid `flowchart TD` untuk aliran pengguna satu
 ```text
 Berdasarkan PRD kami, beri kod Mermaid `journey` untuk perjalanan pengguna:
 title <nama tugas>; beberapa section (cth Mohon, Semak, Keputusan); setiap langkah beri
-skor kepuasan (1–5) dan aktor. Kod Mermaid sahaja.
+skor kepuasan (1–5) dan aktor. Beri HANYA satu blok kod Mermaid (tiada nota/teks lain di dalam blok).
 ```
 
 - **Rujukan:** [`cara-jana-dokumentasi-diagram.md`](./cara-jana-dokumentasi-diagram.md) § C.
@@ -182,7 +184,7 @@ skor kepuasan (1–5) dan aktor. Kod Mermaid sahaja.
 ```text
 Berdasarkan aliran kami, beri kod Mermaid `sequenceDiagram` untuk <aliran>:
 peserta (cth Pemohon, Sistem, <peranan admin>) dan mesej antara mereka mengikut urutan.
-Kod Mermaid sahaja. Jangan tambah langkah yang tiada dalam aliran.
+Beri HANYA satu blok kod Mermaid (tiada nota/teks lain di dalam blok). Jangan tambah langkah yang tiada dalam aliran.
 ```
 
 - **Rujukan:** [`cara-jana-dokumentasi-diagram.md`](./cara-jana-dokumentasi-diagram.md) § C.
@@ -196,7 +198,7 @@ Kod Mermaid sahaja. Jangan tambah langkah yang tiada dalam aliran.
 Berdasarkan SubmissionStatus kami (Draft, Submitted, SupervisorApproved, AdminApproved,
 Rejected, Completed, Cancelled), beri kod Mermaid `stateDiagram-v2`:
 tunjukkan peralihan yang DIBENARKAN untuk modul kami sahaja (jangan tambah status baharu).
-Kod Mermaid sahaja. Ikut SubmissionStatus dalam SPEC-KURSUS.md.
+Beri HANYA satu blok kod Mermaid (tiada nota/teks lain di dalam blok). Ikut SubmissionStatus dalam SPEC-KURSUS.md.
 ```
 
 - **Rujukan:** [`cara-jana-dokumentasi-diagram.md`](./cara-jana-dokumentasi-diagram.md) § C.
