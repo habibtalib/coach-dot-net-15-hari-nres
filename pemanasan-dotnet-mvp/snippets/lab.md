@@ -1,22 +1,31 @@
-# Lab Pemanasan — Persekitaran .NET & MVP Pertama Anda
+# Lab Pemanasan — Persekitaran .NET & Scaffold Repo Anda
 
 > Konsep di [`../README.md`](../README.md). Kanun teknikal: [`../../SPEC-KURSUS.md`](../../SPEC-KURSUS.md) · ciri C# 14 yang dibenarkan: [`../../AGENTS.md`](../../AGENTS.md).
 >
-> **Hari ini kita menaip semuanya dengan tangan.** Tiada AI menjana kod sehingga Latihan 6. Salin-tampal dari lab ini dibenarkan; menjana melalui Claude Code **tidak** — sehingga bahagian pratonton.
+> **Hari ini kita menaip semuanya dengan tangan.** Tiada AI menjana kod sehingga Latihan 5 (pratonton). Salin-tampal dari lab ini dibenarkan; menjana melalui Claude Code **tidak** — sehingga bahagian pratonton.
 
 ## Persediaan
 
-- Sambungan internet (untuk memuat turun SDK & pakej NuGet kali pertama)
-- Keizinan memasang perisian pada mesin anda
-- Ruang cakera ~1–2 GB
+- Sambungan internet (muat turun SDK, pakej NuGet, clone repo)
+- Keizinan memasang perisian pada mesin anda · ruang cakera ~1–2 GB
+- **Akses ke repo pasukan anda** dalam org [`nres-bpm`](https://github.com/nres-bpm) — jurulatih menambah anda sebagai *collaborator*
 
-> **Projek hari ini ialah projek buangan.** Kita membinanya **di luar** repo kursus (contoh dalam `~/latihan/`), sama seperti fail `pemanasan.cs` Hari 3. Ia **tidak** di-commit ke repo kursus — projek sebenar (`Nres.Onboarding.Web` dan repo `nres-bpm`) bermula bersih pada Hari 3. Tujuan hari ini ialah **kemahiran**, bukan artifak.
+> **Hari ini menghasilkan artifak SEBENAR.** Kita **clone repo pasukan anda** (yang kini mengandungi `README.md` sahaja) dan **scaffold skeleton .NET ke dalamnya** pada satu cabang → PR. Ini bukan lagi projek buangan — ia permulaan sistem sebenar anda. Latihan gelung MVC (Latihan 3) dibuat pada **cabang buangan** yang berasingan supaya skeleton kekal bersih.
+
+**Nilai ganti (setiap pasukan berbeza)** — ambil dari README projek anda, seksyen **"🏗️ Bootstrap skeleton repo"**:
+
+| Simbol | Maksud | Contoh (Lapor Diri) |
+|--------|--------|---------------------|
+| `<repo>` | slug repo pasukan | `lapor-diri` |
+| `<Sistem>` | nama projek PascalCase | `LaporDiri` |
+
+> Repo & nama setiap pasukan: `lapor-diri`/`LaporDiri` · `pematuhan-pks`/`PematuhanPks` · `pengurusan-kontrak`/`PengurusanKontrak` · `pas-parkir-pelekat`/`PasParkirPelekat` · `id-ad-email`/`IdAdEmail` · `tempahan-fasiliti-sukan`/`TempahanFasilitiSukan`.
 
 ---
 
 ## Latihan 0 — Pasang & sahkan persekitaran
 
-**Objektif:** .NET 10 SDK berjalan pada mesin anda, editor sedia, sijil HTTPS dipercayai.
+**Objektif:** .NET 10 SDK berjalan, editor sedia, sijil HTTPS dipercayai, dan akses GitHub berfungsi.
 
 ### Langkah
 
@@ -26,16 +35,16 @@
 dotnet --version
 ```
 
-- Jika ia memaparkan `10.x` → teruskan ke langkah 3.
-- Jika ia memaparkan versi lebih rendah (cth. `8.x`) → SDK 10 masih boleh dipasang bersebelahan; teruskan ke langkah 2.
-- Jika `command not found` / `not recognized` → belum dipasang; langkah 2.
+- `10.x` → teruskan ke langkah 3.
+- Versi lebih rendah (cth. `8.x`) → SDK 10 boleh dipasang bersebelahan; langkah 2.
+- `command not found` / `not recognized` → belum dipasang; langkah 2.
 
-2. **Pasang .NET 10 SDK.** Muat turun dari halaman rasmi dan ikut pemasang untuk sistem anda:
+2. **Pasang .NET 10 SDK:**
 
    > **[https://dotnet.microsoft.com/download/dotnet/10.0](https://dotnet.microsoft.com/download/dotnet/10.0)** → pilih **SDK** (bukan Runtime) untuk OS anda.
 
    - **Windows / macOS:** jalankan pemasang `.exe` / `.pkg`, terima lalai.
-   - **Linux / macOS (alternatif):** ikut arahan pengurus pakej di halaman [learn.microsoft.com/dotnet/core/install](https://learn.microsoft.com/en-us/dotnet/core/install/).
+   - **Linux / macOS (alternatif):** ikut [learn.microsoft.com/dotnet/core/install](https://learn.microsoft.com/en-us/dotnet/core/install/).
 
    **Tutup dan buka semula terminal** selepas memasang (supaya `PATH` dimuat semula).
 
@@ -47,72 +56,108 @@ dotnet --list-sdks         # sekurang-kurangnya satu baris 10.x
 dotnet --list-runtimes     # mesti ada "Microsoft.AspNetCore.App 10.x"
 ```
 
-> Jika `dotnet --version` menunjukkan versi lama walaupun 10 dipasang: `PATH` anda menunjuk ke pemasangan lama. Pada macOS/Linux semak `which dotnet`; pada Windows semak `where dotnet`. Betulkan susunan `PATH`, atau buka terminal baharu.
+> Jika `dotnet --version` menunjukkan versi lama: `PATH` menunjuk ke pemasangan lama. macOS/Linux: `which dotnet`; Windows: `where dotnet`. Betulkan susunan `PATH` atau buka terminal baharu.
 
-4. **Sediakan editor.** Mana-mana satu sudah memadai:
-   - **Visual Studio Code** + sambungan **C# Dev Kit** (percuma, semua OS) — [code.visualstudio.com](https://code.visualstudio.com)
-   - **JetBrains Rider** (percuma untuk bukan komersial)
-   - **Visual Studio 2022/2026** (Windows sahaja)
+4. **Sediakan editor:** VS Code + **C# Dev Kit** · JetBrains Rider · Visual Studio 2022/2026 (Windows).
 
-5. **Percayai sijil HTTPS pembangunan** (supaya `https://localhost` tidak memberi amaran):
+5. **Percayai sijil HTTPS pembangunan:**
 
 ```bash
 dotnet dev-certs https --trust
 ```
 
-   > Pada macOS/Windows ia akan meminta kebenaran — terima. Pada Linux, `--trust` mungkin tiada kesan; anda boleh guna URL `http://localhost` sebaliknya.
+   > macOS/Windows: terima bila diminta. Linux: `--trust` mungkin tiada kesan — guna `http://localhost` sebaliknya.
+
+6. **Sahkan akses GitHub** (untuk clone repo privat pasukan). Cara mudah dengan GitHub CLI:
+
+```bash
+gh auth login            # ikut wizard: GitHub.com → HTTPS → pelayar
+gh auth status           # sahkan "Logged in"
+```
+
+   > Tiada `gh`? Guna Git biasa dengan HTTPS + Personal Access Token, atau kunci SSH. Yang penting: `git clone` repo privat berjaya.
 
 ### ✅ Semakan
 
 - [ ] `dotnet --version` → `10.x`
 - [ ] `dotnet --list-runtimes` menyenaraikan `Microsoft.AspNetCore.App 10.x`
-- [ ] Editor pilihan dibuka dan mengenali fail C#
-- [ ] `dotnet dev-certs https --trust` selesai tanpa ralat (atau anda tahu guna `http://` di Linux)
+- [ ] Editor mengenali fail C#
+- [ ] `dotnet dev-certs https --trust` selesai (atau anda tahu guna `http://` di Linux)
+- [ ] `gh auth status` (atau setara) menunjukkan anda log masuk
 
 ---
 
-## Latihan 1 — MVP anda: aplikasi MVC yang berjalan
+## Latihan 1 — Clone repo pasukan & scaffold skeleton
 
-**Objektif:** Satu aplikasi ASP.NET Core MVC yang benar-benar berjalan dalam pelayar — rangka berjalan MVP kita.
+**Objektif:** Repo `nres-bpm/<repo>` anda kini mengandungi rangka .NET yang **berjalan** — pada satu cabang, sedia untuk PR.
+
+> Arahan penuh & khusus pasukan ada dalam README projek anda (**"🏗️ Bootstrap skeleton repo"**). Di bawah ialah bentuk generik — ganti `<repo>` dan `<Sistem>`.
 
 ### Langkah
 
-1. **Cipta folder latihan dan projek** (di luar repo kursus):
+1. **Clone repo pasukan** (ia sudah ada `README.md`) dan buka cabang scaffold:
 
 ```bash
-mkdir -p ~/latihan
-cd ~/latihan
-dotnet new mvc -o HelloNres
-cd HelloNres
+git clone https://github.com/nres-bpm/<repo>.git
+cd <repo>
+git switch -c chore/scaffold
 ```
 
-   `dotnet new mvc` menjana projek MVC lengkap dengan satu contoh (Home). `-o HelloNres` meletakkannya dalam folder `HelloNres`.
-
-2. **Jalankan aplikasi:**
+2. **Tambah `.gitignore`** supaya `bin/`, `obj/`, `*.db` tidak di-commit:
 
 ```bash
-dotnet run
+dotnet new gitignore
 ```
 
-   Cari baris seperti `Now listening on: https://localhost:7xxx` dalam output. Buka URL itu dalam pelayar. Anda sepatutnya nampak halaman selamat datang lalai.
-
-3. **Berhenti** dengan `Ctrl+C` dalam terminal.
-
-4. **Jalankan semula dengan auto-reload** (membina semula bila anda simpan fail — berguna sepanjang hari):
+3. **Cipta solution + 3 projek.** Struktur kanun: `src/<Sistem>.Web` + `src/<Sistem>.Profile` + `tests/<Sistem>.Tests`.
 
 ```bash
-dotnet watch
+dotnet new sln -n <Sistem>
+dotnet new mvc      -o src/<Sistem>.Web        # Lapor Diri sahaja: tambah --auth Individual
+dotnet new classlib -o src/<Sistem>.Profile    # klien/kontrak Profile DB
+dotnet new xunit    -o tests/<Sistem>.Tests
+dotnet sln add src/<Sistem>.Web src/<Sistem>.Profile tests/<Sistem>.Tests
 ```
 
-   Biarkan ia berjalan dalam satu terminal; gunakan terminal **kedua** untuk arahan `git` dan sebagainya.
+4. **Rujukan projek + pakej EF Core** (Hari 4 tambah entiti & migration):
+
+```bash
+dotnet add src/<Sistem>.Web    reference src/<Sistem>.Profile
+dotnet add tests/<Sistem>.Tests reference src/<Sistem>.Web
+dotnet add src/<Sistem>.Web package Microsoft.EntityFrameworkCore.Sqlite
+dotnet add src/<Sistem>.Web package Microsoft.EntityFrameworkCore.Design
+dotnet tool install --global dotnet-ef         # sekali per mesin
+```
+
+5. **Cipta folder modul anda** (nama folder khusus pasukan — lihat README projek):
+
+```bash
+cd src/<Sistem>.Web
+mkdir -p Models Views ViewModels Services Data App_Data/uploads
+cd ../..
+```
+
+6. **Jalankan aplikasi:**
+
+```bash
+dotnet run --project src/<Sistem>.Web
+```
+
+   Buka `https://localhost:7xxx` yang dipaparkan — halaman selamat datang lalai. `Ctrl+C` untuk henti. Untuk auto-reload sepanjang hari: `dotnet watch --project src/<Sistem>.Web`.
+
+7. **Commit skeleton** (belum push — kita push selepas faham & bersih):
+
+```bash
+git add .
+git commit -m "<PREFIX>: scaffold skeleton (Web + Profile + Tests)"
+```
 
 ### ✅ Semakan
 
-- [ ] Halaman selamat datang lalai muncul di `https://localhost:7xxx`
-- [ ] `Ctrl+C` menghentikannya
-- [ ] `dotnet watch` berjalan tanpa ralat
-
-> **Sudah selesai?** Tahniah — anda baru sahaja menjalankan MVP pertama. Ia belum melakukan apa-apa yang berguna; itu langkah seterusnya. Itulah MVP: **berjalan dahulu, berguna kemudian.**
+- [ ] `git branch` menunjukkan anda pada `chore/scaffold`
+- [ ] `dotnet run --project src/<Sistem>.Web` memaparkan halaman lalai
+- [ ] `git status` bersih (tiada `bin/`/`obj/` — `.gitignore` berfungsi)
+- [ ] Satu commit skeleton wujud (`git log --oneline`)
 
 ---
 
@@ -122,25 +167,23 @@ dotnet watch
 
 ### Langkah
 
-1. **Lihat struktur** (dalam editor, atau `ls -R` / `dir`):
+1. **Lihat struktur** `src/<Sistem>.Web/` (dalam editor atau `ls -R`):
 
 ```text
-HelloNres/
+src/<Sistem>.Web/
   Controllers/HomeController.cs      ← logik: terima permintaan, sedia data
   Models/ErrorViewModel.cs           ← kelas data
   Views/
     Home/Index.cshtml                ← templat halaman utama (Razor)
-    Home/Privacy.cshtml
     Shared/_Layout.cshtml            ← rangka bersama semua halaman
     _ViewImports.cshtml              ← import + tag helpers
     _ViewStart.cshtml                ← "guna _Layout untuk setiap view"
   wwwroot/                           ← fail statik (css, js, imej)
   Program.cs                         ← titik masuk: sediakan & mulakan aplikasi
-  appsettings.json                   ← konfigurasi
-  HelloNres.csproj                   ← definisi projek & pakej
+  <Sistem>.Web.csproj                ← definisi projek & pakej
 ```
 
-2. **Buka `Program.cs`.** Ia pendek. Baca perlahan:
+2. **Buka `Program.cs`.** Baca perlahan:
 
 ```csharp
 var builder = WebApplication.CreateBuilder(args);
@@ -170,11 +213,11 @@ app.MapControllerRoute(
 app.Run();
 ```
 
-   Dua idea untuk difahami:
-   - **Baris `pattern`** menentukan URL kosong (`/`) pergi ke `HomeController.Index`. `{controller=Home}` bermaksud "Home ialah lalai". Inilah sebab halaman utama ialah Home.
-   - **Susunan middleware penting.** Permintaan mengalir dari atas ke bawah. Contoh: `UseRouting` mesti datang sebelum `UseAuthorization`.
+   Dua idea:
+   - **Baris `pattern`** membuat URL kosong (`/`) pergi ke `HomeController.Index`. `{controller=Home}` = "Home ialah lalai".
+   - **Susunan middleware penting.** Permintaan mengalir atas ke bawah — cth. `UseRouting` sebelum `UseAuthorization`.
 
-3. **Buka `Controllers/HomeController.cs`.** Perhatikan setiap kaedah `public` yang mengembalikan `IActionResult` ialah satu **action** — boleh dicapai melalui URL:
+3. **Buka `Controllers/HomeController.cs`.** Setiap kaedah `public` yang mengembalikan `IActionResult` ialah satu **action**:
 
 ```csharp
 public IActionResult Index()   // → GET /  atau  /Home/Index
@@ -183,31 +226,39 @@ public IActionResult Index()   // → GET /  atau  /Home/Index
 }
 ```
 
-4. **Buka `Views/Home/Index.cshtml`.** Ini HTML bercampur C# (Razor). `@` memulakan kod C#.
-
-5. **Cuba sendiri:** ubah teks dalam `Views/Home/Index.cshtml`, simpan. Jika `dotnet watch` berjalan, pelayar dikemas kini automatik. **Kembalikan** perubahan selepas mencuba.
+4. **Buka `Views/Home/Index.cshtml`** — HTML bercampur C# (Razor); `@` memulakan kod C#.
 
 ### ✅ Semakan
 
-- [ ] Anda boleh menunjuk fail mana yang membuat URL `/` pergi ke Home
-- [ ] Anda boleh terangkan beza antara *service registration* dan *middleware pipeline* dalam `Program.cs`
+- [ ] Anda boleh menunjuk fail yang membuat URL `/` pergi ke Home
+- [ ] Anda boleh terangkan beza *service registration* vs *middleware pipeline* dalam `Program.cs`
 - [ ] Anda tahu action ialah kaedah `public` yang mengembalikan `IActionResult`
-- [ ] Perubahan pada `Index.cshtml` muncul dalam pelayar
+- [ ] Anda tahu namespace projek anda ialah `<Sistem>.Web` (bukan `HelloNres`)
 
 ---
 
-## Latihan 3 — Model & Controller anda sendiri
+## Latihan 3 — Gelung MVC dengan tangan (cabang buangan)
 
-**Objektif:** Bina bahagian Model + Controller MVP: senarai permohonan dalam memori, dipaparkan pada URL anda sendiri.
+**Objektif:** Buktikan anda faham gelung Model → View → Controller — pada **cabang buangan**, supaya skeleton sebenar kekal bersih.
+
+> ⚠️ **Ini latihan PEMAHAMAN, bukan kerja modul sebenar.** Kita buat pada cabang `latihan/mvc-loop`, faham, kemudian **buang**. Modul sebenar anda bermula Hari 4.
+>
+> Dalam kod di bawah, ganti `<Sistem>` dengan nama projek anda (lihat baris `namespace` dalam mana-mana fail `.cs` yang di-scaffold).
 
 ### Langkah
 
-1. **Cipta Model.** Fail baharu `Models/Permohonan.cs`:
+1. **Buka cabang buangan** dari skeleton:
+
+```bash
+git switch -c latihan/mvc-loop
+```
+
+2. **Model.** Fail `src/<Sistem>.Web/Models/Permohonan.cs`:
 
 ```csharp
 using System.ComponentModel.DataAnnotations;
 
-namespace HelloNres.Models;
+namespace <Sistem>.Web.Models;
 
 public class Permohonan
 {
@@ -224,18 +275,17 @@ public class Permohonan
 
    > Data contoh **sintetik** sahaja — jangan guna data NRES sebenar (rujuk [`../../CLAUDE.md`](../../CLAUDE.md)).
 
-2. **Cipta Controller.** Fail baharu `Controllers/PermohonanController.cs`:
+3. **Controller.** Fail `src/<Sistem>.Web/Controllers/PermohonanController.cs`:
 
 ```csharp
-using HelloNres.Models;
+using <Sistem>.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace HelloNres.Controllers;
+namespace <Sistem>.Web.Controllers;
 
 public class PermohonanController : Controller
 {
-    // Senarai dalam-memori — MVP: belum ada pangkalan data.
-    // static supaya ia kekal antara permintaan (tetapi hilang bila aplikasi dimula semula).
+    // Senarai dalam-memori — belum ada pangkalan data (EF Core datang Hari 4).
     private static readonly List<Permohonan> _senarai =
     [
         new() { Rujukan = "LD-2026-0001",     Modul = "Lapor Diri",   Status = "Submitted" },
@@ -245,125 +295,53 @@ public class PermohonanController : Controller
 
     // GET /Permohonan
     public IActionResult Index() => View(_senarai);
+
+    // GET /Permohonan/Baharu
+    [HttpGet]
+    public IActionResult Baharu() => View(new Permohonan());
+
+    // POST /Permohonan/Baharu
+    [HttpPost]
+    public IActionResult Baharu(Permohonan permohonan)
+    {
+        if (!ModelState.IsValid)
+            return View(permohonan);        // ada ralat — papar semula
+        _senarai.Add(permohonan);           // simpan (dalam memori)
+        return RedirectToAction(nameof(Index));
+    }
 }
 ```
 
-   Perhatikan **collection expression** `[ ... ]` dan `new()` bertaip-sasaran — sintaks C# 12+ yang kita guna sepanjang kursus.
+   Perhatikan **collection expression** `[ ... ]` + `new()` bertaip-sasaran (C# 12+). `model binding` mengisi `permohonan` dari medan borang secara automatik.
 
-3. Kita belum ada View — jalankan dahulu untuk melihat ralat yang **jelas**:
-
-```bash
-dotnet run
-```
-
-   Layari `https://localhost:7xxx/Permohonan`. Anda dapat ralat *"view 'Index' was not found"* yang menyenaraikan lokasi yang dicari. **Ini berguna** — ia memberitahu tepat di mana View sepatutnya berada. Langkah seterusnya menciptanya.
-
-### ✅ Semakan
-
-- [ ] `Models/Permohonan.cs` dan `Controllers/PermohonanController.cs` wujud
-- [ ] `/Permohonan` memberi ralat "view not found" (bukan ralat pembinaan)
-- [ ] Anda faham kenapa `_senarai` itu `static`
-
----
-
-## Latihan 4 — View anda sendiri: gelung MVC lengkap
-
-**Objektif:** Tambah View supaya senarai dipaparkan — melengkapkan Model → View → Controller buat kali pertama.
-
-### Langkah
-
-1. **Cipta folder View** untuk controller ini: `Views/Permohonan/`.
-
-2. **Cipta `Views/Permohonan/Index.cshtml`:**
+4. **View senarai.** Fail `src/<Sistem>.Web/Views/Permohonan/Index.cshtml`:
 
 ```cshtml
-@model List<HelloNres.Models.Permohonan>
+@model List<Permohonan>
 @{
     ViewData["Title"] = "Papan Permohonan NRES";
 }
 
 <h1>@ViewData["Title"]</h1>
-
-<p>
-    <a class="btn btn-primary" asp-action="Baharu">+ Permohonan baharu</a>
-</p>
+<p><a class="btn btn-primary" asp-action="Baharu">+ Permohonan baharu</a></p>
 
 <table class="table">
     <thead>
-        <tr>
-            <th>No. Rujukan</th>
-            <th>Modul</th>
-            <th>Status</th>
-        </tr>
+        <tr><th>No. Rujukan</th><th>Modul</th><th>Status</th></tr>
     </thead>
     <tbody>
         @foreach (var p in Model)
         {
-            <tr>
-                <td>@p.Rujukan</td>
-                <td>@p.Modul</td>
-                <td>@p.Status</td>
-            </tr>
+            <tr><td>@p.Rujukan</td><td>@p.Modul</td><td>@p.Status</td></tr>
         }
     </tbody>
 </table>
 ```
 
-   - `@model` mengisytihar jenis data yang View ini terima — `List<Permohonan>` yang Controller hantar.
-   - `asp-action="Baharu"` ialah **tag helper**; ia menjana URL yang betul ke action `Baharu` (kita bina dalam Latihan 5).
-   - Kelas `table`/`btn` datang dari Bootstrap yang sudah termasuk dalam template.
-
-3. **Jalankan** dan layari `https://localhost:7xxx/Permohonan`. Anda sepatutnya nampak jadual dengan tiga baris seed.
-
-4. **(Pilihan) Jadikan ia halaman utama.** Dalam `Program.cs`, tukar route lalai:
-
-```csharp
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Permohonan}/{action=Index}/{id?}");
-```
-
-   Sekarang URL kosong `/` terus ke papan permohonan.
-
-### ✅ Semakan
-
-- [ ] `/Permohonan` memaparkan jadual dengan 3 baris
-- [ ] Anda boleh jejak data: `_senarai` (Controller) → `Model` (View) → baris jadual (HTML)
-- [ ] Butang "+ Permohonan baharu" muncul (belum berfungsi — Latihan 5)
-
----
-
-## Latihan 5 — Borang: lengkapkan MVP (baca **dan** tulis)
-
-**Objektif:** Borang untuk menambah permohonan baharu — model binding + validation. Ini menjadikan MVP kita interaktif.
-
-### Langkah
-
-1. **Tambah dua action** ke `PermohonanController` (dalam kelas yang sama, selepas `Index`):
-
-```csharp
-    // GET /Permohonan/Baharu — papar borang kosong
-    [HttpGet]
-    public IActionResult Baharu() => View(new Permohonan());
-
-    // POST /Permohonan/Baharu — terima borang yang dihantar
-    [HttpPost]
-    public IActionResult Baharu(Permohonan permohonan)
-    {
-        if (!ModelState.IsValid)
-            return View(permohonan);        // ada ralat — papar semula borang
-
-        _senarai.Add(permohonan);           // simpan (dalam memori)
-        return RedirectToAction(nameof(Index));
-    }
-```
-
-   Dua kaedah nama sama, dibezakan oleh `[HttpGet]` / `[HttpPost]`. ASP.NET Core **model binding** mengisi objek `permohonan` secara automatik dari medan borang yang namanya sepadan.
-
-2. **Cipta `Views/Permohonan/Baharu.cshtml`:**
+5. **View borang.** Fail `src/<Sistem>.Web/Views/Permohonan/Baharu.cshtml`:
 
 ```cshtml
-@model HelloNres.Models.Permohonan
+@model Permohonan
 @{
     ViewData["Title"] = "Permohonan baharu";
 }
@@ -378,13 +356,11 @@ app.MapControllerRoute(
         <input asp-for="Rujukan" class="form-control" />
         <span asp-validation-for="Rujukan" class="text-danger"></span>
     </div>
-
     <div class="mb-3">
         <label asp-for="Modul" class="form-label"></label>
         <input asp-for="Modul" class="form-control" />
         <span asp-validation-for="Modul" class="text-danger"></span>
     </div>
-
     <div class="mb-3">
         <label asp-for="Status" class="form-label"></label>
         <input asp-for="Status" class="form-control" />
@@ -396,86 +372,105 @@ app.MapControllerRoute(
 </form>
 ```
 
-   - `asp-for="Rujukan"` menjana `<label>`/`<input>`/mesej ralat yang betul dari Model — termasuk `[Display(Name = "No. Rujukan")]` yang kita tetapkan.
-   - `asp-validation-for` memaparkan ralat `[Required]` untuk medan itu.
+   > `@model Permohonan` tanpa nama penuh berfungsi kerana `_ViewImports.cshtml` sudah `@using <Sistem>.Web` dan `@addTagHelper`. `asp-for`/`asp-validation-for` ialah **tag helper**.
 
-3. **Jalankan dan uji:**
-   - Layari `/Permohonan`, klik **+ Permohonan baharu**.
-   - Hantar borang **kosong** → anda sepatutnya nampak mesej "The Rujukan field is required." (validation sisi pelayan berfungsi).
-   - Isi ketiga-tiga medan, klik **Simpan** → anda kembali ke senarai dengan baris baharu anda di bawah.
+6. **Jalankan & uji:**
 
-4. **Bukti ia MVP (dalam memori sahaja):** hentikan aplikasi (`Ctrl+C`), jalankan semula, layari `/Permohonan`. Baris tambahan anda **hilang** — hanya 3 seed kembali. Itu dijangka: tiada pangkalan data lagi. **Hari 3 menambah EF Core** dan data mula kekal.
+```bash
+dotnet run --project src/<Sistem>.Web
+```
+
+   - Layari `/Permohonan` → jadual 3 baris seed.
+   - Klik **+ Permohonan baharu**, hantar borang **kosong** → mesej "The Rujukan field is required." (validation pelayan).
+   - Isi & **Simpan** → kembali ke senarai dengan baris baharu.
+   - Hentikan (`Ctrl+C`), jalankan semula, layari `/Permohonan` → baris tambahan **hilang** (dalam memori sahaja). **Itu sebab kita perlukan EF Core — Hari 4.**
+
+7. **Buang latihan ini** supaya skeleton kekal bersih:
+
+```bash
+git switch chore/scaffold
+git branch -D latihan/mvc-loop      # buang cabang + demo sekali
+```
 
 ### ✅ Semakan
 
-- [ ] Borang kosong menunjukkan ralat validation, tidak menambah apa-apa
-- [ ] Borang sah menambah baris dan kembali ke senarai
-- [ ] Selepas mula semula, tambahan hilang — dan anda boleh terangkan **kenapa**
-- [ ] Anda boleh namakan tiga bahagian yang anda tulis: Model, View(s), Controller actions
+- [ ] Anda melihat gelung penuh: `_senarai` (Controller) → `Model` (View) → HTML
+- [ ] Borang kosong → ralat validation; borang sah → baris baharu
+- [ ] Selepas mula semula, tambahan hilang — dan anda tahu **kenapa**
+- [ ] Anda kembali pada `ch/scaffold` dan cabang `latihan/mvc-loop` sudah dibuang
 
 ---
 
-## Latihan 6 — Simpan kerja + pratonton Claude Code
+## Latihan 4 — Push skeleton & buka PR
 
-**Objektif:** Rakam MVP dalam Git, kemudian lihat apa yang AI akan lakukan dengan tugas yang sama — dan di mana sempadannya.
+**Objektif:** Skeleton bersih masuk ke `nres-bpm/<repo>` melalui cabang → PR (bukan terus ke `main`).
 
-### Bahagian A — `git init` (masih dengan tangan)
+### Langkah
 
-1. Dalam folder projek:
-
-```bash
-cd ~/latihan/HelloNres
-git init
-```
-
-2. Template MVC sudah menyertakan `.gitignore` yang betul (mengabaikan `bin/`, `obj/`). Sahkan:
+1. Pastikan anda pada `chore/scaffold` dengan skeleton bersih:
 
 ```bash
-git status        # tidak sepatutnya menyenaraikan bin/ atau obj/
+git switch chore/scaffold
+git status                 # bersih; hanya skeleton, tiada fail Permohonan
+git log --oneline          # commit skeleton anda + README asal
 ```
 
-3. Commit pertama:
+2. **Push cabang & buka PR:**
 
 ```bash
-git add .
-git commit -m "MVP: papan permohonan NRES (senarai + borang, dalam memori)"
+git push -u origin chore/scaffold
 ```
 
-> Ingat: repo latihan ini **berasingan** daripada repo kursus. Jangan push ke `nres-bpm`.
+   Buka pautan PR yang dipaparkan (atau di GitHub) → buka **Pull Request** `chore/scaffold` → `main`. Tajuk: `Scaffold skeleton <Sistem>`.
 
-### Bahagian B — Pratonton Claude Code (perbincangan, 15 minit)
+3. **Minta semakan rakan** (pair), kemudian jurulatih sahkan sebelum merge. `main` dilindungi — **tiada push terus**.
 
-Sekarang, dan hanya sekarang, kita lihat AI. Jurulatih memandu di skrin (peserta memerhati):
-
-1. Dalam Claude Code, cuba satu arahan seperti:
-
-   > *"Dalam projek MVC ini, tambah action `Butiran(string rujukan)` pada `PermohonanController` yang memaparkan satu permohonan, dan View `Butiran.cshtml` yang sepadan. Guna corak yang sama seperti `Index`."*
-
-2. **Nilai output bersama-sama** — inilah sebab kita membina dengan tangan dahulu:
-   - Adakah ia meletakkan fail di tempat yang betul (`Views/Permohonan/Butiran.cshtml`)?
-   - Adakah `@model` sepadan dengan apa yang action hantar?
-   - Adakah ia mereka-reka apa-apa yang tidak wujud (servis, pakej)?
-   - Bolehkah anda **membaca** setiap baris dan mengesahkannya betul?
-
-3. **Poin utama:** anda boleh menjawab soalan-soalan itu **hanya kerana** anda membina scaffold sendiri pagi tadi. Itulah tanda aras yang kita bawa ke Hari 3, di mana kerja berbantu-AI bermula secara serius.
+> Kenapa PR walau ini scaffold? Kerana ia melatih aliran sebenar Fasa 2: cabang pendek → PR → semakan → merge. Anda akan ulang corak ini setiap hari.
 
 ### ✅ Semakan
 
-- [ ] `git log` menunjukkan satu commit dengan MVP anda
-- [ ] `git status` bersih (tiada `bin/`/`obj/`)
-- [ ] Anda telah melihat AI menjana kod MVC dan **menilainya** terhadap yang anda tulis sendiri
-- [ ] Anda boleh menyatakan satu perkara yang AI buat betul dan satu perkara yang perlu disemak
+- [ ] Cabang `chore/scaffold` ada di GitHub
+- [ ] PR ke `main` dibuka, hanya mengandungi skeleton (tiada fail `Permohonan`)
+- [ ] Rakan/jurulatih menyemak sebelum merge
+
+---
+
+## Latihan 5 — Pratonton Claude Code (perbincangan, 15 minit)
+
+**Objektif:** Lihat apa AI lakukan dengan tugas yang sama — dan di mana sempadannya. Jurulatih memandu di skrin; peserta memerhati.
+
+### Langkah
+
+1. Dalam Claude Code (pada projek anda), cuba satu arahan seperti:
+
+   > *"Dalam projek `src/<Sistem>.Web` ini, tambah action `Butiran(string rujukan)` pada satu `PermohonanController` contoh dan View `Butiran.cshtml` yang sepadan. Guna corak MVC yang sama seperti Home."*
+
+2. **Nilai output bersama** — inilah sebab kita membina dengan tangan dahulu:
+   - Fail di tempat betul (`Views/Permohonan/Butiran.cshtml`)?
+   - `@model` sepadan dengan apa yang action hantar?
+   - Ada mereka-reka servis/pakej yang tak wujud?
+   - Boleh anda **baca** setiap baris & sahkan ia betul?
+
+3. **Poin utama:** anda boleh menjawab itu **kerana** anda scaffold & bina gelung MVC sendiri pagi tadi. Itulah tanda aras yang kita bawa ke Hari 4, di mana kerja berbantu-AI bermula.
+
+> Slaid sokongan: kluster **"Claude Code & ekosistem AI"** dalam [`../../slides/dotnet-nres-training.html`](../../slides/dotnet-nres-training.html).
+
+### ✅ Semakan
+
+- [ ] Anda melihat AI menjana kod MVC dan **menilainya** terhadap yang anda tulis sendiri
+- [ ] Anda boleh nyatakan satu perkara AI buat betul dan satu yang perlu disemak
+- [ ] **Jangan** commit kod pratonton ini ke PR skeleton
 
 ---
 
 ## Deliverable Hari Ini
 
 - [ ] `dotnet --version` → `10.x` disahkan pada mesin anda
-- [ ] Aplikasi MVC (`HelloNres`) yang anda **taip sendiri**: Model + 2 View + Controller dengan 3 action
-- [ ] Borang berfungsi dengan validation; anda faham had "dalam memori" sesuatu MVP
-- [ ] Commit Git pertama bagi MVP
-- [ ] Anda boleh terangkan gelung Model-View-Controller kepada rakan **tanpa** melihat nota
+- [ ] Repo `nres-bpm/<repo>` anda mempunyai **skeleton berjalan** (Web + Profile + Tests) pada cabang `chore/scaffold`
+- [ ] **PR ke `main`** dibuka dengan skeleton bersih
+- [ ] Anda membina gelung Model-View-Controller **dengan tangan** (cabang buangan) dan faham had "dalam memori"
+- [ ] Anda boleh terangkan gelung MVC kepada rakan **tanpa** melihat nota
 
-## Bermula Hari 3
+## Bermula Hari 4
 
-Hari 3 memulakan projek **sebenar** dari kosong (`Nres.Onboarding.Web` / repo `nres-bpm`) — kali ini dengan EF Core, Identity, servis kongsi, dan pembantu AI. Scaffold `HelloNres` hari ini ialah latihan: buang folder `~/latihan/HelloNres` bila anda selesa, atau simpan sebagai rujukan peribadi. Yang penting bukan fail itu — ia **kemahiran** dan **model mental** yang anda bawa ke Hari 3.
+Selepas PR skeleton di-merge, Hari 4 membina **modul sebenar** anda di atas rangka ini — entiti (`Submission`, `Attachment`, `AuditLog`, `ApprovalStep` + entiti modul anda), `IEntityTypeConfiguration<T>`, migration EF Core, dan borang draf. Klien `<Sistem>.Profile` menyambung kontrak **Profile DB** (`nres-bpm/profile`). Yang penting hari ini: mesin anda sedia, repo anda hidup, dan anda faham rangka sebelum AI membantu mempercepatnya.

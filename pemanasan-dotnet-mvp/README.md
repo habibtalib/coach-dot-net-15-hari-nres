@@ -1,4 +1,4 @@
-# Pemanasan — Persekitaran .NET & MVP Pertama Anda
+# Pemanasan — Persekitaran .NET & Scaffold Repo Anda
 
 > **Sesi tambahan (pemanasan), bukan hari berkanun.** Ia mendahului **Hari 3** ([`../hari-3/`](../hari-3/)) dan tidak mengubah pemetaan 15 hari dalam [`../JADUAL.md`](../JADUAL.md) atau [`../SPEC-KURSUS.md`](../SPEC-KURSUS.md). Tujuannya: **pasang & sahkan persekitaran .NET pada setiap mesin**, dan **bina satu MVP** (Minimum Viable Product) — aplikasi ASP.NET Core MVC terkecil yang benar-benar berjalan — **dengan tangan, sebelum kita membawa masuk Claude Code**.
 
@@ -30,13 +30,13 @@ Mengikut waktu dalam [`../JADUAL.md`](../JADUAL.md) (Isnin–Khamis).
 |------|--------|
 | 9.15 – 9.30 pagi | Pendaftaran & Minum Pagi |
 | **9.30 – 10.30 pagi** | **BLOK A: Persekitaran** — apa itu .NET (SDK vs runtime), pasang SDK, sahkan `dotnet --version`, editor/IDE, sijil HTTPS. 💻 Lab: Latihan 0 |
-| **10.30 – 12.30 tgh** | **BLOK B: MVP berjalan** — `dotnet new mvc`, `dotnet run`, faham apa itu MVC & apa yang di-scaffold. 💻 Lab: Latihan 1 + 2 |
+| **10.30 – 12.30 tgh** | **BLOK B: Clone & scaffold** — clone repo `nres-bpm` pasukan, scaffold skeleton (`dotnet new sln/mvc/…`), `dotnet run`, faham apa yang di-scaffold. 💻 Lab: Latihan 1 + 2 |
 | 12.30 – 2.30 petang | Rehat & Makan Tengah Hari |
-| **2.30 – 3.45 petang** | **BLOK C: Ciri MVP hujung-ke-hujung** — Model → View → Controller sendiri; borang + validation. 💻 Lab: Latihan 3 + 4 + 5 |
-| **3.45 – 4.30 petang** | **BLOK D: Simpan & pratonton AI** — `git init` MVP; pratonton Claude Code + sempadan AI. 💻 Lab: Latihan 6 |
+| **2.30 – 3.45 petang** | **BLOK C: Gelung MVC dengan tangan** — Model → View → Controller + borang pada **cabang buangan** (skeleton kekal bersih). 💻 Lab: Latihan 3 |
+| **3.45 – 4.30 petang** | **BLOK D: PR & pratonton AI** — push skeleton → PR ke `main`; pratonton Claude Code + sempadan AI. 💻 Lab: Latihan 4 + 5 |
 | 4.30 petang | Bersurai |
 
-**Hasil hari ini:** setiap peserta mempunyai .NET 10 SDK yang disahkan berjalan, dan telah **membina sendiri** satu aplikasi MVC yang menyenarai & menambah rekod — MVP lengkap gelung Model-View-Controller — **tanpa** bantuan AI.
+**Hasil hari ini:** setiap peserta mempunyai .NET 10 SDK yang disahkan, telah **clone repo pasukan** & **scaffold skeleton .NET** ke dalamnya (PR ke `main` dibuka), dan telah membina gelung **Model-View-Controller dengan tangan** (cabang buangan) **tanpa** bantuan AI.
 
 ---
 
@@ -101,22 +101,22 @@ Kursus ini menggunakan pembantu AI setiap hari — tetapi **hari ini tidak**. Se
 - Selepas anda membina MVP ini sendiri, anda boleh **menilai** apa yang AI keluarkan — nampak bila ia betul, bila ia salah, bila ia mereka-reka fail yang tidak wujud.
 - Di hujung hari kita buat **pratonton 15 minit**: minta Claude Code menjana scaffold yang *sama*, dan bandingkan dengan yang anda taip. Itu memberi anda tanda aras sebenar sebelum kita bergantung pada AI mulai Hari 3.
 
-**Peraturan sesi:** taip setiap baris sendiri sehingga Latihan 6. Salin-tampal dibenarkan; menjana melalui AI **tidak** — sehingga bahagian pratonton.
+**Peraturan sesi:** taip setiap baris sendiri sehingga Latihan 5. Salin-tampal dibenarkan; menjana melalui AI **tidak** — sehingga bahagian pratonton.
 
 ---
 
-## Slaid untuk pratonton Claude Code (Blok D · Latihan 6)
+## Slaid untuk pratonton Claude Code (Blok D · Latihan 5)
 
-Bila anda sampai ke pratonton Claude Code di [`snippets/lab.md`](./snippets/lab.md) → **Latihan 6 Bahagian B**, gunakan kluster slaid **"Claude Code & ekosistem AI"** dalam dek kursus:
+Bila anda sampai ke pratonton Claude Code di [`snippets/lab.md`](./snippets/lab.md) → **Latihan 5**, gunakan kluster slaid **"Claude Code & ekosistem AI"** dalam dek kursus:
 
 - **Fail:** [`../slides/dotnet-nres-training.html`](../slides/dotnet-nres-training.html) — buka dalam pelayar, lompat ke bahagian hujung dek (10 slaid: divider → *Apa itu Claude Code* → *Anda pandu · AI draf* → CLAUDE.md/AGENTS.md → **MCP** → **Skills** → **Subagents** → **Plugins** → peta ekosistem → selamat & etika).
 - Versi boleh-edit / Google Slides: [`../slides/dotnet-nres-training.pptx`](../slides/dotnet-nres-training.pptx) (nota penceramah pada setiap slaid).
 
 **Cadangan aliran Blok D:**
 
-1. Peserta `git commit` MVP mereka (Latihan 6 Bahagian A) — masih dengan tangan.
+1. Peserta push skeleton bersih & buka PR ke `main` (Latihan 4) — masih dengan tangan.
 2. Tayang kluster slaid Claude Code (~10 minit) — konsep: ejen, MCP, skills, subagents, plugins.
 3. Demo langsung satu prompt (action + view `Butiran`) di skrin, **nilai** output bersama kelas.
-4. Tutup dengan slaid *selamat & etika* → sambung ke Hari 3, di mana kerja berbantu-AI bermula.
+4. Tutup dengan slaid *selamat & etika* → sambung ke Hari 4, di mana kerja berbantu-AI bermula.
 
-> Slaid ini **bukan** untuk ditayang di awal hari — ia datang **selepas** peserta membina MVP dengan tangan. Itulah sebab kluster diletakkan di hujung dek.
+> Slaid ini **bukan** untuk ditayang di awal hari — ia datang **selepas** peserta scaffold repo & membina gelung MVC dengan tangan. Itulah sebab kluster diletakkan di hujung dek.
