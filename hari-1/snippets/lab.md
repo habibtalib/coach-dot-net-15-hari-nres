@@ -488,13 +488,100 @@ Senaraikan percanggahan sahaja. JANGAN tulis semula ERD.
 
 ---
 
+## Latihan 6b — Draf PRD modul (satukan URS + use case + ERD)
+
+**Objektif:** Satukan URS, use case, dan ERD anda menjadi satu **PRD** (Product Requirements Document — Dokumen Keperluan Produk) yang **boleh-bina** — spec yang pasukan **dan** AI boleh ikut semasa Fasa 2.
+
+> **PRD vs URS:** URS = keperluan **mentah** pengguna/NRES. PRD = terjemahan **boleh-bina**: masalah, skop, user story + acceptance criteria, data. **Jangan reka keperluan** — ambil dari URS/dokumen NRES; tandakan yang tak pasti sebagai **soalan terbuka**.
+
+### Langkah
+
+1. Cipta `docs/prd-modul-N.md`.
+
+2. **Draf pertama dengan AI.** Lampirkan `URS-modul-N.md`, `use-case-modul-N.md`, `erd-modul-N.md`, dan `SPEC-KURSUS.md`, kemudian:
+
+```text
+Berdasarkan URS, use case dan ERD modul kami (dilampirkan), draf PRD ringkas.
+Susun ikut: masalah & matlamat; pengguna & peranan; skop & luar-skop;
+user story + acceptance criteria; data & entiti; bukan-fungsi & polisi; soalan terbuka.
+Jangan reka keperluan — jika tidak pasti, senaraikan sebagai soalan terbuka.
+Guna Bahasa Melayu, ringkas dan jelas.
+```
+
+3. **Isi/kemaskan mengikut templat 7 bahagian ini:**
+
+````markdown
+# PRD — Modul <nama> (Kumpulan N)
+
+**Prefix:** <PREFIX>  ·  **Peranan penyemak:** <peranan>  ·  **Versi:** v0.1 (draf)
+
+## 1 · Masalah & matlamat
+<kenapa modul ini wujud; 2–3 ukuran kejayaan>
+
+## 2 · Pengguna & peranan
+| Peranan | Boleh buat |
+|---------|-----------|
+| Applicant | ... |
+| <peranan admin> | ... |
+
+## 3 · Skop & luar-skop
+**Dalam skop (MVP):** <senarai>
+**Luar-skop:** <tulis eksplisit — apa yang TIDAK dibina>
+
+## 4 · User story + acceptance criteria
+- **US-1** — Sebagai <peranan>, saya mahu <sesuatu> supaya <manfaat>.
+  - [ ] AC1: ...
+  - [ ] AC2: ...
+- **US-2** — ...
+
+## 5 · Data & entiti
+<entiti dari ERD anda; memaut ke Submission; JANGAN pendua ReferenceNo/Status/tarikh>
+
+## 6 · Bukan-fungsi & polisi
+<authorization, validation pelayan, BM, data sintetik, audit>
+
+## 7 · Soalan terbuka
+- [ ] <apa yang belum pasti — untuk NRES>
+````
+
+4. **Semak setiap bahagian dengan tangan:**
+   - Setiap **user story** ada **acceptance criteria yang boleh diuji** (bukan "berfungsi dengan baik").
+   - **Data & entiti** sepadan ERD anda — tiada entiti direka baharu.
+   - **Luar-skop** ditulis eksplisit supaya AI/pasukan tidak reka ciri.
+   - Setiap keperluan boleh dijejak balik ke **URS** — jika tidak, ia rekaan; pindahkan ke **soalan terbuka**.
+
+5. **Semak silang dengan AI:**
+
+```text
+Bandingkan PRD ini dengan URS dan ERD kami (dilampirkan).
+1. Adakah PRD memperkenalkan keperluan atau entiti yang tiada dalam URS/ERD?
+2. Adakah setiap acceptance criteria boleh diuji?
+3. Adakah apa-apa yang sepatutnya "luar-skop" tetapi tertinggal?
+Senaraikan isu sahaja. JANGAN tulis semula PRD.
+```
+
+6. Betulkan setiap isu **dengan tangan**.
+
+> 📎 **Rujukan bentuk:** lihat contoh PRD penuh dalam repo kursus — [`docs/contoh-prd-tempahan-fasiliti-sukan.md`](../../docs/contoh-prd-tempahan-fasiliti-sukan.md).
+
+### ✅ Semakan
+
+- [ ] PRD ada **7 bahagian**
+- [ ] Setiap user story ada **acceptance criteria yang boleh diuji**
+- [ ] Data & entiti **sepadan ERD** (sifar entiti direka baharu)
+- [ ] **Luar-skop** ditulis eksplisit
+- [ ] Setiap keperluan berpaksi **URS/dokumen NRES** — bukan rekaan AI
+- [ ] Yang tidak pasti direkod dalam **Soalan terbuka**
+
+---
+
 ## Latihan 7 — Semakan silang antara kumpulan
 
 **Objektif:** Kesan pertindihan dan percanggahan **hari ini**, bukan pada Hari 15.
 
 ### Langkah
 
-1. **Tukar dokumen.** Setiap kumpulan memberikan ERD dan URSnya kepada kumpulan seterusnya (1→2→3→4→1).
+1. **Tukar dokumen.** Setiap kumpulan memberikan URS, PRD dan ERDnya kepada kumpulan seterusnya (1→2→3→4→1).
 
 2. **Semak dokumen kumpulan lain (15 minit)** dan jawab **hanya** tiga soalan ini:
 
@@ -535,13 +622,14 @@ Senaraikan percanggahan sahaja. JANGAN tulis semula ERD.
 
 ### Langkah
 
-1. Sahkan keempat-empat fail wujud dan lengkap:
+1. Sahkan **kelima-lima** fail wujud dan lengkap:
 
 ```bash
 ls -la docs/
 # URS-modul-N.md
 # use-case-modul-N.md
 # erd-modul-N.md
+# prd-modul-N.md
 # soalan-terbuka-modul-N.md
 ```
 
@@ -554,6 +642,7 @@ ls -la docs/
    - [ ] Nama peranan sepadan **tepat** (`HrAdmin`, bukan "HR Admin" atau "Admin HR")
    - [ ] Nama jadual sepadan `SPEC-KURSUS.md` **tepat**
    - [ ] Setiap ANDAIAN muncul dalam `soalan-terbuka-modul-N.md`
+   - [ ] Setiap **user story PRD** dijejak balik ke sekurang-kurangnya satu ID URS
 
 3. Tulis ringkasan sehalaman di bahagian atas `URS-modul-N.md`:
 
@@ -572,7 +661,7 @@ ls -la docs/
 
 ### ✅ Semakan
 
-- [ ] Keempat-empat fail lengkap
+- [ ] Kelima-lima fail lengkap
 - [ ] Senarai semak konsistensi lulus sepenuhnya
 - [ ] Ringkasan ditulis
 - [ ] Kumpulan telah membentangkan
@@ -587,6 +676,7 @@ ls -la docs/
 | `docs/URS-modul-N.md` | Keperluan ber-ID dengan kriteria penerimaan yang boleh diuji |
 | `docs/use-case-modul-N.md` | Process flow (Mermaid) + 3–5 use case dengan aliran alternatif |
 | `docs/erd-modul-N.md` | Teras kongsi + jadual detail modul, sifar medan diduplikasi |
+| `docs/prd-modul-N.md` | PRD 7 bahagian: user story + acceptance criteria, data, luar-skop, soalan terbuka |
 | `docs/soalan-terbuka-modul-N.md` | Andaian, soalan untuk NRES, penemuan semakan silang |
 
 Fail ini akan di-commit ke Git **esok** (Hari 2), selepas anda mempelajari cara. Simpan dengan selamat malam ini.
