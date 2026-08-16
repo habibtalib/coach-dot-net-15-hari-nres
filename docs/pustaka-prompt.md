@@ -37,6 +37,13 @@
 | **UI-01** | Reka UI/UX modul | PRD siap; mula skrin/borang |
 | **JIRA-01** | Cipta isu Jira dari user story | Board tersambung (MCP); ada user story |
 | **SMK-01** | Semakan pra-PR | Sebelum setiap Pull Request |
+| **DEV-01** | Borang: ViewModel + validation | Reka borang (borang-dahulu) |
+| **DEV-02** | Borang: View Razor | Selepas ViewModel |
+| **DEV-03** | Controller: papar + simpan draf | Selepas borang |
+| **DEV-04** | Validation pelayan + peraturan | Selepas controller draf |
+| **DEV-05** | Entiti + migration (simpan) | Selepas borang betul |
+| **DEV-06** | Aliran kelulusan (controller) | Blok kelulusan (Hari 7–9) |
+| **DEV-07** | Ujian xUnit | Blok ujian (Hari 13–14) |
 
 ---
 
@@ -280,6 +287,90 @@ Senaraikan masalah. JANGAN tulis semula kod.
 
 - **Selepas:** Betulkan sendiri; terangkan kepada rakan sebelum commit.
 - **Rujukan:** `AGENTS.md` · `hari-2` Latihan 6.
+
+---
+
+---
+
+## G · Pembangunan (build)
+
+> Fasa 2 (Hari 4–14). Pendekatan **borang dahulu**: DEV-01→04 (borang + validation) sebelum DEV-05 (simpan). Semua: rujuk `AGENTS.md` + PRD, **cari dahulu**, **tunjuk diff**, semak (SMK-01) sebelum commit. Panduan langkah: [`mula-claude-code-borang-dahulu.md`](./mula-claude-code-borang-dahulu.md).
+
+### DEV-01 — Borang: ViewModel + validation
+
+- **Tujuan:** ViewModel + DataAnnotations (borang mengikat ViewModel, bukan entiti).
+
+```text
+Rujuk AGENTS.md. Cipta ViewModel untuk borang <nama> dalam ViewModels/ dengan
+DataAnnotations (Required, StringLength, Range, dll.) mengikut medan PRD.
+JANGAN ikat entiti terus ke borang. Tunjuk diff dahulu.
+```
+
+### DEV-02 — Borang: View Razor
+
+- **Tujuan:** Borang Razor yang mengikat ViewModel, guna partial kongsi.
+
+```text
+Rujuk AGENTS.md. Bina Views/<Modul>/Create.cshtml yang mengikat ViewModel di atas;
+guna partial kongsi _ValidationSummary; label Bahasa Melayu; butang Simpan Draf & Hantar.
+Tunjuk diff dahulu.
+```
+
+### DEV-03 — Controller: papar + simpan draf
+
+- **Tujuan:** GET borang + POST simpan sebagai `Draft` (belum kelulusan).
+
+```text
+Rujuk AGENTS.md. <Modul>Controller warisi SubmissionControllerBase; laksana:
+- Create (GET) memaparkan borang
+- Create (POST) sahkan ModelState.IsValid di pelayan, simpan sebagai Draft
+BELUM tulis Approve/Reject. Tunjuk diff dahulu.
+```
+
+### DEV-04 — Validation pelayan + peraturan perniagaan
+
+- **Tujuan:** Kuatkuasa peraturan di **pelayan** (bukan UI sahaja).
+
+```text
+Rujuk AGENTS.md + PRD. Kuatkuasa validation di pelayan:
+- ModelState.IsValid sebelum simpan
+- peraturan <slot bertindih / pendua plat / kelengkapan> dalam servis
+Papar ralat inline pada borang. Tunjuk diff dahulu.
+```
+
+### DEV-05 — Entiti + migration (simpan)
+
+- **Tujuan:** Entiti detail → `Submission` + config, petakan ViewModel → entiti, jana migration.
+
+```text
+Rujuk AGENTS.md. Tambah entiti <Nama>Application (detail) yang memaut ke Submission
+via SubmissionId — jangan pendua Status/ReferenceNo/tarikh. Guna IEntityTypeConfiguration.
+Petakan ViewModel → entiti dalam Create (POST). Tunjuk diff dahulu.
+```
+
+```bash
+dotnet ef migrations add Add<Nama>Application
+dotnet ef database update
+```
+
+### DEV-06 — Aliran kelulusan (controller)
+
+- **Tujuan:** Review/Approve/Reject dengan peranan + peralihan status + audit.
+
+```text
+Rujuk AGENTS.md. Dalam <Modul>Controller (warisi SubmissionControllerBase), laksana
+Review/Approve/Reject dengan [Authorize(Roles = "<peranan>")], kuatkuasa peralihan
+SubmissionStatus + audit. Tunjuk diff dahulu.
+```
+
+### DEV-07 — Ujian xUnit
+
+- **Tujuan:** Uji peralihan status & peraturan perniagaan.
+
+```text
+Tambah ujian xUnit untuk peralihan SubmissionStatus (Draft→Submitted→AdminApproved/Rejected)
+dan <semakan bertindih / pendua> dalam repo <sistem>.
+```
 
 ---
 

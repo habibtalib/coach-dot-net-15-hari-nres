@@ -17,6 +17,7 @@ Hab pautan untuk peserta & jurulatih. Simpan satu tempat; hari/lab hanya **meruj
 - [Sambung Jira ke Claude Code (CLI & VS Code)](./cara-sambung-jira-claude-code.md) — MCP Atlassian, untuk pelajar tanpa MCP peribadi.
 - [Jana dokumentasi & diagram Mermaid dengan AI](./cara-jana-dokumentasi-diagram.md) — skill `/dok-modul` + prompt terus.
 - [Pustaka prompt (berfail dengan ID)](./pustaka-prompt.md) — PRD · dokumentasi · diagram · UI/UX · Jira · semakan.
+- [Mula bina dengan Claude Code — borang dahulu](./mula-claude-code-borang-dahulu.md) — UI → ViewModel → Razor → validation → entiti/migration.
 - [Diagram ekosistem Claude Code](./diagram-claude-code.md) — model · sub-agent · MCP · skills · plugins · PRD.
 - [Contoh PRD (Tempahan Fasiliti Sukan)](./contoh-prd-tempahan-fasiliti-sukan.md) — 7 bahagian.
 
