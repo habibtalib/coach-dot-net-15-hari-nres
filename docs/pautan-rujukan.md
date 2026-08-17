@@ -18,6 +18,7 @@ Hab pautan untuk peserta & jurulatih. Simpan satu tempat; hari/lab hanya **meruj
 - [Jana dokumentasi & diagram Mermaid dengan AI](./cara-jana-dokumentasi-diagram.md) — skill `/dok-modul` + prompt terus.
 - [Pustaka prompt (berfail dengan ID)](./pustaka-prompt.md) — PRD · dokumentasi · diagram · UI/UX · Jira · semakan.
 - [Mula bina dengan Claude Code — borang dahulu](./mula-claude-code-borang-dahulu.md) — UI → ViewModel → Razor → validation → entiti/migration.
+- [Senarai semak modul (build checklist)](./senarai-semak-modul.md) — perancangan → bina → integrasi + DoD.
 - [Diagram ekosistem Claude Code](./diagram-claude-code.md) — model · sub-agent · MCP · skills · plugins · PRD.
 - [Contoh PRD (Tempahan Fasiliti Sukan)](./contoh-prd-tempahan-fasiliti-sukan.md) — 7 bahagian.
 
