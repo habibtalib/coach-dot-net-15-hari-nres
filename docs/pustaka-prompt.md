@@ -236,6 +236,8 @@ Senaraikan percanggahan sahaja. JANGAN tulis semula ERD.
 - **Tujuan:** Reka **apa-apa** antara muka (skrin / borang / senarai / komponen / aliran) yang konsisten dari PRD.
 - **Input:** PRD modul (atau bahagian berkaitan).
 
+> **Aliran (mockup dahulu):** PRD → mockup **Claude Design (MCP)** → **semak manusia** (pautan `claude.ai/design`) → bina View (DEV-02) guna mockup sebagai rujukan visual. Mockup = rujukan, bukan kod akhir; validation pelayan tetap ditulis kemudian. *(Claude Design sudah tersambung melalui MCP — tak perlu setup.)*
+
 **Templat umum** — ganti `<...>` ikut keperluan anda:
 
 ```text
@@ -246,7 +248,9 @@ dalam modul <nama modul>, berdasarkan PRD di bawah.
 - Keadaan (state) yang perlu direka: kosong, ralat, memuat, berjaya
 Prinsip: guna corak/komponen sedia ada supaya konsisten; label Bahasa Melayu;
 mesra mudah alih & mudah dicapai (accessible: label, fokus papan kekunci, kontras).
-Tunjukkan susun atur (wireframe teks atau mockup HTML ringkas) DAHULU sebelum kod.
+Guna MCP Claude Design: cipta projek reka bentuk dan jana mockup HTML dari PRD DAHULU
+(bukan terus kod Razor). Beri saya pautan claude.ai/design untuk semak —
+mockup itu jadi rujukan susun atur untuk pembinaan (DEV-02).
 
 [tampal PRD / bahagian berkaitan di sini]
 ```
@@ -260,12 +264,13 @@ berdasarkan PRD di bawah.
 - Elemen: pilih fasiliti, tarikh & slot masa, tujuan, akuan; butang Simpan Draf & Hantar
 - Keadaan: slot penuh (dinyahaktifkan), ralat slot bertindih (inline), berjaya (papar no. rujukan)
 Prinsip: guna partial kongsi & komponen sedia ada; label Bahasa Melayu; mudah alih &
-accessible. Tunjukkan susun atur dahulu sebelum kod.
+accessible. Guna MCP Claude Design: jana mockup & beri pautan claude.ai/design;
+saya semak sebelum bina.
 
 [tampal PRD Tempahan Fasiliti Sukan di sini]
 ```
 
-- **Selepas:** Semak konsisten dengan skrin lain; validation di pelayan ditulis kemudian (bukan mockup).
+- **Selepas:** Buka pautan **claude.ai/design** & semak mockup (konsisten dengan skrin lain? medan wajib jelas? accessible?), kemudian rujuk mockup itu dalam **DEV-02**. Validation di pelayan ditulis kemudian (bukan mockup).
 - **Rujukan:** slaid *"Prompt untuk reka UI/UX"* · [`contoh-prd-tempahan-fasiliti-sukan.md`](./contoh-prd-tempahan-fasiliti-sukan.md).
 
 ---
@@ -329,7 +334,8 @@ JANGAN ikat entiti terus ke borang. Tunjuk diff dahulu.
 - **Tujuan:** Borang Razor yang mengikat ViewModel, guna partial kongsi.
 
 ```text
-Rujuk AGENTS.md. Bina Views/<Modul>/Create.cshtml yang mengikat ViewModel di atas;
+Rujuk AGENTS.md + mockup Claude Design (UI-01, pautan claude.ai/design) sebagai rujukan susun atur.
+Bina Views/<Modul>/Create.cshtml yang mengikat ViewModel di atas;
 guna partial kongsi _ValidationSummary; label Bahasa Melayu; butang Simpan Draf & Hantar.
 Tunjuk diff dahulu.
 ```

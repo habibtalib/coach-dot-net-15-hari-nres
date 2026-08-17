@@ -35,7 +35,7 @@ servis kongsi yang sudah ada (cth IReferenceNumberService, IWorkflowService).
 Reka susun atur borang <nama borang> untuk modul <nama modul> berdasarkan PRD di bawah:
 - medan wajib ditanda; mesej ralat mesra & jelas
 - guna corak/komponen sedia ada supaya konsisten
-Beri mockup HTML ringkas untuk pratonton — susun atur dahulu, bukan kod akhir.
+Guna MCP Claude Design: jana mockup dari PRD untuk pratonton (beri pautan claude.ai/design) — susun atur dahulu, bukan kod akhir (ia jadi rujukan visual bila bina View Razor).
 Label Bahasa Melayu, mesra mudah alih & mudah dicapai (accessible).
 
 [tampal PRD di sini]
