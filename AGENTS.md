@@ -170,6 +170,20 @@ Borang mengikat `ViewModels/`, bukan `Models/`. Validation melalui DataAnnotatio
 
 ---
 
+## Aliran kerja setiap tugas: Jira → cabang → PR
+
+Untuk **setiap tugas** (satu user story / subtask) — jangan bekerja terus atas `main`:
+
+1. **Semak Jira dahulu.** Buka isu tugas anda di board Jira repo (atau melalui **MCP Jira** jika Claude Code tersambung — lihat [`docs/cara-sambung-jira-claude-code.md`](./docs/cara-sambung-jira-claude-code.md)). Sahkan skop, acceptance criteria & status. Tiada isu? Cipta dahulu dari user story PRD. Tandakan **In Progress**.
+2. **Cabang baharu per tugas.** Dalam repo anda: `git pull --rebase`, kemudian `git switch -c feat/<ciri-pendek>` (cth `feat/semakan-pendua-plat`). **Satu tugas = satu cabang** — jangan campur ciri.
+3. **Commit dengan issue key.** Format: `<KEY>-<n> <repo>: <ringkas>` (cth `PPK-42 pas-parkir-pelekat: tambah semakan pendua plat`). Commit kecil & kerap.
+4. **Buka PR ke `main` repo itu.** Guna templat PR ([`KOLABORASI.md`](./KOLABORASI.md) §10): apa berubah · isu berkaitan (`Closes <KEY>-n`) · cara uji · senarai semak. Jalankan **semakan pra-PR** (lihat bawah) dahulu.
+5. **Review → merge → kemas board.** Code review berpasangan; merge selepas lulus; pindahkan isu Jira ke **Done**.
+
+> **Tiada merge merentas repo** — setiap repo urus cabang & PR sendiri. Nama cabang & format commit: [`SPEC-KURSUS.md`](./SPEC-KURSUS.md); aliran PR penuh: [`KOLABORASI.md`](./KOLABORASI.md) §10.
+
+---
+
 ## Prompt yang baik dalam projek ini
 
 **Baik:**
