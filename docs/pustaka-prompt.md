@@ -45,6 +45,7 @@
 | **DEV-05** | Entiti + migration (simpan) | Selepas borang betul |
 | **DEV-06** | Aliran kelulusan (controller) | Blok kelulusan (Hari 7–9) |
 | **DEV-07** | Ujian xUnit | Blok ujian (Hari 13–14) |
+| **MEM-01** | Tambah peraturan ke memory | Peraturan/konvensyen berulang |
 
 ---
 
@@ -411,6 +412,32 @@ SubmissionStatus + audit. Tunjuk diff dahulu.
 Tambah ujian xUnit untuk peralihan SubmissionStatus (Draft→Submitted→AdminApproved/Rejected)
 dan <semakan bertindih / pendua> dalam repo <sistem>.
 ```
+
+---
+
+## H · Memory
+
+### MEM-01 — Tambah peraturan ke memory (CLAUDE.md)
+
+- **Tujuan:** Simpan peraturan/konvensyen berulang supaya Claude ingat **antara sesi** — tak perlu ulang tiap kali.
+- **Cara:** Mula baris dengan `#` semasa menaip prompt → Claude simpan ke `CLAUDE.md` (pilih lapisan). Atau `/memory` untuk sunting fail terus.
+
+**Contoh — aliran kerja (dari `AGENTS.md`):**
+
+```text
+# Aliran setiap tugas: semak Jira dahulu → cabang feat/<ciri-pendek> →
+# commit dengan issue key (KEY-n) → PR ke main (Closes KEY-n) → Jira Done.
+```
+
+**Contoh — konvensyen kod (dari `AGENTS.md`):**
+
+```text
+# Guna nama kelas/enum tepat spt SPEC-KURSUS; jangan pendua medan Submission
+# (Status/ReferenceNo/tarikh) dalam entiti detail — pautkan via SubmissionId.
+```
+
+- **Selepas:** Semak dengan `/memory` — letak di lapisan betul: **projek** (`CLAUDE.md`/`AGENTS.md`, di-commit, dikongsi pasukan) untuk peraturan sepasukan; **peribadi** (`~/.claude/CLAUDE.md`) untuk pilihan sendiri.
+- **Rujukan:** slaid *"Memory · Ingatan kekal"* · [`../AGENTS.md`](../AGENTS.md) · [`aliran-harian.md`](./aliran-harian.md).
 
 ---
 
