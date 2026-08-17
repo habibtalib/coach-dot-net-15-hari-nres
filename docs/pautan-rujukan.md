@@ -14,6 +14,7 @@ Hab pautan untuk peserta & jurulatih. Simpan satu tempat; hari/lab hanya **meruj
 - [Persediaan .NET 10 (SDK · EF Core · IDE)](./persediaan-dotnet.md) — pasang & sahkan sebelum Hari 3.
 - [Persediaan Git (pasang & identiti)](./persediaan-git.md) — sebelum Hari 2.
 - [Persediaan scaffold projek MVC (+ NuGet)](./persediaan-scaffold.md) — Hari 3.
+- [Lab MCP — Jira + FigJam dari Claude Code](./lab-mcp-jira-figjam.md) — sambung & **pandu** kedua-dua (MCP rasmi Atlassian + Figma), setup + drive.
 - [Sambung Jira ke Claude Code (CLI & VS Code)](./cara-sambung-jira-claude-code.md) — MCP Atlassian, untuk pelajar tanpa MCP peribadi.
 - [Jana dokumentasi & diagram Mermaid dengan AI](./cara-jana-dokumentasi-diagram.md) — skill `/dok-modul` + prompt terus.
 - [Pustaka prompt (berfail dengan ID)](./pustaka-prompt.md) — PRD · dokumentasi · diagram · UI/UX · Jira · semakan.

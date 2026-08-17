@@ -143,6 +143,8 @@ dan modul kami hanya menyimpan medan khususnya.
 - [ ] ≥3 baris keperluan disalin ke `docs/URS-modul-N.md`
 
 > **Benang kolaborasi:** sebelum menulis URS untuk ciri kongsi (cth status, audit log), semak [`../../AGENTS.md`](../../AGENTS.md) — jika ia keperluan merentas modul, ia milik pasukan, bukan kumpulan anda sahaja.
+>
+> 🔧 **Guna Claude Code?** Anda boleh **pandu FigJam terus dari Claude** (jana board dari ERD/aliran, bukan seret sticky manual) — lihat [`docs/lab-mcp-jira-figjam.md`](../../docs/lab-mcp-jira-figjam.md) Latihan 2.
 
 ---
 

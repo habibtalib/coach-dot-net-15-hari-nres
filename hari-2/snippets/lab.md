@@ -575,7 +575,7 @@ Simpan kedua-dua prompt dalam `docs/kumpulan-N/nota-ai.md` — anda akan menggun
 
 ### Langkah
 
-1. **Sambung Jira (MCP).** Ikut [`docs/cara-sambung-jira-claude-code.md`](../../docs/cara-sambung-jira-claude-code.md) (CLI **atau** VS Code). Kemudian cipta **satu isu** dari user story **US-1** PRD anda (projek `<KEY>`; draf disemak dahulu).
+1. **Sambung Jira (MCP).** Ikut [`docs/cara-sambung-jira-claude-code.md`](../../docs/cara-sambung-jira-claude-code.md) (CLI **atau** VS Code). Kemudian cipta **satu isu** dari user story **US-1** PRD anda (projek `<KEY>`; draf disemak dahulu). Untuk **setup + drive Jira & FigJam sekali gus**, lihat [`docs/lab-mcp-jira-figjam.md`](../../docs/lab-mcp-jira-figjam.md).
 
 2. **Cipta skill `/dok-modul`.** Ikut [`docs/cara-jana-dokumentasi-diagram.md`](../../docs/cara-jana-dokumentasi-diagram.md) **Bahagian A** — cipta `.claude/skills/dok-modul/SKILL.md`, kemudian panggil `/dok-modul`.
 
