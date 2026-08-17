@@ -34,7 +34,7 @@
 | **DIA-07** | Sequence diagram | Nak interaksi antara aktor/sistem |
 | **DIA-08** | State diagram (`SubmissionStatus`) | Nak kitaran status permohonan |
 | **DIA-03** | Semak silang ERD | Selepas ERD siap |
-| **UI-01** | Reka UI/UX modul | PRD siap; mula skrin/borang |
+| **UI-01** | Reka UI/UX (umum + contoh) | PRD siap; mana-mana skrin/borang/komponen |
 | **JIRA-01** | Cipta isu Jira dari user story | Board tersambung (MCP); ada user story |
 | **SMK-01** | Semakan pra-PR | Sebelum setiap Pull Request |
 | **DEV-01** | Borang: ViewModel + validation | Reka borang (borang-dahulu) |
@@ -233,22 +233,40 @@ Senaraikan percanggahan sahaja. JANGAN tulis semula ERD.
 
 ### UI-01 — Reka UI/UX modul
 
-- **Tujuan:** Reka susun atur skrin/borang yang konsisten dari PRD.
-- **Input:** PRD modul.
+- **Tujuan:** Reka **apa-apa** antara muka (skrin / borang / senarai / komponen / aliran) yang konsisten dari PRD.
+- **Input:** PRD modul (atau bahagian berkaitan).
+
+**Templat umum** — ganti `<...>` ikut keperluan anda:
 
 ```text
-Reka antara muka untuk modul <nama modul> berdasarkan PRD di bawah:
-- borang yang jelas (medan wajib ditanda, mesej ralat mesra)
-- senarai permohonan dengan status
-- skrin semakan untuk admin
-Guna corak/komponen sedia ada supaya konsisten. Label Bahasa Melayu, mesra
-mudah alih & mudah dicapai (accessible). Tunjukkan susun atur (atau mockup HTML) dahulu.
+Reka antara muka untuk <apa yang direka: skrin / borang / senarai / komponen / aliran>
+dalam modul <nama modul>, berdasarkan PRD di bawah.
+- Tujuan skrin & pengguna sasaran (peranan)
+- Elemen utama yang diperlukan (medan, senarai, tindakan, status)
+- Keadaan (state) yang perlu direka: kosong, ralat, memuat, berjaya
+Prinsip: guna corak/komponen sedia ada supaya konsisten; label Bahasa Melayu;
+mesra mudah alih & mudah dicapai (accessible: label, fokus papan kekunci, kontras).
+Tunjukkan susun atur (wireframe teks atau mockup HTML ringkas) DAHULU sebelum kod.
 
-[tampal PRD di sini]
+[tampal PRD / bahagian berkaitan di sini]
+```
+
+**Contoh** — borang tempahan (Tempahan Fasiliti Sukan):
+
+```text
+Reka antara muka untuk borang tempahan dalam modul Tempahan Fasiliti Sukan,
+berdasarkan PRD di bawah.
+- Tujuan: staf tempah slot gelanggang tanpa bertindih; pengguna: Applicant
+- Elemen: pilih fasiliti, tarikh & slot masa, tujuan, akuan; butang Simpan Draf & Hantar
+- Keadaan: slot penuh (dinyahaktifkan), ralat slot bertindih (inline), berjaya (papar no. rujukan)
+Prinsip: guna partial kongsi & komponen sedia ada; label Bahasa Melayu; mudah alih &
+accessible. Tunjukkan susun atur dahulu sebelum kod.
+
+[tampal PRD Tempahan Fasiliti Sukan di sini]
 ```
 
 - **Selepas:** Semak konsisten dengan skrin lain; validation di pelayan ditulis kemudian (bukan mockup).
-- **Rujukan:** slaid *"Prompt untuk reka UI/UX"*.
+- **Rujukan:** slaid *"Prompt untuk reka UI/UX"* · [`contoh-prd-tempahan-fasiliti-sukan.md`](./contoh-prd-tempahan-fasiliti-sukan.md).
 
 ---
 
