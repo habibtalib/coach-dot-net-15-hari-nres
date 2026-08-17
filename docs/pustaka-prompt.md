@@ -35,6 +35,7 @@
 | **DIA-08** | State diagram (`SubmissionStatus`) | Nak kitaran status permohonan |
 | **DIA-03** | Semak silang ERD | Selepas ERD siap |
 | **UI-01** | Reka UI/UX (umum + contoh) | PRD siap; mana-mana skrin/borang/komponen |
+| **JIRA-02** | Tugas seterusnya (dari Jira) | Board tersambung (MCP); nak mula tugas berikutnya |
 | **JIRA-01** | Cipta isu Jira dari user story | Board tersambung (MCP); ada user story |
 | **SMK-01** | Semakan pra-PR | Sebelum setiap Pull Request |
 | **DEV-01** | Borang: ViewModel + validation | Reka borang (borang-dahulu) |
@@ -276,6 +277,21 @@ saya semak sebelum bina.
 ---
 
 ## E · Jira
+
+### JIRA-02 — Tugas seterusnya (dari Jira)
+
+- **Tujuan:** Tanya Jira (MCP) tugas seterusnya yang ditugaskan kepada anda, dan mula bekerja.
+- **Input:** kunci projek + anda ialah assignee.
+
+```text
+Dalam projek Jira <KEY>, senaraikan isu berstatus To-Do yang ditugaskan kepada saya,
+disusun ikut keutamaan/sprint. Untuk isu teratas: tunjukkan tajuk, perihalan &
+acceptance criteria, dan sahkan itu tugas seterusnya sebelum saya mula.
+Kemudian tandakan isu itu In Progress.
+```
+
+- **Selepas:** Ikut **Aliran kerja setiap tugas** (`AGENTS.md`): cabang `feat/<ciri-pendek>` → bina (DEV-01→05, mockup **UI-01** sebagai rujukan) → **SMK-01** → PR (`Closes <KEY>-n`) → **Done**.
+- **Rujukan:** [`cara-sambung-jira-claude-code.md`](./cara-sambung-jira-claude-code.md) · `AGENTS.md` → *Aliran kerja setiap tugas*.
 
 ### JIRA-01 — Cipta isu dari user story
 
