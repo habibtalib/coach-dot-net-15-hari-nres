@@ -182,6 +182,16 @@ Untuk **setiap tugas** (satu user story / subtask) — jangan bekerja terus atas
 
 > **Tiada merge merentas repo** — setiap repo urus cabang & PR sendiri. Nama cabang & format commit: [`SPEC-KURSUS.md`](./SPEC-KURSUS.md); aliran PR penuh: [`KOLABORASI.md`](./KOLABORASI.md) §10.
 
+**Subagent peranan (pilihan, Claude Code).** Petakan kitaran di atas kepada tiga persona (`.claude/agents/`):
+
+| Persona | Langkah | Buat | Had |
+|---------|---------|------|-----|
+| **`pm`** | 1–2 | Tanya Jira, skop & AC, cipta cabang `feat/` | Tak tulis kod |
+| **`dev`** | 3–4 | Bina borang-dahulu (DEV-01→05), mockup UI-01 rujukan | Dalam repo/folder modul sahaja |
+| **`qa`** | 5 | Semakan pra-PR (SMK-01) + ujian xUnit | Baca sahaja |
+
+> Templat: [`.claude/agents/{pm,dev,qa}.md`](./.claude/agents/) + skill [`.claude/skills/semak-modul/`](./.claude/skills/semak-modul/). Lab: [`docs/lab-subagent-peranan.md`](./docs/lab-subagent-peranan.md).
+
 ---
 
 ## Prompt yang baik dalam projek ini

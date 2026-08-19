@@ -15,6 +15,7 @@ Hab pautan untuk peserta & jurulatih. Simpan satu tempat; hari/lab hanya **meruj
 - [Persediaan Git (pasang & identiti)](./persediaan-git.md) — sebelum Hari 2.
 - [Persediaan scaffold projek MVC (+ NuGet)](./persediaan-scaffold.md) — Hari 3.
 - [Aliran harian & gambaran keseluruhan (Fasa 2)](./aliran-harian.md) — **satu halaman**: kitaran satu tugas (Jira → cabang → mockup → bina → PR → Done) + rentak harian + DoD.
+- [Lab — Skill, Subagent Peranan (PM·DEV·QA), Memory & MCP](./lab-subagent-peranan.md) — cipta skill + 3 persona subagent yang memetakan kitaran satu tugas.
 - [Lab MCP — Jira + FigJam dari Claude Code](./lab-mcp-jira-figjam.md) — sambung & **pandu** kedua-dua (MCP rasmi Atlassian + Figma), setup + drive.
 - [Sambung Jira ke Claude Code (CLI & VS Code)](./cara-sambung-jira-claude-code.md) — MCP Atlassian, untuk pelajar tanpa MCP peribadi.
 - [Jana dokumentasi & diagram Mermaid dengan AI](./cara-jana-dokumentasi-diagram.md) — skill `/dok-modul` + prompt terus.
