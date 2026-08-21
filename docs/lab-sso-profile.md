@@ -56,6 +56,7 @@ sequenceDiagram
 - App **didaftar pada SSO pusat** (URL Hantar Data → `/sso/signon`, URL Pengesahan → `/sso/validate?nric=`, Kaedah Hantar → HTTP Redirect (Encrypted)); anda dapat **AppKey**.
 - **Keypair RSA**: `App.key` (peribadi, dalam app) + `App.pub.pem` (dimuat naik ke SSO). Jana dengan `openssl` (lihat README `nres-sso`).
 - Data **sintetik** sahaja; rahsia (AppKey, kunci) via **user-secrets**, jangan commit.
+- **Uji API interaktif (Swagger):** [`https://devprofile.nres.gov.my/SSO/api-docs.html`](https://devprofile.nres.gov.my/SSO/api-docs.html) — cuba `GetProfile`, `ListProfiles`, `Validate` terus. Di dev (`SSO_ENABLED=false`) token dilangkau, hanya `nric` diperlukan untuk **Try it out**.
 
 ---
 
@@ -120,5 +121,5 @@ sequenceDiagram
 ## Rujukan
 
 - Klien & setup: repo **`nres-sso`** README (Quick start · registration · paste-in prompt).
-- API baca profil: `Profile/docs/GetProfile-API.md` · spec: `Profile/…/SSO/openapi.json`.
+- API baca profil: **Swagger UI** [`devprofile.nres.gov.my/SSO/api-docs.html`](https://devprofile.nres.gov.my/SSO/api-docs.html) · panduan `Profile/docs/GetProfile-API.md` · spec `Profile/…/SSO/openapi.json`.
 - MCP Jira + FigJam: [`lab-mcp-jira-figjam.md`](./lab-mcp-jira-figjam.md) · prompt rajah: [`pustaka-prompt.md`](./pustaka-prompt.md).
