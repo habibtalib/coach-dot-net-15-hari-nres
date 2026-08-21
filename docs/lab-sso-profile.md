@@ -92,6 +92,8 @@ sequenceDiagram
    - **Petakan:** `FullName→name`, `UserEmail→email`, `Designation/Group/Grade/Organization*/Department*→claims`, `UserType` ∈ {System, SystemAdministrator, Moderator, Assistant, User, Unknown}.
 3. Pulangkan `null` untuk tolak sign-on (pengguna tidak dibenarkan). Hanya perlukan status? Guna `SSO/Validate.aspx?nric=<nric>` (`true`/`false`).
 
+> **Senarai profil (ListProfiles).** Untuk skrin admin / pemilih pengguna: `GET /SSO/ListProfiles.aspx?page=&limit=&keyword=&organizationId=&departmentId=` (auth **sama** seperti GetProfile). Respons `{ page, limit, total, count, items: [Profile…] }` — setiap item bentuk whitelist yang sama; `limit` maks **100**. Guna `keyword` (nama/e-mel/NRIC/telefon) atau tapis ikut org/jabatan.
+
 ### ✅ Semakan
 
 - [ ] Sign-on berjaya untuk NRIC ujian; ditolak untuk NRIC tak dikenali
