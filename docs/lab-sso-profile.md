@@ -7,7 +7,7 @@
 | Pihak | Alamat | Peranan |
 |-------|--------|---------|
 | **SSO pusat** | `devsso` / `sso.nres.gov.my` | `access`, `app/verify`, `logout`; simpan **Kunci App** + **Rahsia App**; keluarkan app token |
-| **Profile** | `profile.nrecc.gov.my` | miliki **Profile DB** + API `GetProfile`; **Lapor Diri cipta** profil, lain **baca** |
+| **Profile** | `profile.nres.gov.my` (dev `devprofile.nres.gov.my`) | miliki **Profile DB** + API `GetProfile`; **Lapor Diri cipta** profil, lain **baca** |
 | **Sistem anda** | subdomain sendiri | guna klien `Nres.Bpm.Sso.Client` — sign-on, resolve pengguna, baca profil |
 
 ## Rajah — aliran (Mermaid)
@@ -83,8 +83,14 @@ sequenceDiagram
 
 1. Laksana `ISsoUserResolver`:
    - **Local dev:** senarai **sintetik in-memory** — NRIC **mesti padan** akaun ujian SSO pusat.
-   - **Persekitaran sebenar:** panggil **GetProfile API** Profile (`GET /SSO/GetProfile.aspx?data=<RSA>`) → petakan medan whitelist (`FullName`, `UserEmail`, `Designation`, `OrganizationName`, `DepartmentName`, `UserType`…) ke `SsoUser`.
-2. Pulangkan `null` untuk tolak sign-on (pengguna tidak dibenarkan).
+   - **Persekitaran sebenar:** panggil **GetProfile API** → petakan medan whitelist ke `SsoUser`.
+2. **GetProfile — Format A (encrypted, disyorkan):**
+   - `GET https://profile.nres.gov.my/SSO/GetProfile.aspx?data=<base64url>`
+   - `data` = `RSA-OAEP-SHA256( {"nric","appkey","apptoken"} )`, Base64URL.
+   - ⚠️ **Sulit dengan KUNCI AWAM Profile** (bukan `App.key` anda) — Profile nyahsulit dengan kunci peribadinya (`keys/Profile.key`). Dapatkan kunci awam Profile *out-of-band*. *(Ini berbeza dari sign-on: `/sso/signon?data` dinyahsulit dengan kunci **peribadi app anda**.)*
+   - Respons `200` = JSON whitelist: `FullName`, `UserEmail`, `Designation`, `Group`, `Grade`, `OrganizationName`, `OrganizationGroupName`, `DepartmentName`, `UserType`, `ProfileImage`… (tiada NRIC/rahsia). Ralat: `401` `404` `500`.
+   - **Petakan:** `FullName→name`, `UserEmail→email`, `Designation/Group/Grade/Organization*/Department*→claims`, `UserType` ∈ {System, SystemAdministrator, Moderator, Assistant, User, Unknown}.
+3. Pulangkan `null` untuk tolak sign-on (pengguna tidak dibenarkan). Hanya perlukan status? Guna `SSO/Validate.aspx?nric=<nric>` (`true`/`false`).
 
 ### ✅ Semakan
 
