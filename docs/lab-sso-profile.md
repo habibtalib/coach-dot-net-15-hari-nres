@@ -1,13 +1,13 @@
 # Lab — Integrasi SSO & Baca Profil (Profile DB)
 
-> 🔧 **Seni bina sebenar.** Sistem dalaman NRES **tidak** sambung terus ke Profile SQL DB. Ia (1) **log masuk melalui SSO** dan (2) **baca profil melalui API** (`GetProfile`) — semua muatan **RSA-encrypted**. App token disahkan **di pelayan SSO** (`app/verify`), bukan dikira secara tempatan.
+> 🔧 **Seni bina sebenar.** Sistem dalaman NRES **tidak** sambung terus ke Profile SQL DB. Ia (1) **log masuk melalui SSO** (aliran redirect + token, RSA) dan (2) **baca profil & data rujukan melalui API Profile** — `GetProfile`, `ListProfiles`, `ListDepartments`, `ListOrganizations`, `Validate`: panggilan JSON **tanpa auth** (rangkaian dipercayai). *(Encryption/token hanya untuk sign-on, bukan API baca.)*
 
 ## Tiga pihak
 
 | Pihak | Alamat | Peranan |
 |-------|--------|---------|
 | **SSO pusat** | `devsso` / `sso.nres.gov.my` | `access`, `app/verify`, `logout`; simpan **Kunci App** + **Rahsia App**; keluarkan app token |
-| **Profile** | `profile.nres.gov.my` (dev `devprofile.nres.gov.my`) | miliki **Profile DB** + API `GetProfile`; **Lapor Diri cipta** profil, lain **baca** |
+| **Profile** | `profile.nres.gov.my` (dev `devprofile.nres.gov.my`) | miliki **Profile DB** + API JSON **tanpa auth**: `GetProfile` (`nric`/`userId`), `ListProfiles`, `ListDepartments`, `ListOrganizations`, `Validate`. **Lapor Diri cipta** profil, lain **baca** |
 | **Sistem anda** | subdomain sendiri | guna klien `Nres.Bpm.Sso.Client` — sign-on, resolve pengguna, baca profil |
 
 ## Rajah — aliran (Mermaid)
@@ -20,9 +20,10 @@ flowchart LR
   SSO -->|log masuk + data RSA| S1
   S1 -->|app/verify nric,appkey,apptoken| SSO
   SSO -->|true/false| S1
-  S1 -->|resolve profil| P[Profile: GetProfile]
+  S1 -->|"GetProfile?nric (tanpa auth)"| P[Profile API]
   P -->|profil JSON| S1
   S1 -->|cookie| U
+  Admin[Skrin admin] -->|"ListProfiles / ListDepartments / ListOrganizations"| P
 ```
 
 ```mermaid
@@ -41,7 +42,7 @@ sequenceDiagram
   App->>App: RSA-decrypt data (kunci peribadi)
   App->>SSO: app/verify/{nric}/{appkey}/{apptoken}
   SSO-->>App: true
-  App->>Pf: GetProfile?data=<RSA>
+  App->>Pf: GetProfile?nric (tanpa auth)
   Pf-->>App: profil JSON (whitelist)
   App-->>B: set cookie → returnUrl
 ```
@@ -85,15 +86,19 @@ sequenceDiagram
 1. Laksana `ISsoUserResolver`:
    - **Local dev:** senarai **sintetik in-memory** — NRIC **mesti padan** akaun ujian SSO pusat.
    - **Persekitaran sebenar:** panggil **GetProfile API** → petakan medan whitelist ke `SsoUser`.
-2. **GetProfile — Format A (encrypted, disyorkan):**
-   - `GET https://profile.nres.gov.my/SSO/GetProfile.aspx?data=<base64url>`
-   - `data` = `RSA-OAEP-SHA256( {"nric","appkey","apptoken"} )`, Base64URL.
-   - ⚠️ **Sulit dengan KUNCI AWAM Profile** (bukan `App.key` anda) — Profile nyahsulit dengan kunci peribadinya (`keys/Profile.key`). Dapatkan kunci awam Profile *out-of-band*. *(Ini berbeza dari sign-on: `/sso/signon?data` dinyahsulit dengan kunci **peribadi app anda**.)*
-   - Respons `200` = JSON whitelist: `FullName`, `UserEmail`, `Designation`, `Group`, `Grade`, `OrganizationName`, `OrganizationGroupName`, `DepartmentName`, `UserType`, `ProfileImage`… (tiada NRIC/rahsia). Ralat: `401` `404` `500`.
+2. **GetProfile (JSON, tanpa auth) — ikut `nric` atau `userId`:**
+   - `GET https://profile.nres.gov.my/SSO/GetProfile.aspx?nric=<nric>` (atau `?userId=<id>` dari item `ListProfiles`).
+   - **Tiada auth, tiada RSA** untuk API baca ini — panggilan JSON terus (rangkaian dipercayai). *(RSA/token hanya untuk **sign-on** SSO, bukan baca profil.)*
+   - Respons `200` = JSON whitelist: `UserId`, `FullName`, `UserEmail`, `Designation`, `Group`, `Grade`, `OrganizationName`, `OrganizationGroupName`, `DepartmentName`, `UserType`, `ProfileImage`… (tiada NRIC/rahsia). Ralat: `404` `500`.
    - **Petakan:** `FullName→name`, `UserEmail→email`, `Designation/Group/Grade/Organization*/Department*→claims`, `UserType` ∈ {System, SystemAdministrator, Moderator, Assistant, User, Unknown}.
-3. Pulangkan `null` untuk tolak sign-on (pengguna tidak dibenarkan). Hanya perlukan status? Guna `SSO/Validate.aspx?nric=<nric>` (`true`/`false`).
+3. Pulangkan `null` untuk tolak sign-on (pengguna tidak dibenarkan). Hanya perlukan status wujud/aktif? Guna `SSO/Validate.aspx?nric=<nric>` (`true`/`false`).
 
-> **Senarai profil (ListProfiles).** Untuk skrin admin / pemilih pengguna: `GET /SSO/ListProfiles.aspx?page=&limit=&keyword=&organizationId=&departmentId=` (auth **sama** seperti GetProfile). Respons `{ page, limit, total, count, items: [Profile…] }` — setiap item bentuk whitelist yang sama; `limit` maks **100**. Guna `keyword` (nama/e-mel/NRIC/telefon) atau tapis ikut org/jabatan.
+> **API senarai (paginated, tanpa auth)** — semua pulangkan `{ page, limit, total, count, items:[…] }`, `limit` maks **100**:
+> - `GET /SSO/ListProfiles.aspx?page=&limit=&keyword=&organizationId=&departmentId=` — pengguna (bentuk `Profile`); `keyword` cari nama/e-mel/NRIC/telefon.
+> - `GET /SSO/ListDepartments.aspx?page=&limit=&keyword=` — jabatan `{ DepartmentId, Name, Description, OrganizationId, Hidden }`.
+> - `GET /SSO/ListOrganizations.aspx?page=&limit=&keyword=` — organisasi `{ OrganizationId, ShortName, Name, Description, GroupId, Hidden }` (`GroupId` → OrganizationGroup: Kementerian/Jabatan).
+>
+> Sesuai untuk skrin admin, pemilih pengguna, dan dropdown jabatan/organisasi.
 
 ### ✅ Semakan
 
