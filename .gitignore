@@ -25,16 +25,19 @@ Thumbs.db
 slides/
 **/nota-penceramah.md
 
-# Local-only (not pushed): reference app + notes/templates
-nota/
+# Local-only (not pushed): reference app + templates
 projek/
 _arkib/
 templates/
 
-# Fasa-2 tracks: Hari 4 + Hari 13–15 delivered (pushed); mid blocks stay local until delivered
+# Fasa-2 tracks: Hari 4 + Hari 13–15 delivered (pushed); mid-block TRACK content stays local
 **/hari-5-6/
 **/hari-7-9/
 **/hari-10-12/
+# ...but the root-level general-prompt day folders (hari-*/prompt.md) ARE pushed
+!/hari-5-6/
+!/hari-7-9/
+!/hari-10-12/
 _draf-rujukan/
 
 # Trainer source packs (derived from real NRES forms — LOCAL ONLY, never push)
