@@ -189,8 +189,9 @@ Untuk **setiap tugas** (satu user story / subtask) — jangan bekerja terus atas
 | **`pm`** | 1–2 | Tanya Jira, skop & AC, cipta cabang `feat/` | Tak tulis kod |
 | **`dev`** | 3–4 | Bina borang-dahulu (DEV-01→05), mockup UI-01 rujukan | Dalam repo/folder modul sahaja |
 | **`qa`** | 5 | Semakan pra-PR (SMK-01) + ujian xUnit | Baca sahaja |
+| **`qa-uat`** | 13–15 | Ujian xUnit (UJI-01) + SIT/UAT pre-check pelayar via claude-in-chrome (UJI-02/03) | Uji sahaja (`*.Tests`) |
 
-> Templat: [`.claude/agents/{pm,dev,qa}.md`](./.claude/agents/) + skill [`.claude/skills/semak-modul/`](./.claude/skills/semak-modul/). Lab: [`docs/lab-subagent-peranan.md`](./docs/lab-subagent-peranan.md).
+> Templat: [`.claude/agents/{pm,dev,qa,qa-uat}.md`](./.claude/agents/) + skill [`.claude/skills/{semak-modul,uji-modul}/`](./.claude/skills/). Lab: [`docs/lab-subagent-peranan.md`](./docs/lab-subagent-peranan.md) (persona) · [`docs/lab-qa-ai-uat.md`](./docs/lab-qa-ai-uat.md) (QA/UAT dipandu-AI, Hari 13–15).
 
 ---
 

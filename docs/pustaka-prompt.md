@@ -45,6 +45,10 @@
 | **DEV-05** | Entiti + migration (simpan) | Selepas borang betul |
 | **DEV-06** | Aliran kelulusan (controller) | Blok kelulusan (Hari 7–9) |
 | **DEV-07** | Ujian xUnit | Blok ujian (Hari 13–14) |
+| **UJI-01** | Tulis & jalankan xUnit (subagent `qa-uat`) | Blok ujian (Hari 13–14) |
+| **UJI-02** | SIT/UAT pre-check pelayar (`qa-uat` + claude-in-chrome) | Hari 15 — pre-check |
+| **UJI-03** | Semakan RBAC 403 (`qa-uat`) | Hari 15 — RBAC |
+| **UJI-04** | Mulakan ujian unit dari kosong (`qa-uat`) | Modul belum ada projek ujian |
 | **MEM-01** | Tambah peraturan ke memory | Peraturan/konvensyen berulang |
 
 ---
@@ -412,6 +416,67 @@ SubmissionStatus + audit. Tunjuk diff dahulu.
 Tambah ujian xUnit untuk peralihan SubmissionStatus (Draft→Submitted→AdminApproved/Rejected)
 dan <semakan bertindih / pendua> dalam repo <sistem>.
 ```
+
+---
+
+## I · QA & UAT (subagent `qa-uat`)
+
+> Hari 13–14 (xUnit) + Hari 15 (SIT/UAT pre-check). Guna subagent [`qa-uat`](../.claude/agents/qa-uat.md) + skill `/uji-modul`. Lab penuh: [`lab-qa-ai-uat.md`](./lab-qa-ai-uat.md). **Pre-check ≠ UAT sebenar** — UAT sebenar dijalankan pengguna NRES.
+
+### UJI-01 — Tulis & jalankan xUnit
+
+- **Tujuan:** Ujian peraturan kritikal + jalankan sehingga hijau.
+- **Input:** repo/sistem anda + projek `*.Tests`.
+
+```text
+Guna subagent qa-uat: tulis ujian xUnit untuk peralihan SubmissionStatus
+(Draft→Submitted→AdminApproved/Rejected, termasuk peralihan terlarang mesti gagal),
+nombor rujukan berjujukan, dan semakan pendua dua arah dalam repo <sistem>.
+Guna SQLite in-memory (bukan UseInMemoryDatabase). Jalankan dotnet test, tunjuk keputusan.
+```
+
+- **Selepas:** Sahkan liputan peraturan; ujian merah diserah kepada `dev` untuk betulkan.
+
+### UJI-02 — SIT/UAT pre-check pelayar
+
+- **Tujuan:** Pandu aliran hujung-ke-hujung melalui pelayar, rekod lulus/gagal.
+- **Input:** app berjalan di `https://localhost:7034` + akaun demo.
+
+```text
+Guna subagent qa-uat: jalankan SIT/UAT pre-check di https://localhost:7034 —
+log masuk applicant, hantar satu permohonan (catat nombor rujukan), log masuk hradmin,
+luluskan, sahkan jejak audit. Rekod lulus/gagal + GIF. Jangan cetuskan dialog.
+```
+
+- **Selepas:** Semak setiap keputusan; nyatakan ia **pre-check**, bukan UAT sebenar.
+
+### UJI-03 — Semakan RBAC 403
+
+- **Tujuan:** Sahkan setiap halaman semakan admin menolak peranan salah.
+- **Input:** app berjalan + akaun `applicant`.
+
+```text
+Guna subagent qa-uat: sebagai applicant, cuba capai setiap halaman semakan admin
+(/OfficerReporting/Review). Setiap satu mesti 403/AccessDenied. Senaraikan hasil setiap semakan.
+```
+
+- **Selepas:** Mana-mana yang **bukan** 403 = pepijat keselamatan → serah kepada `dev`.
+
+### UJI-04 — Mulakan ujian unit dari kosong (modul belum diuji)
+
+- **Tujuan:** Bootstrap projek ujian xUnit untuk modul yang **belum** ada sebarang ujian (K2/K3/K4 atau mana-mana repo yang `tests/` masih kosong).
+- **Input:** repo/sistem modul anda.
+
+```text
+Guna subagent qa-uat: modul <sistem> belum ada projek ujian. Mulakan dari kosong:
+1. Cipta projek xUnit dalam tests/, rujuk projek Web, tambah pakej Microsoft.Data.Sqlite.
+2. Tambah helper TestDb (SQLite in-memory, BUKAN UseInMemoryDatabase).
+3. Tulis ujian PERTAMA untuk peraturan paling kritikal modul: peralihan SubmissionStatus,
+   nombor rujukan berjujukan, dan satu peraturan perniagaan utama (cth <slot bertindih / pendua plat>).
+Jalankan dotnet test dan tunjuk keputusan. Jangan ubah kod ciri.
+```
+
+- **Selepas:** Bila hijau, kembangkan liputan dengan **UJI-01** untuk baki peraturan modul.
 
 ---
 
