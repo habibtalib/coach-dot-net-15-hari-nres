@@ -34,6 +34,48 @@ hari-15/                           # Fasa 3 — sesi bersama
 _arkib/kumulatif-15-hari/          # struktur lama + PKS (jangan sunting)
 ```
 
+## Arahan (projek rujukan, slaid)
+
+Repo ini **bahan pengajaran** — kebanyakan fail ialah Markdown, tiada langkah "build" untuk kandungan. Dua bahagian sahaja yang boleh dilaksanakan:
+
+**Projek rujukan `.NET 10`** (`projek/Nres.Onboarding.Web/` — ASP.NET Core MVC + EF Core 10 + SQLite + Identity). Perlu **.NET 10 SDK** (`dotnet --version` → `10.x`):
+
+```bash
+cd projek/Nres.Onboarding.Web
+dotnet restore
+dotnet build                       # patut 0 ralat
+dotnet ef database update          # cipta App_Data/nres.db (pilihan — startup pun migrate)
+dotnet run                         # buka URL yang dipapar
+dotnet ef migrations add <Nama>    # semakan kewarasan: migration patut KOSONG jika model konsisten
+```
+
+- `dotnet ef` belum ada → `dotnet tool install --global dotnet-ef`.
+- Akaun demo seed: `applicant@nres.demo` / `hradmin@nres.demo`, kata laluan `Password123!`.
+- **Tiada projek ujian** dalam `projek/` — ujian xUnit (`Nres.Onboarding.Tests`) ialah kandungan yang peserta bina pada blok Hari 13–14. Bila menulis lab ujian, semak sintaks xUnit terhadap .NET 10.
+
+**Slaid** (`slides/`):
+
+```bash
+cd slides
+python3 -m venv venv && ./venv/bin/pip install python-pptx   # sekali sahaja
+./venv/bin/python build-pptx.py                              # jana dotnet-nres-training.pptx
+```
+
+HTML (`dotnet-nres-training.html`) dan PPTX diselaraskan: susunan `slide_*()` dalam `build-pptx.py` **mesti** sepadan dengan `<section class="slide">` dalam HTML. Ubah satu → cerminkan di kedua-dua. Sahkan: `grep -c '<section' dotnet-nres-training.html` = bilangan `slide_*()`.
+
+## Seni bina projek rujukan (baca sebelum menulis lab trek)
+
+`projek/` ialah keadaan aplikasi **pada penghujung Hari 3**: asas kongsi + **Modul Lapor Diri** (Kumpulan 1) sahaja. Modul Kumpulan 2–4 sengaja tiada — peserta membinanya. Butiran penuh: [`projek/README.md`](./projek/README.md). Titik penting yang merentas banyak fail:
+
+- **Satu induk kongsi `Submission`** + satu `SubmissionStatus`, satu `AuditLog`, satu `Attachment`, satu `ApprovalStep` untuk semua modul. Setiap modul ada jadual butiran sendiri (cth. `OfficerReportingApplications`) yang menunjuk kembali ke `Submissions`.
+- **Seni bina anti-konflik** — sebab utama projek wujud. Tiga fail yang biasanya punca konflik direka supaya **tidak perlu disentuh** oleh trek:
+  - `Program.cs` — modul daftar melalui `Add<Modul>Module()` (baris berkomen; kumpulan nyahkomen **satu** baris sekali pada Hari 4). **BEKU.**
+  - `Data/ApplicationDbContext.cs` — `OnModelCreating` hanya `ApplyConfigurationsFromAssembly(...)`; modul tambah `IEntityTypeConfiguration<T>` dalam folder sendiri. **BEKU.**
+  - `Views/Shared/_Layout.cshtml` — `Component.InvokeAsync("ModuleNav")`; modul tambah `IModuleDescriptorProvider`. **BEKU.**
+- **`IWorkflowService` memiliki peraturan peralihan status** dan menulis audit secara atomik — status **tidak** ditukar terus dalam controller.
+- **`UserProfile` berasingan daripada `AspNetUsers`** (Identity = authentication sahaja); ViewModel (bukan entiti) dalam borang untuk elak over-posting; fail dimuat naik ke `App_Data/uploads` (DI LUAR `wwwroot`, nama fizikal = GUID, muat turun melalui action bersemak kebenaran).
+- **Nota jujur:** `OfficerReportingController` ditulis sebelum `SubmissionControllerBase` wujud, jadi ia **tidak** mewarisinya — ini contoh kod yang *patut* direfactor, dan Kumpulan 2–4 ikut kelas asas.
+
 ## Konvensyen
 
 - **Bahasa:** nota/agenda dalam **Bahasa Melayu**; kod, nama kelas, istilah teknikal dalam **Bahasa Inggeris**.
