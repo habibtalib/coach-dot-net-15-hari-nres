@@ -1,0 +1,146 @@
+<title>Nota Persediaan Tempatan</title>
+<style>
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    background: #fff;
+    color: #000;
+    font-family: Arial, Helvetica, "Segoe UI", sans-serif;
+    font-size: 12pt;
+    line-height: 1.5;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 28px 64px;
+  }
+  h1 { font-size: 20pt; margin: 0 0 4px; }
+  h2 {
+    font-size: 14pt;
+    margin: 30px 0 8px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid #000;
+  }
+  h3 { font-size: 12pt; margin: 18px 0 6px; }
+  p, li { margin: 6px 0; }
+  ul, ol { margin: 6px 0; padding-left: 24px; }
+  li { padding-left: 2px; }
+  .lead { margin: 4px 0 0; }
+  .meta { font-size: 10pt; margin: 2px 0 0; }
+  code {
+    font-family: "Courier New", Consolas, monospace;
+    font-size: 10.5pt;
+  }
+  pre {
+    font-family: "Courier New", Consolas, monospace;
+    font-size: 10pt;
+    line-height: 1.4;
+    border: 1px solid #000;
+    padding: 8px 10px;
+    margin: 8px 0;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+  table { border-collapse: collapse; width: 100%; margin: 10px 0; font-size: 10.5pt; }
+  th, td { border: 1px solid #000; padding: 6px 8px; text-align: left; vertical-align: top; }
+  th { font-weight: bold; }
+  .note { border: 1px solid #000; padding: 8px 10px; margin: 10px 0; font-size: 11pt; }
+  hr { border: none; border-top: 1px solid #000; margin: 24px 0; }
+  h2, h3 { page-break-after: avoid; }
+  pre, table, .note, li { page-break-inside: avoid; }
+  @media print {
+    body { max-width: none; padding: 0; font-size: 11pt; }
+    a { color: #000; text-decoration: none; }
+  }
+</style>
+
+<h1>Nota Persediaan Tempatan</h1>
+<p class="lead">Kursus Pembangunan Sistem Dalaman NRES — ASP.NET Core MVC / .NET 10.</p>
+<p class="meta">Ikut langkah ini mengikut urutan. Setiap arahan ditaip dalam Terminal (atau Developer PowerShell).</p>
+
+<h2>1. Pasang perisian asas</h2>
+<p>Pasang kesemua ini sebelum mula. Semak versi selepas pasang.</p>
+<table>
+  <tr><th>Perisian</th><th>Kegunaan</th><th>Semak versi</th></tr>
+  <tr><td>.NET 10 SDK</td><td>Bina &amp; jalankan aplikasi</td><td><code>dotnet --version</code> (mesti 10.x)</td></tr>
+  <tr><td>Visual Studio 2022 <em>atau</em> VS Code + C# Dev Kit</td><td>Editor / IDE</td><td>—</td></tr>
+  <tr><td>Git</td><td>Kawalan versi</td><td><code>git --version</code></td></tr>
+  <tr><td>Akaun GitHub</td><td>Akses repo pasukan</td><td>Log masuk github.com</td></tr>
+</table>
+<p>Pangkalan data: sesetengah modul guna <b>SQLite</b> (tiada pemasangan — fail sahaja), sesetengah guna <b>SQL Server LocalDB</b> (Windows). Semak <code>appsettings.json</code> modul anda untuk mengetahui yang mana.</p>
+
+<h2>2. Sahkan .NET berfungsi</h2>
+<pre>dotnet --version
+dotnet --list-sdks</pre>
+<p>Jika <code>dotnet</code> tidak dikenali, tutup dan buka semula Terminal, atau pasang semula SDK dan mula semula langkah ini.</p>
+
+<h2>3. Ambil kod (clone)</h2>
+<p>Ganti <code>&lt;modul&gt;</code> dengan repo pasukan anda (contoh <code>pematuhan-pks</code>, <code>lapor-diri</code>).</p>
+<pre>git clone https://github.com/nres-bpm/&lt;modul&gt;.git
+cd &lt;modul&gt;</pre>
+<div class="note"><b>Penting — submodule.</b> Jika projek merujuk klien SSO sebagai submodule, folder itu kosong selepas clone. Jalankan sekali:
+<pre>git submodule update --init --recursive</pre>
+Tanpa langkah ini, <code>dotnet build</code> akan gagal kerana rujukan hilang.</div>
+
+<h2>4. Pulih &amp; bina</h2>
+<pre>dotnet restore
+dotnet build</pre>
+<p>Jangkaan: <b>Build succeeded</b>, 0 ralat. Jika gagal, baca ralat pertama — selalunya submodule belum di-init (langkah 3) atau versi SDK salah (langkah 2).</p>
+
+<h2>5. Tetapkan konfigurasi untuk dev tempatan</h2>
+<p>Aplikasi mempunyai <b>safeguard</b>: jika SSO dihidupkan tetapi kunci tiada, ia sengaja <b>gagal mula</b> (mesej "AppKey required"). Untuk pembangunan tempatan, matikan SSO dan Profile supaya aplikasi boot tanpa rahsia.</p>
+<p>Dalam <code>appsettings.Development.json</code>, pastikan:</p>
+<pre>"Nres": {
+  "Sso":     { "Enabled": false },
+  "Profile": { "Enabled": false }
+}</pre>
+<p>Bila anda perlu <b>menguji SSO / Profile sebenar</b> (dalam rangkaian NRES), barulah hidupkan dan bekalkan rahsia melalui <b>user-secrets</b> — jangan sekali-kali commit rahsia:</p>
+<pre>dotnet user-secrets init
+dotnet user-secrets set "Nres:Sso:AppKey" "&lt;kunci-dev&gt;"
+dotnet user-secrets set "Nres:Sso:PrivateKeyPath" "App.key"</pre>
+
+<h2>6. Sediakan pangkalan data</h2>
+<p>Pasang alat EF Core sekali sahaja (global):</p>
+<pre>dotnet tool install --global dotnet-ef</pre>
+<p>Cipta / kemas kini skema, kemudian isi data contoh (jika modul ada perintah seed):</p>
+<pre>dotnet ef database update
+dotnet run -- seed</pre>
+<p>Nota: guna hanya data <b>sintetik</b> (rekaan) — jangan guna data NRES sebenar.</p>
+
+<h2>7. Jalankan aplikasi</h2>
+<pre>dotnet run</pre>
+<p>Atau dengan auto-reload semasa menyunting:</p>
+<pre>dotnet watch</pre>
+<p>Terminal akan papar alamat, contoh <code>https://localhost:7043</code>. Buka dalam pelayar. Kali pertama HTTPS, percayai sijil dev:</p>
+<pre>dotnet dev-certs https --trust</pre>
+<p>Jika modul mendedahkan Web API, halaman Swagger ada di <code>/swagger</code>. Ingat: pada .NET 10, <code>webapi</code> <b>tidak</b> menyertakan Swagger UI secara lalai — ia perlu ditambah (lihat lab API).</p>
+
+<h2>8. Aliran kerja Git harian</h2>
+<p>Mula setiap hari dengan tarik perubahan terkini, kerja atas cabang ciri, kemudian hantar untuk semakan.</p>
+<pre>git pull --rebase
+git switch -c feat/nama-ciri
+# ... buat perubahan ...
+git add .
+git commit -m "ciri: penerangan ringkas"
+git push -u origin feat/nama-ciri</pre>
+<p>Buka Pull Request di GitHub untuk semakan sebelum gabung ke <code>master</code>.</p>
+
+<h2>9. Masalah lazim &amp; penyelesaian</h2>
+<table>
+  <tr><th>Gejala</th><th>Punca</th><th>Penyelesaian</th></tr>
+  <tr><td>Aplikasi gagal mula, "AppKey required" / OptionsValidationException</td><td>SSO dihidupkan tetapi rahsia tiada</td><td>Set <code>Sso:Enabled=false</code> (dan <code>Profile:Enabled=false</code>) dalam appsettings.Development.json</td></tr>
+  <tr><td><code>dotnet build</code> gagal, rujukan hilang</td><td>Submodule kosong</td><td><code>git submodule update --init --recursive</code></td></tr>
+  <tr><td>Ralat sambungan SQL semasa mula</td><td>Sasaran SQL Server tidak dicapai (di luar rangkaian)</td><td>Guna modul yang berasaskan SQLite untuk dev, atau betulkan connection string</td></tr>
+  <tr><td><code>dotnet ef</code> tidak dikenali</td><td>Alat EF belum dipasang</td><td><code>dotnet tool install --global dotnet-ef</code></td></tr>
+  <tr><td>Amaran sijil / HTTPS tidak dipercayai</td><td>Sijil dev belum dipercayai</td><td><code>dotnet dev-certs https --trust</code></td></tr>
+  <tr><td>Port sudah digunakan</td><td>Aplikasi lain guna port sama</td><td>Tutup proses itu, atau tukar port dalam <code>launchSettings.json</code></td></tr>
+</table>
+
+<h2>10. Senarai semak sebelum mula membina ciri</h2>
+<ul>
+  <li><code>dotnet --version</code> memaparkan 10.x</li>
+  <li>Repo di-clone dan submodule di-init</li>
+  <li><code>dotnet build</code> berjaya (0 ralat)</li>
+  <li>appsettings.Development.json: SSO &amp; Profile dimatikan untuk dev</li>
+  <li>Pangkalan data dicipta (<code>dotnet ef database update</code>)</li>
+  <li>Aplikasi berjalan dan boleh dibuka di <code>https://localhost:&lt;port&gt;</code></li>
+  <li>Cabang ciri sendiri dicipta (<code>git switch -c feat/...</code>)</li>
+</ul>
