@@ -21,6 +21,32 @@ Dalam `appsettings.json`, biar kunci ini **kosong atau tiada** — nilai sebenar
 
 ---
 
+## Perbandingan — appsettings vs web.config vs environment variable
+
+Ketiga-tiganya membekal config, tetapi berbeza dari segi **di mana disimpan**, **sama ada masuk repo**, dan **keutamaan (precedence)**.
+
+| Kaedah | Disimpan di | Dalam repo (Git)? | Skop | Atasi appsettings? | Sesuai untuk |
+|--------|-------------|-------------------|------|--------------------|--------------|
+| `appsettings.json` | fail dalam projek | **YA — di-commit** | aplikasi | — (paras terendah) | tetapan **bukan-rahsia** (paras log, feature flag) |
+| `appsettings.{Environment}.json` | fail dalam projek | **YA — di-commit** | app + persekitaran | atasi `appsettings.json` | tetapan per-persekitaran **bukan-rahsia** |
+| User Secrets | profil pengguna (mesin dev) | TIDAK | dev/pengguna | YA | rahsia semasa **pembangunan tempatan** sahaja |
+| `web.config` `<environmentVariables>` | fail `web.config` di server | TIDAK (**jangan commit**) | per-tapak IIS | YA | rahsia per-tapak pada IIS (suntingan terus) |
+| IIS Configuration Editor | tulis ke `web.config` tapak | TIDAK | per-tapak IIS | YA | cara **GUI** set env var per-tapak (sama fail seperti atas) |
+| Env var mesin (`setx /M`) | registri Windows | TIDAK | **seluruh mesin** | YA | server satu-aplikasi (fallback) |
+
+**Keutamaan config ASP.NET Core (rendah → tinggi):**
+
+```text
+appsettings.json  <  appsettings.{Environment}.json  <  User Secrets (Dev)  <  Environment Variables  <  argumen baris arahan
+```
+
+Nota penting:
+- **IIS Config Editor & `web.config <environmentVariables>` ialah mekanisme yang SAMA.** ANCM menyuntik entri itu sebagai *environment variables* proses `dotnet` — jadi ia dibaca oleh penyedia Environment Variables dan **mengatasi `appsettings`**. Config Editor hanyalah cara GUI menyunting `web.config` yang sama.
+- **Tiada satu pun menyulitkan (encrypt) secara lalai.** "Selamat" di sini bermaksud **keluar dari repo** + akses fail/registri dihadkan (NTFS). Untuk penyulitan sebenar: DPAPI, Windows Credential Manager, atau Key Vault.
+- **Peraturan ringkas:** tetapan bukan-rahsia → `appsettings`; **rahsia → environment variable** (web.config/Config Editor pada IIS; user-secrets pada dev). Rahsia **tidak sekali-kali** dalam `appsettings.json` yang di-commit.
+
+---
+
 ## Cara A (disyorkan) — IIS Configuration Editor, per-tapak
 
 1. Buka **IIS Manager** → pilih **Site** anda (cth `NresPks`).
