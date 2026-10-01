@@ -6,6 +6,16 @@ Dua hari. **Tiada ciri baharu.** Hujungnya, modul anda diuji, dibersihkan, dan b
 
 ---
 
+## Objektif
+
+Selepas Hari 13–14, peserta boleh:
+
+- Menyediakan projek ujian `Nres.Onboarding.Tests` (xUnit + SQLite in-memory) dan menerangkan kenapa SQLite in-memory dipilih berbanding penyedia `InMemory`.
+- Menulis ujian unit untuk servis dan peraturan perniagaan Lapor Diri — nombor rujukan, peralihan status, dokumen wajib, sebab penolakan, pemilikan, kunci selepas hantar.
+- Mengukur query dengan logging EF Core dan membetulkan N+1, lajur berlebihan, serta penapisan dalam memori.
+- Refactor kod (logik ke servis, pemalar bernama, ekstrak kaedah) tanpa mengubah tingkah laku atau menambah ciri baharu.
+- Menyediakan cabang untuk gabungan Hari 15 — build bersih, ujian lulus, digabung dengan `master` terkini, `README-modul.md` ditulis.
+
 ## Fokus Blok Ini
 
 | Topik | Rujukan rasmi |

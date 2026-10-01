@@ -1676,4 +1676,4 @@ git pull --rebase origin master     # 9.00 — sebelum apa-apa
 
 Kemudian stand-up, semakan silang AI, dan bina. Rujuk trek kumpulan anda:
 
-[Kumpulan 1](../../kumpulan-1-lapor-diri/) · [Kumpulan 2](../../kumpulan-2-pas-parkir-pelekat/) · [Kumpulan 3](../../kumpulan-3-id-ad-email/) · [Kumpulan 4](../../kumpulan-4-perisian-aset-ict/)
+[Kumpulan 1](../../kumpulan-1-pentadbiran/) · [Kumpulan 2](../../kumpulan-2-pas-parkir-pelekat/) · [Kumpulan 3](../../kumpulan-3-id-ad-email/) · [Kumpulan 4](../../kumpulan-4-tempahan-fasiliti-sukan/)

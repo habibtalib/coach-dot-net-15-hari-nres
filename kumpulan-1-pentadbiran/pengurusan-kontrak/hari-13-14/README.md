@@ -8,6 +8,15 @@ Dua hari terakhir trek. **Tiada ciri baharu.** Anda menulis ujian xUnit yang men
 
 ---
 
+## Objektif
+
+Selepas Hari 13–14, peserta boleh:
+
+- Menulis ujian xUnit terhadap SQLite in-memory dengan `TestDbFactory` kongsi untuk nombor rujukan dan peralihan status.
+- Menguji peraturan unik Kontrak — status kitaran hayat (`ContractLifecycleInfo.Kira`), jumlah milestone = amaun kontrak, dan peralihan status milestone.
+- Mengukur SQL yang dijana dengan logging EF Core dan membetulkan N+1 serta projection berlebihan.
+- Membersihkan dan mendokumenkan modul, mengesahkan cabang bergabung bersih ke `master`, dan menandakan status backlog dengan jujur.
+
 ## Fokus Blok Ini
 
 | Topik | Rujukan rasmi |

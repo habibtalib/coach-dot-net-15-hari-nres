@@ -8,6 +8,15 @@ Dua hari untuk membuktikan modul anda betul, membersihkannya, dan menyediakannya
 
 ---
 
+## Objektif
+
+Selepas Hari 13–14, peserta boleh:
+
+- Menerangkan kenapa ujian pertindihan slot ialah satu-satunya jaring keselamatan modul (tiada kekangan unik untuk julat masa).
+- Menguji predikat `SlotOverlap.Overlaps` dan servis `FindOverlapAsync` terhadap matriks kes yang sama, termasuk kes bersebelahan yang **tidak** bertindih.
+- Mengekstrak logik yang terkubur dalam controller ke kelas boleh diuji dalam `Services/Fasiliti/`.
+- Menjalankan ujian E2E, menyemak prestasi, mendokumenkan modul, dan membuat gabungan kering sebelum Hari 15.
+
 ## Fokus Blok Ini
 
 | Topik | Rujukan rasmi |

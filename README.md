@@ -39,7 +39,7 @@ FASA 3 — SESI BERSAMA (Hari 15)
 | Fasa | Hari | Bahan |
 |------|------|-------|
 | **1 · Bersama** | [1](./hari-1/) · [2](./hari-2/) · [3](./hari-3/) | Perancangan & dokumentasi · Git/Agile/kolaborasi · Refresher .NET + asas kongsi |
-| **2 · Trek** | 4 – 14 | [Kumpulan 1](./kumpulan-1-lapor-diri/) · [Kumpulan 2](./kumpulan-2-pas-parkir-pelekat/) · [Kumpulan 3](./kumpulan-3-id-ad-email/) · [Kumpulan 4](./kumpulan-4-perisian-aset-ict/) |
+| **2 · Trek** | 4 – 14 | [Kumpulan 1](./kumpulan-1-pentadbiran/) · [Kumpulan 2](./kumpulan-2-pas-parkir-pelekat/) · [Kumpulan 3](./kumpulan-3-id-ad-email/) · [Kumpulan 4](./kumpulan-4-tempahan-fasiliti-sukan/) |
 | **3 · Bersama** | [15](./hari-15/) | Integrasi, SIT, demo capstone |
 
 ---
@@ -48,10 +48,10 @@ FASA 3 — SESI BERSAMA (Hari 15)
 
 | # | Kumpulan | Modul | Kes guna | Prefix |
 |---|----------|-------|----------|--------|
-| 1 | [Kumpulan 1](./kumpulan-1-lapor-diri/) | **Lapor Diri** | Permohonan laporan diri pekerja baharu — profil, dokumen sokongan, slip akuan, kelulusan HR | `LD` |
+| 1 | [Kumpulan 1](./kumpulan-1-pentadbiran/) | **Pentadbiran** (3 projek: [Lapor Diri](./kumpulan-1-pentadbiran/lapor-diri/) · [Pematuhan PKS](./kumpulan-1-pentadbiran/pematuhan-pks/) · [Pengurusan Kontrak](./kumpulan-1-pentadbiran/pengurusan-kontrak/)) | Laporan diri pekerja baharu; akuan pematuhan Polisi Keselamatan Siber; daftar & jejak kontrak/perjanjian | `LD` `PKS` `KON` |
 | 2 | [Kumpulan 2](./kumpulan-2-pas-parkir-pelekat/) | **Pas, Parkir & Pelekat** | Akses kawasan & keselamatan kenderaan — pas pelawat/staf, pelekat, lot parkir, semakan pendua plat, QR | `PAS` `PKR` `STK` |
 | 3 | [Kumpulan 3](./kumpulan-3-id-ad-email/) | **ID, AD & Email** | Akaun pengguna & akses sistem — AD, e-mel rasmi, kelulusan penyelia → ICT, audit log | `ICT-ID` |
-| 4 | [Kumpulan 4](./kumpulan-4-perisian-aset-ict/) | **Perisian & Aset ICT** | Katalog aset, lesen perisian, pinjaman & pemulangan, stok masa-nyata, laporan | `SW` `AST-L` `AST-R` |
+| 4 | [Kumpulan 4](./kumpulan-4-tempahan-fasiliti-sukan/) | **Tempahan Fasiliti Sukan** | Tempahan gelanggang & kemudahan sukan — katalog fasiliti, slot masa, semakan slot bertindih, kalendar, kelulusan `FacilityAdmin` | `TFS` |
 
 Setiap modul mengikut **corak aliran kerja yang sama** — belajar sekali, ulang empat kali:
 

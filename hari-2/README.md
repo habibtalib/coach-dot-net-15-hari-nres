@@ -8,6 +8,16 @@ Nota ini mengikut **aturcara rasmi HARI 2** dalam [`../JADUAL.md`](../JADUAL.md)
 
 ---
 
+## Objektif
+
+Selepas Hari 2, peserta boleh:
+
+- Menerangkan nilai Agile Manifesto, backlog, sprint, stand-up, dan Definition of Done.
+- Membina backlog modul daripada URS Hari 1 dalam Jira / GitHub Projects (epic → user story → task, board & swimlanes setiap pasukan).
+- Menggunakan arahan Git harian (`clone`, `status`, `add`, `commit`, `push`, `pull --rebase`), menulis mesej commit dengan issue key, dan menyediakan `.gitignore`.
+- Bekerja dengan strategi percabangan kumpulan — buka pull request, buat code review dengan senarai semak, dan selesaikan konflik gabungan.
+- Menerangkan matriks pemilikan fail, slot migration, dan `AGENTS.md` untuk kolaborasi AI berpasukan, serta menyediakan persekitaran .NET 10 yang berjalan.
+
 ## Fokus Hari Ini
 
 > **Rujukan rasmi Hari 2** (Git, PR, konflik, GitHub Projects, Jira, .NET CLI) dalam [`docs/pautan-rujukan.md`](../docs/pautan-rujukan.md) → *Hari 2*.

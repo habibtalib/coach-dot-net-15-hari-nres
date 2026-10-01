@@ -6,6 +6,15 @@ Dua hari. **Tiada ciri baharu.** Hujungnya, modul anda diuji, pepijat dibetulkan
 
 ---
 
+## Objektif
+
+Selepas Hari 13–14, peserta boleh:
+
+- Menulis ujian unit untuk peraturan modul — normalisasi plat, semakan pendua (kes disekat dan dibenarkan), ketersediaan lot, kesahihan pas, keunikan nombor siri.
+- Menggunakan `[Theory]` + `[InlineData]` untuk peraturan "input → hasil" dan menguji terhadap SQLite in-memory supaya kekangan unik dikuatkuasakan.
+- Menjalankan skrip ujian E2E manual merentas aliran pas, pelekat, dan parkir, serta membetulkan atau merekod pepijat dengan jujur.
+- Menyediakan cabang untuk gabungan Hari 15 — build bersih, ujian lulus, gabungan kering tanpa konflik, `README-modul.md` ditulis.
+
 ## Fokus Blok Ini
 
 | Topik | Rujukan rasmi |

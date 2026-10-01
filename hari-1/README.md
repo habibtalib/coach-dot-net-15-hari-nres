@@ -10,6 +10,16 @@ Kursus: **DOTNET-NRES-15** — *Latihan Secara Coaching Pembangunan Sistem Onboa
 
 ---
 
+## Objektif
+
+Selepas Hari 1, peserta boleh:
+
+- Menerangkan skop sistem NRES sebagai *request workflow system* — 4 modul & kumpulan, peranan, risiko projek, dan definisi "siap".
+- Menggunakan Design Thinking (persona, empathy map) untuk mendraf URS modul, membezakan URS dengan SRS, dan menjejak setiap keperluan kepada satu *pain* dengan kriteria penerimaan.
+- Melukis process flow dan use case diagram (aktor, aliran utama vs alternatif) sebagai kod dengan Mermaid.
+- Mereka bentuk ERD modul (entiti, hubungan, kardinaliti, kunci asing), mengesahkannya terhadap `SPEC-KURSUS.md`, dan menerangkan kenapa satu `Submission` induk dikongsi.
+- Menghasilkan dokumen modul (`docs/URS-modul-N.md`, `docs/use-case-modul-N.md`, `docs/erd-modul-N.md`, `docs/prd-modul-N.md`, `docs/soalan-terbuka-modul-N.md`) — draf AI, disemak manusia.
+
 ## Fokus Hari Ini
 
 > **Rujukan rasmi Hari 1** (Design Thinking, URS/SRS, use case, Mermaid, pemodelan EF) dikumpulkan dalam [`docs/pautan-rujukan.md`](../docs/pautan-rujukan.md) → *Rujukan rasmi mengikut hari · Hari 1*.

@@ -6,6 +6,15 @@ Dua hari. **Tiada ciri baharu.** Hujungnya, modul anda diuji, **keselamatan diau
 
 ---
 
+## Objektif
+
+Selepas Hari 13–14, peserta boleh:
+
+- Menulis ujian unit untuk aliran kerja kelulusan — turutan langkah, `CreateRouteAsync` idempoten, kelulusan separa, penjanaan & keunikan nama akaun AD.
+- Menjalankan security audit modul — tiada kelayakan dalam kod, matriks RBAC, kebenaran peringkat objek, audit tidak boleh diubah, kebocoran maklumat — dan menulis laporannya.
+- Refactor dan mendokumenkan modul tanpa menambah ciri baharu.
+- Menyediakan cabang untuk gabungan Hari 15 — build bersih, ujian lulus, gabungan kering tanpa konflik, `README-modul.md` ditulis.
+
 ## Fokus Blok Ini
 
 | Topik | Rujukan rasmi |

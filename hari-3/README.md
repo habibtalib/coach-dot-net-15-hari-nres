@@ -8,6 +8,16 @@ Nota ini mengikut **aturcara rasmi HARI 3** dalam [`../JADUAL.md`](../JADUAL.md)
 
 ---
 
+## Objektif
+
+Selepas Hari 3, peserta boleh:
+
+- Mengguna teras C# (OOP, LINQ, `async/await`, DI) dan menerangkan `Program.cs`, middleware pipeline, serta corak MVC dalam projek `dotnet new mvc`.
+- Memodelkan entiti kongsi dengan EF Core — `DbContext`, Data Annotations vs Fluent API, hubungan & kunci asing, `IEntityTypeConfiguration<T>`.
+- Menyediakan Identity & RBAC (`[Authorize(Roles=...)]`, seed peranan) dan menggunakan servis kongsi, partial view, serta `SubmissionControllerBase`.
+- Menerangkan seni bina anti-konflik — modul mendaftar diri, `ApplyConfigurationsFromAssembly`, `ModuleDescriptor`, navigasi didorong data.
+- Mencipta migration `InitialShared`, menggabungkan asas kongsi ke `master`, dan membuka 4 cabang kumpulan.
+
 ## Fokus Hari Ini
 
 > **Rujukan rasmi Hari 3** (`dotnet new`, MVC, DI, LINQ, async, EF Core, Migrations, Identity, authorization) dalam [`docs/pautan-rujukan.md`](../docs/pautan-rujukan.md) → *Hari 3*.
